@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <!-- SEO相关 -->
   
-  <link rel="canonical" href="http://example.com/2025/07/02/机器学习笔记01-聚类方法/"/>
+  <link rel="canonical" href="http://example.com/2025/07/02/机器学习笔记01-聚类/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -40,13 +40,13 @@
   
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习笔记01--聚类方法">
-<meta property="og:url" content="http://example.com/2025/07/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001-%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:url" content="http://example.com/2025/07/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001-%E8%81%9A%E7%B1%BB/index.html">
 <meta property="og:site_name" content="渔人码头 ⚓🛶">
 <meta property="og:description" content="主要收集介绍一些常用的基础聚类算法及python实现。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2025-07-02T11:14:26.000Z">
-<meta property="article:modified_time" content="2025-07-02T12:35:17.819Z">
+<meta property="article:modified_time" content="2025-07-25T14:40:39.761Z">
 <meta property="article:author" content="icy_fisher">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
@@ -1873,7 +1873,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1751459736623),
+    lastupdate: new Date(1753458097260),
     sidebar: {
       for_page: ["blogger","category","tagcloud","donate"],
       for_post: ["toc"],
@@ -2605,6 +2605,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <p class="title">Waiting for you to discover</p>
     
     
+      <p class="subtitle"><div id="binft"></div></p>
+    
   </div>
   <div class='bottom'>
     <div class='menu navigation'>
@@ -2670,7 +2672,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 <div id="l_main" class=''>
   <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
-  <link itemprop="mainEntityOfPage" href="http://example.com/2025/07/02/机器学习笔记01-聚类方法/">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2025/07/02/机器学习笔记01-聚类/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="渔人码头 ⚓🛶">
   </span>
@@ -2751,16 +2753,30 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <p>当然，评估一个模型不可能只依靠內源的数据集，基于内部考察 (internal index) 和基于外部“参考模型” (extrenal index) 的两类聚类性能度量 (validity index) 中均有使用。</p>
 <p>常使用的<strong>外部指标</strong>是：</p>
 <ol>
-<li>Jaccard 系数</li>
-<li>FM 指数</li>
-<li>Rand 指数</li>
+<li><strong>Jaccard系数</strong>：$J &#x3D; \frac{|A \cap B|}{|A \cup B|}$，衡量聚类结果与参考模型的交并比，值域[0,1]，越接近1相似性越高</li>
+<li><strong>FM指数</strong>：$FM &#x3D; \sqrt{\frac{TP}{TP+FP} \cdot \frac{TP}{TP+FN}}$，通过精确率和召回率的几何平均评估一致性，TP为真阳性样本对</li>
+<li><strong>Rand指数</strong>：$Rand &#x3D; \frac{TP + TN}{TP + TN + FP + FN}$，计算正确分类样本对比例，考虑所有样本对的匹配程度</li>
 </ol>
 <p>常使用的<strong>内部指标</strong>是：</p>
 <ol>
-<li>DB 指数 (DBI)</li>
-<li>Dunn 指数 (DB)</li>
+<li><strong>DB指数 (DBI)</strong>：$DBI &#x3D; \frac{1}{k} \sum_{i&#x3D;1}^k \max_{j\neq i} \left( \frac{s_i + s_j}{d(c_i,c_j)} \right)$，簇内平均距离s越小且簇中心距离d越大时指标越优</li>
+<li><strong>Dunn指数</strong>：$Dunn &#x3D; \min_{i&lt;j} \left( \frac{d(i,j)}{\max_l diam(l)} \right)$，簇间最小距离与最大簇内直径的比值，值越大表示簇间分离度越好</li>
 </ol>
-<h3 id="”距离“这个概念如何在聚类中玩出花的？"><a href="#”距离“这个概念如何在聚类中玩出花的？" class="headerlink" title="”距离“这个概念如何在聚类中玩出花的？"></a>”距离“这个概念如何在聚类中玩出花的？</h3><h1 id="基于原型的聚类"><a href="#基于原型的聚类" class="headerlink" title="基于原型的聚类"></a>基于原型的聚类</h1><h2 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h2><h2 id="K-means-1"><a href="#K-means-1" class="headerlink" title="K-means++"></a>K-means++</h2><h2 id="bi-means"><a href="#bi-means" class="headerlink" title="bi-means"></a>bi-means</h2><h2 id="K-medoids"><a href="#K-medoids" class="headerlink" title="K-medoids"></a>K-medoids</h2><h2 id="LVQ"><a href="#LVQ" class="headerlink" title="LVQ"></a>LVQ</h2><h2 id="GMM（高斯混合模型）"><a href="#GMM（高斯混合模型）" class="headerlink" title="GMM（高斯混合模型）"></a>GMM（高斯混合模型）</h2><h1 id="基于密度的聚类"><a href="#基于密度的聚类" class="headerlink" title="基于密度的聚类"></a>基于密度的聚类</h1><h2 id="DNSCAN"><a href="#DNSCAN" class="headerlink" title="DNSCAN"></a>DNSCAN</h2><h2 id="HBSCAN"><a href="#HBSCAN" class="headerlink" title="HBSCAN"></a>HBSCAN</h2><h2 id="OPTICS"><a href="#OPTICS" class="headerlink" title="OPTICS"></a>OPTICS</h2><h1 id="基于层次的聚类"><a href="#基于层次的聚类" class="headerlink" title="基于层次的聚类"></a>基于层次的聚类</h1><h2 id="自上而下法"><a href="#自上而下法" class="headerlink" title="自上而下法"></a>自上而下法</h2><h2 id="自下而上法"><a href="#自下而上法" class="headerlink" title="自下而上法"></a>自下而上法</h2><h3 id="基于图的聚类"><a href="#基于图的聚类" class="headerlink" title="基于图的聚类"></a>基于图的聚类</h3><h3 id="基于GCN的聚类"><a href="#基于GCN的聚类" class="headerlink" title="基于GCN的聚类"></a>基于GCN的聚类</h3>
+<h3 id="”距离“这个概念如何在聚类中玩出花的？"><a href="#”距离“这个概念如何在聚类中玩出花的？" class="headerlink" title="”距离“这个概念如何在聚类中玩出花的？"></a>”距离“这个概念如何在聚类中玩出花的？</h3><h5 id="公理化定义（需满足4个条件）"><a href="#公理化定义（需满足4个条件）" class="headerlink" title="公理化定义（需满足4个条件）"></a>公理化定义（需满足4个条件）</h5><p>首先给出幼儿园老师就告诉我们的距离的要求：</p>
+<ol>
+<li>非负性：$d(x,y) \geq 0$</li>
+<li>同一性：$d(x,y)&#x3D;0 \iff x&#x3D;y$</li>
+<li>对称性：$d(x,y)&#x3D;d(y,x)$</li>
+<li>三角不等式：$d(x,z) \leq d(x,y)+d(y,z)$</li>
+</ol>
+<h5 id="常见距离度量"><a href="#常见距离度量" class="headerlink" title="常见距离度量"></a>常见距离度量</h5><p>对于n维空间的点$x&#x3D;(x_1,x_2,…,x_n)$和$y&#x3D;(y_1,y_2,…,y_n)$，常用的距离度量有：</p>
+<ul>
+<li><strong>Minkowski距离</strong>，闵可夫斯基距离的核心在于它提供了一种在多维空间中测量两点间距离的方法。它的特别之处在于，通过一个参数p，可以适应不同的问题空间和数据特征。通常定义如下：<br>$d(x,y) &#x3D; (\sum_{i&#x3D;1}^n |x_i - y_i|^p)^{1&#x2F;p}$</li>
+<li>当 $p&#x3D;1$ 时为<strong>曼哈顿距离</strong>，曼哈顿距离是标量空间中两点间各维度差的绝对值之和。在二维空间中，曼哈顿距离可以理解为从一个点到另一个点只能沿着水平或垂直方向行走的最小距离。通常用定义如下：<br>$d(x,y) &#x3D; \sum_{i&#x3D;1}^n |x_i - y_i|$</li>
+<li>当 $p&#x3D;2$ 时为<strong>欧氏距离</strong>，欧氏距离是标量空间中两点间各维度差的平方之和的平方根。在二维空间中，欧氏距离可以理解为从一个点到另一个点的直线距离。通常定义如下：<br>$d(x,y) &#x3D; \sqrt{\sum_{i&#x3D;1}^n (x_i - y_i)^2}$</li>
+<li>当 $p&#x3D;\infty$ 时为<strong>切比雪夫距离</strong>，二个点之间的距离定义是其各坐标数值差绝对值的最大值。通常定义如下：<br>$d(x,y) &#x3D; \max_{i&#x3D;1\dots n} |x_i - y_i|$</li>
+</ul>
+<h1 id="基于原型的聚类"><a href="#基于原型的聚类" class="headerlink" title="基于原型的聚类"></a>基于原型的聚类</h1><h2 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h2><h2 id="K-means-1"><a href="#K-means-1" class="headerlink" title="K-means++"></a>K-means++</h2><h2 id="bi-means"><a href="#bi-means" class="headerlink" title="bi-means"></a>bi-means</h2><h2 id="K-medoids"><a href="#K-medoids" class="headerlink" title="K-medoids"></a>K-medoids</h2><h2 id="LVQ"><a href="#LVQ" class="headerlink" title="LVQ"></a>LVQ</h2><h2 id="GMM（高斯混合模型）"><a href="#GMM（高斯混合模型）" class="headerlink" title="GMM（高斯混合模型）"></a>GMM（高斯混合模型）</h2><h1 id="基于密度的聚类"><a href="#基于密度的聚类" class="headerlink" title="基于密度的聚类"></a>基于密度的聚类</h1><h2 id="DNSCAN"><a href="#DNSCAN" class="headerlink" title="DNSCAN"></a>DNSCAN</h2><h2 id="HBSCAN"><a href="#HBSCAN" class="headerlink" title="HBSCAN"></a>HBSCAN</h2><h2 id="OPTICS"><a href="#OPTICS" class="headerlink" title="OPTICS"></a>OPTICS</h2><h1 id="基于层次的聚类"><a href="#基于层次的聚类" class="headerlink" title="基于层次的聚类"></a>基于层次的聚类</h1><h2 id="自上而下法"><a href="#自上而下法" class="headerlink" title="自上而下法"></a>自上而下法</h2><h2 id="自下而上法"><a href="#自下而上法" class="headerlink" title="自下而上法"></a>自下而上法</h2><h3 id="基于图的聚类"><a href="#基于图的聚类" class="headerlink" title="基于图的聚类"></a>基于图的聚类</h3><h3 id="基于GCN的聚类"><a href="#基于GCN的聚类" class="headerlink" title="基于GCN的聚类"></a>基于GCN的聚类</h3>
   </div>
   
   
@@ -2784,10 +2800,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2025-07-02T20:35:17+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2025-07-25T22:40:39+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2025年7月2日</p>
+    <p>更新于：2025年7月25日</p>
   </a>
 </div>
 
@@ -2806,7 +2822,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/2025/07/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001-%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/&title=机器学习笔记01--聚类方法 - 渔人码头 ⚓🛶&summary=主要收集介绍一些常用的基础聚类算法及python实现。"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/2025/07/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001-%E8%81%9A%E7%B1%BB/&title=机器学习笔记01--聚类方法 - 渔人码头 ⚓🛶&summary=主要收集介绍一些常用的基础聚类算法及python实现。"
           
           >
           
@@ -2818,7 +2834,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/2025/07/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001-%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/&title=机器学习笔记01--聚类方法 - 渔人码头 ⚓🛶&summary=主要收集介绍一些常用的基础聚类算法及python实现。"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/2025/07/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001-%E8%81%9A%E7%B1%BB/&title=机器学习笔记01--聚类方法 - 渔人码头 ⚓🛶&summary=主要收集介绍一些常用的基础聚类算法及python实现。"
           
           >
           
@@ -2830,7 +2846,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/2025/07/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001-%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/&title=机器学习笔记01--聚类方法 - 渔人码头 ⚓🛶&summary=主要收集介绍一些常用的基础聚类算法及python实现。"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/2025/07/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001-%E8%81%9A%E7%B1%BB/&title=机器学习笔记01--聚类方法 - 渔人码头 ⚓🛶&summary=主要收集介绍一些常用的基础聚类算法及python实现。"
           
           >
           
@@ -2886,7 +2902,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
   <article class="post white-box shadow floatable blur" id="comments">
     <span hidden>
-      <meta itemprop="discussionUrl" content="/2025/07/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001-%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/index.html#comments">
+      <meta itemprop="discussionUrl" content="/2025/07/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001-%E8%81%9A%E7%B1%BB/index.html#comments">
     </span>
     <p ct><i class='fa-solid fa-comments'></i> 评论</p>
     
@@ -2928,7 +2944,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%8F%91%E5%B1%95"><span class="toc-text">概念与发展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%95%E4%B8%BA%E8%81%9A%E7%B1%BB-%EF%BC%9F"><span class="toc-text">何为聚类 ？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%AF%84%E5%88%A4%E8%81%9A%E7%B1%BB%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%A5%BD%E5%9D%8F%EF%BC%9F"><span class="toc-text">如何评判聚类任务的好坏？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%80%9D%E8%B7%9D%E7%A6%BB%E2%80%9C%E8%BF%99%E4%B8%AA%E6%A6%82%E5%BF%B5%E5%A6%82%E4%BD%95%E5%9C%A8%E8%81%9A%E7%B1%BB%E4%B8%AD%E7%8E%A9%E5%87%BA%E8%8A%B1%E7%9A%84%EF%BC%9F"><span class="toc-text">”距离“这个概念如何在聚类中玩出花的？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-means"><span class="toc-text">K-means</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-means-1"><span class="toc-text">K-means++</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bi-means"><span class="toc-text">bi-means</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-medoids"><span class="toc-text">K-medoids</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVQ"><span class="toc-text">LVQ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GMM%EF%BC%88%E9%AB%98%E6%96%AF%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="toc-text">GMM（高斯混合模型）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DNSCAN"><span class="toc-text">DNSCAN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBSCAN"><span class="toc-text">HBSCAN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OPTICS"><span class="toc-text">OPTICS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E6%B3%95"><span class="toc-text">自上而下法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E4%B8%8B%E8%80%8C%E4%B8%8A%E6%B3%95"><span class="toc-text">自下而上法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%9B%BE%E7%9A%84%E8%81%9A%E7%B1%BB"><span class="toc-text">基于图的聚类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EGCN%E7%9A%84%E8%81%9A%E7%B1%BB"><span class="toc-text">基于GCN的聚类</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5%E4%B8%8E%E5%8F%91%E5%B1%95"><span class="toc-text">概念与发展</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%95%E4%B8%BA%E8%81%9A%E7%B1%BB-%EF%BC%9F"><span class="toc-text">何为聚类 ？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%AF%84%E5%88%A4%E8%81%9A%E7%B1%BB%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%A5%BD%E5%9D%8F%EF%BC%9F"><span class="toc-text">如何评判聚类任务的好坏？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%80%9D%E8%B7%9D%E7%A6%BB%E2%80%9C%E8%BF%99%E4%B8%AA%E6%A6%82%E5%BF%B5%E5%A6%82%E4%BD%95%E5%9C%A8%E8%81%9A%E7%B1%BB%E4%B8%AD%E7%8E%A9%E5%87%BA%E8%8A%B1%E7%9A%84%EF%BC%9F"><span class="toc-text">”距离“这个概念如何在聚类中玩出花的？</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%AC%E7%90%86%E5%8C%96%E5%AE%9A%E4%B9%89%EF%BC%88%E9%9C%80%E6%BB%A1%E8%B6%B34%E4%B8%AA%E6%9D%A1%E4%BB%B6%EF%BC%89"><span class="toc-text">公理化定义（需满足4个条件）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E8%B7%9D%E7%A6%BB%E5%BA%A6%E9%87%8F"><span class="toc-text">常见距离度量</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-means"><span class="toc-text">K-means</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-means-1"><span class="toc-text">K-means++</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#bi-means"><span class="toc-text">bi-means</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#K-medoids"><span class="toc-text">K-medoids</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVQ"><span class="toc-text">LVQ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GMM%EF%BC%88%E9%AB%98%E6%96%AF%E6%B7%B7%E5%90%88%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="toc-text">GMM（高斯混合模型）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DNSCAN"><span class="toc-text">DNSCAN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HBSCAN"><span class="toc-text">HBSCAN</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OPTICS"><span class="toc-text">OPTICS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E4%B8%8A%E8%80%8C%E4%B8%8B%E6%B3%95"><span class="toc-text">自上而下法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E4%B8%8B%E8%80%8C%E4%B8%8A%E6%B3%95"><span class="toc-text">自下而上法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E5%9B%BE%E7%9A%84%E8%81%9A%E7%B1%BB"><span class="toc-text">基于图的聚类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EGCN%E7%9A%84%E8%81%9A%E7%B1%BB"><span class="toc-text">基于GCN的聚类</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -3668,7 +3684,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":"想法自留地~~"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"渔人码头 ⚓🛶"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/2025/07/02/机器学习笔记01-聚类方法/","name":"机器学习笔记01--聚类方法"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"渔人码头 ⚓🛶","url":"http://example.com/","keywords":null,"description":"想法自留地~~","author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","description":"想法自留地~~"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://example.com?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"机器学习笔记01--聚类方法","description":"主要收集介绍一些常用的基础聚类算法及python实现。","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2025/07/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001-%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/"},"author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://example.com/2025/07/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001-%E8%81%9A%E7%B1%BB%E6%96%B9%E6%B3%95/","wordCount":27,"datePublished":"2025-07-02T11:14:26.000Z","dateModified":"2025-07-02T12:35:17.819Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":"想法自留地~~"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"渔人码头 ⚓🛶"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/2025/07/02/机器学习笔记01-聚类/","name":"机器学习笔记01--聚类方法"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"渔人码头 ⚓🛶","url":"http://example.com/","keywords":null,"description":"想法自留地~~","author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","description":"想法自留地~~"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://example.com?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"机器学习笔记01--聚类方法","description":"主要收集介绍一些常用的基础聚类算法及python实现。","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2025/07/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001-%E8%81%9A%E7%B1%BB/"},"author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://example.com/2025/07/02/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B001-%E8%81%9A%E7%B1%BB/","wordCount":27,"datePublished":"2025-07-02T11:14:26.000Z","dateModified":"2025-07-25T14:40:39.761Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
