@@ -5,8 +5,8 @@
   <meta name="Volantis" content="5.8.0">
   <meta charset="utf-8">
   <!-- SEO相关 -->
-  <meta name="robots" content="noindex,follow">
-  <link rel="canonical" href="http://example.com/archives/2025/08/"/>
+  
+  <link rel="canonical" href="http://example.com/2025/09/19/强化学习的数学原理笔记01/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -34,18 +34,21 @@
 
   <!-- feed -->
   <!-- 页面元数据 -->
-  <title>归档：2025/8 - 渔人码头 ⚓🛶</title>
-  <meta name="keywords" content="null">
-  <meta desc name="description" content="想法自留地~~ - icy_fisher - 渔人码头 ⚓🛶">
+  <title>强化学习的数学原理笔记01 - 渔人码头 ⚓🛶</title>
+  <meta name="keywords" content="强化学习,null">
+  <meta desc name="description" content="本章将会聚焦于强化学习中的基本概念，希望可以简单通俗的语言解释清楚何为 状态 (State) 、动作 (Action)、状态空间、行动空间、 状态转移(State transition)、策略 (Policy) 、奖励  (Reward)、轨迹 (Trajectory)、回报 (Return)、 回合 (Epos... - icy_fisher - 渔人码头 ⚓🛶">
   
-<meta property="og:type" content="website">
-<meta property="og:title" content="渔人码头 ⚓🛶">
-<meta property="og:url" content="http://example.com/archives/2025/08/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="强化学习的数学原理笔记01">
+<meta property="og:url" content="http://example.com/2025/09/19/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B001/index.html">
 <meta property="og:site_name" content="渔人码头 ⚓🛶">
-<meta property="og:description" content="想法自留地~~">
+<meta property="og:description" content="本章将会聚焦于强化学习中的基本概念，希望可以简单通俗的语言解释清楚何为 状态 (State) 、动作 (Action)、状态空间、行动空间、 状态转移(State transition)、策略 (Policy) 、奖励  (Reward)、轨迹 (Trajectory)、回报 (Return)、 回合 (Eposide)、马尔可夫决策过程 (Markov Decision Process) 这些概">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+<meta property="article:published_time" content="2025-09-19T11:54:56.000Z">
+<meta property="article:modified_time" content="2025-09-19T12:22:35.611Z">
 <meta property="article:author" content="icy_fisher">
+<meta property="article:tag" content="强化学习">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
   <style>
@@ -2341,7 +2344,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <!-- Custom Files bodyBegin end-->
     <!-- front-matter body_begin begin -->
     <!-- front-matter body_begin end -->
-    <header itemscope itemtype="http://schema.org/WPHeader" id="l_header" class="l_header auto shadow floatable blur " style='opacity: 0' >
+    <header itemscope itemtype="http://schema.org/WPHeader" id="l_header" class="l_header auto shadow floatable blur show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -2631,7 +2634,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
       <!-- see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs -->
-      <div id="half" class='cover-wrapper  dock' style="display: ;">
+      <div id="none" class='cover-wrapper post dock' style="display: none;">
         
   <div class='cover-bg lazyload placeholder' data-bg="https://pic1.imgdb.cn/item/685d07fd58cb8da5c8734724.jpg"></div>
 
@@ -2694,24 +2697,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="body-wrapper">
           
 <div id="l_main" class=''>
-	
-		
-  <section class="post-list">
-    
-      
-        
-          
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/25/正则表达式/">
+  <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2025/09/19/强化学习的数学原理笔记01/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="渔人码头 ⚓🛶">
   </span>
@@ -2720,140 +2707,248 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <meta itemprop="description" content="想法自留地~~">
   </span>
   
-  
+
+
   
     <span hidden>
       <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
     </span>
   
-  
+  <div class="article-meta" id="top">
     
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2025/08/25/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"  itemprop="url">
-        正则表达式01--表达式语法
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
     
-      <p>正则表达式可以允许我们对于文本进行十分精细的处理，但首先我们需要明确其语法与使用方式。在日常使用时，可以结合<a target="_blank" rel="noopener" href="https://regexr.com">https://regexr.com</a>食用！网站提供了即时的正则表达式可视化，真是再好不过了！🎇🎇🎇</p>
+    
+      <h1 class="title" itemprop="name headline">
+        强化学习的数学原理笔记01
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author' itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <a itemprop="url" class='author' href="/" rel="nofollow">
+    <img itemprop="image" src="https://pic1.imgdb.cn/item/685d014258cb8da5c87322b7.png" class="lazyload" data-srcset="https://pic1.imgdb.cn/item/685d014258cb8da5c87322b7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+    <p itemprop="name">icy_fisher</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i>
+    <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+    
+      <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" itemprop="url"><span itemprop="name">计算机</span></a>
+      </span>
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://pic1.imgdb.cn/item/685d014258cb8da5c87322b7.png'></a>
-          <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-            <meta itemprop="image" content="https://pic1.imgdb.cn/item/685d014258cb8da5c87322b7.png">
-            <meta itemprop="name" content="icy_fisher">
-            <meta itemprop="url" content="/">
-          </span>
-        
-        <time itemprop="dateCreated datePublished" datetime="2025-08-25T13:28:48+08:00">2025-08-25</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
-          
-            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" itemprop="url"><span itemprop="name">计算机</span></a>
-            </span>
+
+
           
         
+          
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2025-09-19T19:54:56+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2025年9月19日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+
+
+          
+        
+        <!-- Custom Files topMeta begin-->
+        
+        <!-- Custom Files topMeta end-->
       </div>
+    
+  </div>
+
+
+  <div id="layoutHelper-page-plugins"></div>
+  <div id="post-body" itemprop="articleBody">
+    <p>本章将会聚焦于强化学习中的基本概念，希望可以简单通俗的语言解释清楚何为 状态 (State) 、动作 (Action)、状态空间、行动空间、 状态转移(State transition)、策略 (Policy) 、奖励  (Reward)、轨迹 (Trajectory)、回报 (Return)、 回合 (Eposide)、马尔可夫决策过程 (Markov Decision Process) 这些概念的定义以及基于这几个概念建立的整个 RL 框架。<br><span id="more"></span></p>
+<h1 id="强化学习的数学原理-—-Chapter-1-：基本概念"><a href="#强化学习的数学原理-—-Chapter-1-：基本概念" class="headerlink" title="强化学习的数学原理 —  Chapter 1 ：基本概念"></a>强化学习的数学原理 —  Chapter 1 ：基本概念</h1><h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><h3 id="状态-s"><a href="#状态-s" class="headerlink" title="状态 $s$"></a>状态 $s$</h3><p>智能题对于环境的一个相对状态，所有这些相对状态的集合 $S = \{ s_i\}_{i = 1}^{n}$ 就构成整个<strong>状态空间</strong>。</p>
+<h3 id="行动-a"><a href="#行动-a" class="headerlink" title="行动 $a$"></a>行动 $a$</h3><p>智能体在状态 $s_{i}$ 下做出的转变到下一个状态的过程所需的行为，所有状态下的所有潜在的动作集合就可称为<strong>行动空间</strong> </p>
+<script type="math/tex; mode=display">\mathcal{A} = \{ a^{j}_i \}^{n_1\ ,\ n_2}_{i=1\ ,\ j=1}</script><p>其中$n_{1}$、$n_{2}$分别为$S$的状态数和$s$中的所有潜在行动数量。</p>
+<h3 id="状态转移"><a href="#状态转移" class="headerlink" title="状态转移"></a>状态转移</h3><p>由$s_j$通过$a_{1}$转移到$s_{j+1}$的过程就是<strong>状态转移</strong>。</p>
+<script type="math/tex; mode=display">
+    s_{j} \stackrel{a_i}{\longrightarrow}s_{j+1}\stackrel{a_{i+1}}{\longrightarrow}s_{j+2}\stackrel{a_{i+2}}{\longrightarrow}s_{j+3}\cdots\stackrel{a_{i+z-1}}{\longrightarrow}s_{j+z}</script><p>一条状态转移的过程称为<strong>轨迹</strong>（从起始状态至结束状态）正如上面的公式所显示的一般。</p>
+<h3 id="策略-pi"><a href="#策略-pi" class="headerlink" title="策略 $\pi$"></a>策略 $\pi$</h3><p>策略告诉了智能体如何在每个状态下如何采取行动，采取什么样的操作。我们使用条件概率 $\pi(\cdot|\cdot)$ 来决定在特定状态下的采取某个策略的几率。</p>
+<h3 id="奖励-r"><a href="#奖励-r" class="headerlink" title="奖励 $r$"></a>奖励 $r$</h3><p>奖励很像游戏中的小怪打死后爆的金币和强化素材，这些强化素材会使得玩家在一个构筑体系上坚持自己的想法同时越走越远并完善修改自己的想法。</p>
+<p>前个状态 $s_{i}$ 每步行动的 $a_{j}$ 都会获得一个奖励 $r_{z}$ 就像在打败（行动）不同种类的怪物（状态）后，获得的素材一般。有时，奖励的数值只看数值的相对性，数值的绝对值和正负差异实则并非十分重要，甚至没有任何影响（可以详见 Cha.2 的定理$3.6$ —最优策略的不变性）。</p>
+<p>例如：智能体越过边界或进入禁区，奖励就是低值甚至负值；智能体进入目标区域，奖励就是高值；智能体普通移动，奖励就是0或者负值（更快达到最短策略）。</p>
+<h3 id="回报-G"><a href="#回报-G" class="headerlink" title="回报 $G$"></a>回报 $G$</h3><p>回报讲述了每个回合中获得的奖励的总和，每个策略都会生成一个回合的回报，通过回合回报的数值比较，可以定量评判“什么是好策略”？“什么是坏策略”？</p>
+<p>我们可以思考一个问题，每个强化学习里面都有一个回合吗？一个回合是否可以是无限的？可能发生的问题是在限制的每个回合的步长中，智能体无法求解到最优策略，或者根本就无法进入目标区域；不设置回合的补偿，无限的持续下去，料想智能体定会发生疯狂刷分的策略，通过不断进出目标区域，来获得无限大的奖励和回报，基于这两者评判策略的算法也就不会收敛，求解问题似乎遥遥无期。</p>
+<p>此引入折扣因子是必要的，能够保持每个回合持续性的同时又能使算法收敛，换个说法说，折扣因子的加入使得强化学习的算法的步长（每个策略的强度）可以拥有自适应的特点。</p>
+<p>引入折扣因子 $\gamma$ 前:</p>
+<script type="math/tex; mode=display">
+    return = 0 + 0 + 1+1+1+1+\cdots \rightarrow \infty</script><p>引入折扣因子 $\gamma$ 后:</p>
+<script type="math/tex; mode=display">
+    return = 0 + \gamma0 + \gamma^21+\gamma^31+\gamma^41+\gamma^51+\cdots \rightarrow \gamma^2 \cdot \frac{1}{1-\gamma}</script><p>回合固定的任务称为回合制任务（episodic task）；回合无限的任务称为持续性任务（continuing task）。两种策略可以将回合制五转化为持续性任务任务：一种设置了一种结束状态为吸收状态，即达到目标区域后直接冻结，只有原地踏步这一个行动选择；另一种将结束状态同其他普通状态一样，引入上文的折扣因子。</p>
+<h3 id="马尔可夫决策过程-mathcal-MDP"><a href="#马尔可夫决策过程-mathcal-MDP" class="headerlink" title="马尔可夫决策过程 $\mathcal{MDP}$"></a>马尔可夫决策过程 $\mathcal{MDP}$</h3><p>MDP 是RL问题下的大解决框架，所有问题若希望使用RL方法进行求解，那必须将问题抽象建模为 MDP 框架下的问题。</p>
+<p>框架的基本结构可以通过拆词 MDP 得到： </p>
+<ol>
+<li><p>Markov — 马尔可夫性质（无记忆性）之前的所有状态和行动都不会影响接下来的一步决策。</p>
+<p>$p(s_{t+1} | s_t, a_t, s_{t-1}, a_{t-1}, \ldots, s_0, a_0) = p(s_{t+1} | s_t, a_t)$</p>
+<p> $p(r_{t+1} | s_t, a_t, s_{t-1}, a_{t-1}, \ldots, s_0, a_0) = p(r_{t+1} | s_t, a_t)$</p>
+</li>
+<li><p>Decision — 策略的选择 $\Pi$ 。</p>
+</li>
+<li><p>Process — 系统模型（预设的状态转移概率 $p(s’|s,a)$ + 奖励概率 $p(r|s,a)$ ）、行动空间、状态空间、奖励组成了过程的背景。</p>
+<p> $\mathcal{S}$、$\mathcal{R(s,a)}$、$\mathcal{A(s)}$</p>
+</li>
+</ol>
+<p>MP V.S MDP，当策略完全确定MDP退化为MP。</p>
+
+  </div>
+  
+  
+    
+    <div class='footer'>
+       <!-- 参考资料、相关资料等 -->
       
-        <div>
-          <a class='readmore' href='/2025/08/25/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
+       <!-- 相关文章 -->
+      
+      <!-- 版权声明组件 -->
+      
+      <!-- 打赏组件 -->
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2025-09-19T20:22:35+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2025年9月19日</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/24/机器学习算法01-聚类/">
-  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <meta itemprop="name" content="渔人码头 ⚓🛶">
-  </span>
-  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
-    <meta itemprop="name" content="渔人码头 ⚓🛶">
-    <meta itemprop="description" content="想法自留地~~">
-  </span>
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>强化学习</p></a></div>
+  <span hidden itemprop="keywords">强化学习</span>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/2025/09/19/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B001/&title=强化学习的数学原理笔记01 - 渔人码头 ⚓🛶&summary=本章将会聚焦于强化学习中的基本概念，希望可以简单通俗的语言解释清楚何为 状态 (State) 、动作 (Action)、状态空间、行动空间、 状态转移(State transition)、策略 (Policy) 、奖励  (Reward)、轨迹 (Trajectory)、回报 (Return)、 回合 (Eposide)、马尔可夫决策过程 (Markov Decision Process) 这些概念的定义以及基于这几个概念建立的整个 RL 框架。"
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qq.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qq.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/2025/09/19/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B001/&title=强化学习的数学原理笔记01 - 渔人码头 ⚓🛶&summary=本章将会聚焦于强化学习中的基本概念，希望可以简单通俗的语言解释清楚何为 状态 (State) 、动作 (Action)、状态空间、行动空间、 状态转移(State transition)、策略 (Policy) 、奖励  (Reward)、轨迹 (Trajectory)、回报 (Return)、 回合 (Eposide)、马尔可夫决策过程 (Markov Decision Process) 这些概念的定义以及基于这几个概念建立的整个 RL 框架。"
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qzone.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qzone.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/2025/09/19/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B001/&title=强化学习的数学原理笔记01 - 渔人码头 ⚓🛶&summary=本章将会聚焦于强化学习中的基本概念，希望可以简单通俗的语言解释清楚何为 状态 (State) 、动作 (Action)、状态空间、行动空间、 状态转移(State transition)、策略 (Policy) 、奖励  (Reward)、轨迹 (Trajectory)、回报 (Return)、 回合 (Eposide)、马尔可夫决策过程 (Markov Decision Process) 这些概念的定义以及基于这几个概念建立的整个 RL 框架。"
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/weibo.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/weibo.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+    <!-- Custom Files bottomMeta begin -->
+    
+    <!-- Custom Files bottomMeta end -->
+  </div>
+
+
   
   
+
   
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2025/08/25/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/'>
+          <p class='title'>正则表达式01--表达式语法<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>正则表达式可以允许我们对于文本进行十分精细的处理，但首先我们需要明确其语法与使用方式。在日常使用时，可以结合https://regexr.com食用！网站提供了即时的正则表达式可视化，真是再好不...</p>
+        </a>
+      
+    </div>
+  
+  <!-- Custom Files postEnd begin-->
+  
+  <!-- Custom Files postEnd end-->
+</article>
+
+
+  
+
+
+  <article class="post white-box shadow floatable blur" id="comments">
     <span hidden>
-      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+      <meta itemprop="discussionUrl" content="/2025/09/19/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B001/index.html#comments">
     </span>
-  
-  
+    <p ct><i class='fa-solid fa-comments'></i> 评论</p>
     
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2025/08/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9501-%E8%81%9A%E7%B1%BB/"  itemprop="url">
-        机器学习算法01--聚类
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
-    
-      <p>主要收集介绍一些常用的基础聚类算法及python实现。</p>
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://pic1.imgdb.cn/item/685d014258cb8da5c87322b7.png'></a>
-          <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-            <meta itemprop="image" content="https://pic1.imgdb.cn/item/685d014258cb8da5c87322b7.png">
-            <meta itemprop="name" content="icy_fisher">
-            <meta itemprop="url" content="/">
-          </span>
-        
-        <time itemprop="dateCreated datePublished" datetime="2025-08-24T00:46:04+08:00">2025-08-24</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
-          
-            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" itemprop="url"><span itemprop="name">计算机</span></a>
-            </span>
-          
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2025/08/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9501-%E8%81%9A%E7%B1%BB/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
 
-</div>
+    <div id="layoutHelper-comments"></div>
 
-          </div>
-        
-      
-    
-  </section>
-  
-    
-  
+  </article>
 
 
-	
+
+
+
+
 </div>
 <aside id='l_side' itemscope itemtype="http://schema.org/WPSideBar">
   
@@ -2862,195 +2957,56 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       
-<section class="widget blogger desktop mobile pjax">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://pic1.imgdb.cn/item/685ad33858cb8da5c86c5d89.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-          <h2>icy_fisher</h2>
-        
-        
-          <p>上海化学大二在读 菜狗捞捞┭┮﹏┭┮</p>
-
-        
-        
-          <p><span id="jinrishici-sentence">渔人码头 ⚓🛶</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/wxj-123@shu.edu.cn"
-              class="social fa-solid fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
-
-    
-  
-
-  
-    
-    
-      
-  
-  <section class="widget category desktop pjax">
-    
-  <header>
-    
-      <a href='/blog/categories/'><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%8C%96%E5%AD%A6/" href="/categories/%E5%8C%96%E5%AD%A6/"
-            active-action="action-categoriesE58C96E5ADA6"
-            ><div class='name'>化学</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"
-            active-action="action-categoriesE8AEA1E7AE97E69CBA"
-            ><div class='name'>计算机</div><div class='badge'>(3)</div></a></li>
-        
-      </ul>
-    </div>
-  </section>
-
-
-    
-  
-
-  
-    
-    
-      
-  
-  <section class="widget tagcloud desktop mobile pjax">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fa-solid fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 14px; color: #999">强化学习</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 14px; color: #999">正则表达式</a> <a href="/tags/%E8%81%9A%E7%B1%BB/" style="font-size: 14px; color: #999">聚类</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%8C%96%E5%AD%A6/" style="font-size: 14px; color: #999">计算化学</a>
-    </div>
-  </section>
-
-
-    
-  
-
-  
-    
-    
-      
-<section class="widget desktop pjax">
-  
-  <header>
-    
-      <i class="fa-solid fa-award fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章数目：</div>
-          <div>5 篇</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>已运行时间：</div>
-          <div id="webinfo-runtime-count"></div>
-        </div>
-      
-
-
-      
-
-      
-
-      
-
-      
-        <div class="webinfo-item">
-          <div>最后活动时间：</div>
-          <div id="last-update-show">2025-09-19 日</div>
-        </div>
-      
-    </div>
-  </div>
-</section>
-
-    
-  
-
-  
-    
-    
-      
-
-<section class="widget desktop mobile pjax">
-  
-  <header>
-    
-      <i class="fa-solid fa-clock WISTERIA fa-fw" aria-hidden="true"></i><span class='name'>最近更新</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <ul class="list entry navigation"><li><a class="widget-last" href="/2025/08/25/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><div class="item"><time>2025-09-19</time><span>计算机</span></div><span>正则表达式01--表达式语法</span></a></li><li><a class="widget-last" href="/2025/08/24/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9501-%E8%81%9A%E7%B1%BB/"><div class="item"><time>2025-09-19</time><span>计算机</span></div><span>机器学习算法01--聚类</span></a></li><li><a class="widget-last" href="/2025/06/25/%E8%AE%A1%E7%AE%97%E5%8C%96%E5%AD%A6%E5%AF%BC%E8%AE%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"><div class="item"><time>2025-09-19</time><span>化学</span></div><span>计算化学导论学习笔记</span></a></li><li><a class="widget-last" href="/2025/09/19/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B001/"><div class="item"><time>2025-09-19</time><span>计算机</span></div><span>强化学习的数学原理笔记01</span></a></li><li><a class="widget-last" href="/2025/06/25/hello-world/"><div class="item"><time>2025-06-23</time></div><span>Hello World</span></a></li></ul>
-  </div>
-</section>
-
     
   
 
 
 <div class="widget-sticky pjax">
 
+  
+  
+
+
+  <section class="widget toc-wrapper desktop mobile " id="toc-div" >
+    
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%B6%E6%80%81-s"><span class="toc-text">状态 $s$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A1%8C%E5%8A%A8-a"><span class="toc-text">行动 $a$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB"><span class="toc-text">状态转移</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AD%96%E7%95%A5-pi"><span class="toc-text">策略 $\pi$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A5%96%E5%8A%B1-r"><span class="toc-text">奖励 $r$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E6%8A%A5-G"><span class="toc-text">回报 $G$</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A9%AC%E5%B0%94%E5%8F%AF%E5%A4%AB%E5%86%B3%E7%AD%96%E8%BF%87%E7%A8%8B-mathcal-MDP"><span class="toc-text">马尔可夫决策过程 $\mathcal{MDP}$</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+  
+
 </div>
 
 
 <!-- 没有 pjax 占位会报错 万恶的 pjax -->
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
 
   <div class="pjax">
     <!-- pjax占位 -->
@@ -3070,13 +3026,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </aside>
 
 
+
           <!--此文件用来存放一些不方便取值的变量-->
 <!--思路大概是将值藏到重加载的区域内-->
 
 <pjax>
 <script>
   window.pdata={}
-  pdata.ispage=false;
+  pdata.ispage=true;
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   pdata.commentConfig={};
@@ -3085,14 +3042,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     // header
     var l_header=document.getElementById("l_header");
     
-    l_header.classList.remove("show");
+    l_header.classList.add("show");
     
     
       // cover
       var cover_wrapper=document.querySelector('#l_cover .cover-wrapper');
       var scroll_down=document.getElementById('scroll-down');
-      cover_wrapper.id="half";
-      cover_wrapper.style.display="";
+      cover_wrapper.id="none";
+      cover_wrapper.style.display="none";
       scroll_down.style.display="none";
     
   
@@ -3575,6 +3532,60 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 <!-- pjax 标签必须存在于所有页面 否则 pjax error -->
 <pjax>
 
+        <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = "https://unpkg.com/volantis-static@0.0.1654736714924/libs/mathjax/es5/tex-mml-chtml.js";
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typesetPromise();
+  }
+</script>
+
+
+
 </pjax>
 
 <script>
@@ -3706,7 +3717,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":"想法自留地~~"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"渔人码头 ⚓🛶"}},{"@type":"ListItem","position":2,"item":{"@id":"http://example.com/archives/","name":"Archive"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/archives/2025/","name":"2025年"}},{"@type":"ListItem","position":4,"item":{"@id":"http://example.com/archives/2025/8/","name":"8月"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"渔人码头 ⚓🛶","url":"http://example.com/","keywords":null,"description":"想法自留地~~","author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","description":"想法自留地~~"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://example.com?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","description":"想法自留地~~","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage"},"author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"wordCount":0,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":"想法自留地~~"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"渔人码头 ⚓🛶"}},{"@type":"ListItem","position":2,"item":{"@id":"http://example.com/categories/计算机/","name":"计算机"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/2025/09/19/强化学习的数学原理笔记01/","name":"强化学习的数学原理笔记01"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"渔人码头 ⚓🛶","url":"http://example.com/","keywords":null,"description":"想法自留地~~","author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","description":"想法自留地~~"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://example.com?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"强化学习的数学原理笔记01","description":"本章将会聚焦于强化学习中的基本概念，希望可以简单通俗的语言解释清楚何为 状态 (State) 、动作 (Action)、状态空间、行动空间、 状态转移(State transition)、策略 (Policy) 、奖励  (Reward)、轨迹 (Trajectory)、回报 (Return)、 回合 (Eposide)、马尔可夫决策过程 (Markov Decision Process) 这些概念的定义以及基于这几个概念建立的整个 RL 框架。","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2025/09/19/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B001/"},"author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://example.com/2025/09/19/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%95%B0%E5%AD%A6%E5%8E%9F%E7%90%86%E7%AC%94%E8%AE%B001/","wordCount":225,"datePublished":"2025-09-19T11:54:56.000Z","dateModified":"2025-09-19T12:22:35.611Z","articleSection":"计算机","keywords":"强化学习","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
