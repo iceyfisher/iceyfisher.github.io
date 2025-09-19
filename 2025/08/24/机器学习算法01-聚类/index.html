@@ -1827,6 +1827,7 @@ ul.list-v >li>a:hover {
   }
 }
 
+
   </style>
   <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
   <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
@@ -1909,7 +1910,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1758252014506),
+    lastupdate: new Date(1758265811223),
     sidebar: {
       for_page: ["blogger","category","tagcloud","webinfo","lastupdate"],
       for_post: ["toc"],
@@ -2328,6 +2329,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   <!-- Custom Files headEnd end-->
   <!-- front-matter head_end begin -->
   <!-- front-matter head_end end -->
+  <!-- subtitle  typewriter effect -->
+  <script src="/js/binft-typewriter.js" defer></script>
 <!-- hexo injector head_end start -->
 <link rel="stylesheet" href="https://unpkg.com/katex@0.12.0/dist/katex.min.css">
 
@@ -2623,6 +2626,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 		</div>
 	</div>
   </div>
+  
 </header>
 
     <div id="l_body">
@@ -2641,7 +2645,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <p class="title"><font><span>独</span> <span>钓</span> <span>寒</span> <span>江</span></font></p>
     
     
-      <p class="subtitle">--徜徉分子之境</p>
+      <p class="subtitle"><div id="binft"></div></p>
     
   </div>
   <div class='bottom'>
@@ -2784,47 +2788,47 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <ol>
 <li><strong>Jaccard系数</strong></li>
 </ol>
-<p>$J = \frac{|A \cap B|}{|A \cup B|}$</p>
+<p>$J &#x3D; \frac{|A \cap B|}{|A \cup B|}$</p>
 <p>衡量聚类结果与参考模型的交并比，值域[0,1]，越接近1相似性越高</p>
-<ol>
+<ol start="2">
 <li><strong>FM指数</strong></li>
 </ol>
-<p>$FM = \sqrt{\frac{TP}{TP+FP} \cdot\frac{TP}{TP+FN}}$</p>
+<p>$FM &#x3D; \sqrt{\frac{TP}{TP+FP} \cdot\frac{TP}{TP+FN}}$</p>
 <p>通过精确率和召回率的几何平均评估一致性，TP为真阳性样本对</p>
 <p>3.<strong>Rand指数</strong></p>
-<p>$Rand = \frac{TP + TN}{TP + TN + FP + FN}$</p>
+<p>$Rand &#x3D; \frac{TP + TN}{TP + TN + FP + FN}$</p>
 <p>计算正确分类样本对比例，考虑所有样本对的匹配程度</p>
 <p>常使用的<strong>内部指标</strong>是：</p>
 <ol>
 <li><strong>DB指数 (DBI)</strong></li>
 </ol>
-<p>$DBI = \frac{1}{k} \sum<em>{i=1}^k \max</em>{j\neq i} \left( \frac{s_i + s_j}{d(c_i,c_j)} \right)$</p>
+<p>$DBI &#x3D; \frac{1}{k} \sum_{i&#x3D;1}^k \max_{j\neq i} \left( \frac{s_i + s_j}{d(c_i,c_j)} \right)$</p>
 <p>簇内平均距离s越小且簇中心距离d越大时指标越优。</p>
-<ol>
+<ol start="2">
 <li><strong>Dunn指数</strong></li>
 </ol>
-<p>$Dunn = \min_{i&lt;j} \left( \frac{d(i,j)}{\max_l diam(l)} \right)$</p>
+<p>$Dunn &#x3D; \min_{i&lt;j} \left( \frac{d(i,j)}{\max_l diam(l)} \right)$</p>
 <p>簇间最小距离与最大簇内直径的比值，值越大表示簇间分离度越好。</p>
 <h3 id="”距离“这个概念如何在聚类中玩出花的？"><a href="#”距离“这个概念如何在聚类中玩出花的？" class="headerlink" title="”距离“这个概念如何在聚类中玩出花的？"></a>”距离“这个概念如何在聚类中玩出花的？</h3><h5 id="公理化定义（需满足4个条件）"><a href="#公理化定义（需满足4个条件）" class="headerlink" title="公理化定义（需满足4个条件）"></a>公理化定义（需满足4个条件）</h5><p>首先给出幼儿园老师就告诉我们的距离的要求：</p>
 <ol>
 <li><p>非负性：$d(x,y) \geq 0$</p>
 </li>
-<li><p>同一性：$d(x,y)=0\iff x=y$</p>
+<li><p>同一性：$d(x,y)&#x3D;0\iff x&#x3D;y$</p>
 </li>
-<li><p>对称性：$d(x,y)=d(y,x)$</p>
+<li><p>对称性：$d(x,y)&#x3D;d(y,x)$</p>
 </li>
 <li><p>三角不等式：$d(x,z) \leq d(x,y)+d(y,z)$</p>
 </li>
 </ol>
-<h5 id="常见距离度量"><a href="#常见距离度量" class="headerlink" title="常见距离度量"></a>常见距离度量</h5><p>对于n维空间的点$x=(x_1,x_2,…,x_n)$和$y=(y_1,y_2,…,y_n)$，常用的距离度量有：</p>
+<h5 id="常见距离度量"><a href="#常见距离度量" class="headerlink" title="常见距离度量"></a>常见距离度量</h5><p>对于n维空间的点$x&#x3D;(x_1,x_2,…,x_n)$和$y&#x3D;(y_1,y_2,…,y_n)$，常用的距离度量有：</p>
 <p>-<strong>Minkowski距离</strong>，闵可夫斯基距离的核心在于它提供了一种在多维空间中测量两点间距离的方法。它的特别之处在于，通过一个参数p，可以适应不同的问题空间和数据特征。通常定义如下：</p>
-<p>$d(x,y) = (\sum_{i=1}^n |x_i - y_i|^p)^{1/p}$</p>
-<p>-当 $p=1$时为<strong>曼哈顿距离</strong>，曼哈顿距离是标量空间中两点间各维度差的绝对值之和。在二维空间中，曼哈顿距离可以理解为从一个点到另一个点只能沿着水平或垂直方向行走的最小距离。通常用定义如下：</p>
-<p>$d(x,y) = \sum_{i=1}^n |x_i - y_i|$</p>
-<p>-当 $p=2$时为<strong>欧氏距离</strong>，欧氏距离是标量空间中两点间各维度差的平方之和的平方根。在二维空间中，欧氏距离可以理解为从一个点到另一个点的直线距离。通常定义如下：</p>
-<p>$d(x,y) = \sqrt{\sum_{i=1}^n (x_i - y_i)^2}$</p>
-<p>-当 $p=\infty$时为<strong>切比雪夫距离</strong>，二个点之间的距离定义是其各坐标数值差绝对值的最大值。<br>通常定义如下：</p>
-<p>$d(x,y) = \max_{i=1\dots n} |x_i - y_i|$</p>
+<p>$d(x,y) &#x3D; (\sum_{i&#x3D;1}^n |x_i - y_i|^p)^{1&#x2F;p}$</p>
+<p>-当 $p&#x3D;1$时为<strong>曼哈顿距离</strong>，曼哈顿距离是标量空间中两点间各维度差的绝对值之和。在二维空间中，曼哈顿距离可以理解为从一个点到另一个点只能沿着水平或垂直方向行走的最小距离。通常用定义如下：</p>
+<p>$d(x,y) &#x3D; \sum_{i&#x3D;1}^n |x_i - y_i|$</p>
+<p>-当 $p&#x3D;2$时为<strong>欧氏距离</strong>，欧氏距离是标量空间中两点间各维度差的平方之和的平方根。在二维空间中，欧氏距离可以理解为从一个点到另一个点的直线距离。通常定义如下：</p>
+<p>$d(x,y) &#x3D; \sqrt{\sum_{i&#x3D;1}^n (x_i - y_i)^2}$</p>
+<p>-当 $p&#x3D;\infty$时为<strong>切比雪夫距离</strong>，二个点之间的距离定义是其各坐标数值差绝对值的最大值。<br>通常定义如下：</p>
+<p>$d(x,y) &#x3D; \max_{i&#x3D;1\dots n} |x_i - y_i|$</p>
 <h1 id="基于原型的聚类"><a href="#基于原型的聚类" class="headerlink" title="基于原型的聚类"></a>基于原型的聚类</h1><h2 id="K-means"><a href="#K-means" class="headerlink" title="K-means"></a>K-means</h2><h2 id="K-means-1"><a href="#K-means-1" class="headerlink" title="K-means++"></a>K-means++</h2><h2 id="bi-means"><a href="#bi-means" class="headerlink" title="bi-means"></a>bi-means</h2><h2 id="K-medoids"><a href="#K-medoids" class="headerlink" title="K-medoids"></a>K-medoids</h2><h2 id="LVQ"><a href="#LVQ" class="headerlink" title="LVQ"></a>LVQ</h2><h2 id="GMM（高斯混合模型）"><a href="#GMM（高斯混合模型）" class="headerlink" title="GMM（高斯混合模型）"></a>GMM（高斯混合模型）</h2><h1 id="基于密度的聚类"><a href="#基于密度的聚类" class="headerlink" title="基于密度的聚类"></a>基于密度的聚类</h1><h2 id="DNSCAN"><a href="#DNSCAN" class="headerlink" title="DNSCAN"></a>DNSCAN</h2><h2 id="HBSCAN"><a href="#HBSCAN" class="headerlink" title="HBSCAN"></a>HBSCAN</h2><h2 id="OPTICS"><a href="#OPTICS" class="headerlink" title="OPTICS"></a>OPTICS</h2><h1 id="基于层次的聚类"><a href="#基于层次的聚类" class="headerlink" title="基于层次的聚类"></a>基于层次的聚类</h1><h2 id="自上而下法"><a href="#自上而下法" class="headerlink" title="自上而下法"></a>自上而下法</h2><h2 id="自下而上法"><a href="#自下而上法" class="headerlink" title="自下而上法"></a>自下而上法</h2><h3 id="基于图的聚类"><a href="#基于图的聚类" class="headerlink" title="基于图的聚类"></a>基于图的聚类</h3><h3 id="基于GCN的聚类"><a href="#基于GCN的聚类" class="headerlink" title="基于GCN的聚类"></a>基于GCN的聚类</h3>
   </div>
   
@@ -2941,6 +2945,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <a class='next' href='/2025/06/25/%E8%AE%A1%E7%AE%97%E5%8C%96%E5%AD%A6%E5%AF%BC%E8%AE%BA%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
           <p class='title'>计算化学导论学习笔记<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
           <p class='content'>记录阅读 Introduction to Computational Chemistry 的一些笔记
+
 
 正文开始11112222
 </p>
@@ -3113,7 +3118,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
       
         
-          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span> 次&lt;/span&gt; <span id="lc-uv">访客数为 <span id='number'><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span> 人&lt;/span&gt;</p>
+          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fa-solid fa-loader fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
 </div>
         
       
