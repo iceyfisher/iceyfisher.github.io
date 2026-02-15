@@ -46,7 +46,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
 <meta property="article:published_time" content="2026-02-09T07:42:49.000Z">
-<meta property="article:modified_time" content="2026-02-13T00:07:05.220Z">
+<meta property="article:modified_time" content="2026-02-15T03:42:44.857Z">
 <meta property="article:author" content="icy_fisher">
 <meta property="article:tag" content="支持向量机">
 <meta name="twitter:card" content="summary">
@@ -1910,7 +1910,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1770941364891),
+    lastupdate: new Date(1771127019436),
     sidebar: {
       for_page: ["blogger","category","tagcloud","webinfo","lastupdate"],
       for_post: ["toc"],
@@ -2819,20 +2819,29 @@ L(w,b,\alpha) &= \frac{1}{2}\|\mathbf{w}\|^2 - \sum_{i=1}^n \alpha_i y_i (\mathb
 &= -\frac{1}{2}\|\mathbf{w}\|^2 + \sum_{i=1}^n \alpha_i \quad (\sum \alpha_i y_i = 0) \\
 &= \sum_{i=1}^n \alpha_i - \frac{1}{2}\sum_{i,j=1}^n \alpha_i \alpha_j y_i y_j {x}_i^\top {x}_j
 \end{aligned}</script><p>接着，处理问题，就简单许多(在哪┭┮﹏┭┮)</p>
-<p>$\begin{aligned}<br>\min_\alpha \quad &amp; -\sum_{i=1}^n \alpha_i + \frac{1}{2}\sum_{i,j=1}^n \alpha_i \alpha_j y_i y_j ({x}_i · {x}_j) \\<br>\text{s.t.} \quad &amp;\sum_{i=1}^n \alpha_i y_i = 0, \quad i = 1, \ldots, n \\<br>\quad &amp; \alpha_i \geq 0, \quad i = 1, \ldots, n<br>\end{aligned}$</p>
-<h2 id="3-从硬到软：线性不可分问题"><a href="#3-从硬到软：线性不可分问题" class="headerlink" title="3. 从硬到软：线性不可分问题"></a>3. 从硬到软：线性不可分问题</h2><h3 id="3-1-软间隔支持向量机"><a href="#3-1-软间隔支持向量机" class="headerlink" title="3.1 软间隔支持向量机"></a>3.1 软间隔支持向量机</h3><p>上述的支持向量机算法针对问题仅局限于线性可分问题，若使用SVM处理线性不可分问题最大的问题即是找不到支持向量或间隔过小算法无法收敛。允许有部分数据点不守规则的方法就变为<strong>软间隔</strong>，对约束而言：$ y_{i}\left(w \cdot x_{i}+b\right) \geqslant 1-\xi_{i}$ ，单个点的违反 $\xi_{i}$ 是被允许的，而所有点的违背值得尽可能最小：</p>
-<p>$\begin{align}<br>\min _{w, b, \xi} &amp; \frac{1}{2}|w|^{2}+C \sum_{i=1}^{N} \xi_{i} \\<br>\text { s.t. } &amp; y_{i}\left(w \cdot x_{i}+b\right) +\xi_{i}\geqslant 1 \\<br>&amp; \xi_{i} \geqslant 0, \quad i=1,2, \cdots, n<br>\end{align}$</p>
-<p>转化为对偶问题并化简，不难发现 $C$ 就是算法中可以调参的超参数之一：</p>
-<p>$\begin{align}<br>\min _{\alpha} &amp; \frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_{i} \alpha_{j} y_{i} y_{j}\left(x_{i} \cdot x_{j}\right)-\sum_{i=1}^{N} \alpha_{i} \\<br>\text { s.t. } &amp; \sum_{i=1}^{N} \alpha_{i} y_{i}=0 \\<br>&amp; 0 \leqslant \alpha_{i} \leqslant C, \quad i=1,2, \cdots, n<br>\end{align}$</p>
-<h3 id="3-2-hinge-loss-function-引入"><a href="#3-2-hinge-loss-function-引入" class="headerlink" title="3.2 hinge loss function 引入"></a>3.2 hinge loss function 引入</h3><p>对于约束条件 $\xi_i \geq 1-y_i(w\cdot x_i+b)$ 和 $\xi_i \geq 0$ 而言，解得：$\xi_i \geq \max(0,1-y_i(w\cdot x_i+b))$ 这样可以将问题合并为一个式子：</p>
-<p>$\begin{align}\min_{w,b} \frac{1}{2}|w|^2 + C\sum_{i=1}^{n}\max(0,1-y_i(w\cdot x_i+b)) \end{align}$</p>
-<p>而 $\max(0,1-y_i(w\cdot x_i+b))$ 则是合页损失函数 (<em>hinge loss function</em>) 。</p>
+<script type="math/tex; mode=display">\begin{aligned}
+\min_\alpha \quad & -\sum_{i=1}^n \alpha_i + \frac{1}{2}\sum_{i,j=1}^n \alpha_i \alpha_j y_i y_j ({x}_i · {x}_j) \\
+\text{s.t.} \quad &\sum_{i=1}^n \alpha_i y_i = 0, \quad i = 1, \ldots, n \\
+\quad & \alpha_i \geq 0, \quad i = 1, \ldots, n
+\end{aligned}</script><h2 id="3-从硬到软：线性不可分问题"><a href="#3-从硬到软：线性不可分问题" class="headerlink" title="3. 从硬到软：线性不可分问题"></a>3. 从硬到软：线性不可分问题</h2><h3 id="3-1-软间隔支持向量机"><a href="#3-1-软间隔支持向量机" class="headerlink" title="3.1 软间隔支持向量机"></a>3.1 软间隔支持向量机</h3><p>上述的支持向量机算法针对问题仅局限于线性可分问题，若使用SVM处理线性不可分问题最大的问题即是找不到支持向量或间隔过小算法无法收敛。允许有部分数据点不守规则的方法就变为<strong>软间隔</strong>，对约束而言：$ y_{i}\left(w \cdot x_{i}+b\right) \geqslant 1-\xi_{i}$ ，单个点的违反 $\xi_{i}$ 是被允许的，而所有点的违背值得尽可能最小：</p>
+<script type="math/tex; mode=display">\begin{align*}
+\min _{w, b, \xi} & \frac{1}{2}\|w\|^{2}+C \sum_{i=1}^{N} \xi_{i} \\
+\text { s.t. } & y_{i}\left(w \cdot x_{i}+b\right) +\xi_{i}\geqslant 1 \\
+& \xi_{i} \geqslant 0, \quad i=1,2, \cdots, nn
+\end{align*}</script><p>转化为对偶问题并化简，不难发现 $C$ 就是算法中可以调参的超参数之一：</p>
+<script type="math/tex; mode=display">\begin{align*}
+\min _{\alpha} & \frac{1}{2} \sum_{i=1}^{N} \sum_{j=1}^{N} \alpha_{i} \alpha_{j} y_{i} y_{j}\left(x_{i} \cdot x_{j}\right)-\sum_{i=1}^{N} \alpha_{i} \\
+\text { s.t. } & \sum_{i=1}^{N} \alpha_{i} y_{i}=0 \\
+& 0 \leqslant \alpha_{i} \leqslant C, \quad i=1,2, \cdots, n
+\end{align*}</script><h3 id="3-2-hinge-loss-function-引入"><a href="#3-2-hinge-loss-function-引入" class="headerlink" title="3.2 hinge loss function 引入"></a>3.2 hinge loss function 引入</h3><p>对于约束条件 $\xi_i \geq 1-y_i(w\cdot x_i+b)$ 和 $\xi_i \geq 0$ 而言，解得：$\xi_i \geq \max(0,1-y_i(w\cdot x_i+b))$ 这样可以将问题合并为一个式子：</p>
+<script type="math/tex; mode=display">\min_{w,b} \frac{1}{2}\|w\|^2 + C\sum_{i=1}^{n}\max(0,1-y_i(w\cdot x_i+b))</script><p>而 $\max(0,1-y_i(w\cdot x_i+b))$ 则是合页损失函数 (<em>hinge loss function</em>) 。</p>
 <h2 id="4-线性到非线性：核技巧"><a href="#4-线性到非线性：核技巧" class="headerlink" title="4. 线性到非线性：核技巧"></a>4. 线性到非线性：核技巧</h2><h3 id="4-1-非线性问题阐释"><a href="#4-1-非线性问题阐释" class="headerlink" title="4.1 非线性问题阐释"></a>4.1 非线性问题阐释</h3><p>非线性分类问题是指通过利用非线性模型才能很好地进行分类的问题。对给定的一个训练数据集 $D = {(x_1,y_1),(x_2,y_2),…,(x_n,y_n)}$，其中，数据点 $x_i$ 对应的标记有两类 $y_i ∈ Y = {-1,+1}，i = 1,2,…,n$。如果能用 <script type="math/tex">Rⁿ</script> 中的一个超曲面将正负例正确分开，则称这个问题为非线性可分问题。</p>
 <p>简单地说，在SVM中使用核函数技巧就像把地面上投射着两团浑在一起的影子（原始数据），映射到真实空间中，发现影子其实来自空中两座分离的雕塑——一座A雕塑，一座B雕塑，彼此清晰分开，中间可以轻松地使用玻璃板之类的平面隔开。</p>
 <h3 id="4-2-核技巧"><a href="#4-2-核技巧" class="headerlink" title="4.2 核技巧"></a>4.2 核技巧</h3><p>在前文对偶问题中，我们已经得到了一个非常关键的形式：</p>
 <script type="math/tex; mode=display">\begin{align*}
 \min_\alpha \quad 
 \frac{1}{2}\sum_{i,j=1}^n \alpha_i \alpha_j y_i y_j \langle x_i, x_j \rangle 
+
 - \sum_{i=1}^n \alpha_i
 \end{align*}</script><p>可以发现，样本空间中数据点从头到尾只以内积的形式出现。如果设想存在一个映射函数：</p>
 <script type="math/tex; mode=display">\phi: \mathbb{R}^n \rightarrow \mathcal{H}</script><p>将原始空间中的样本 $x$ 映射到一个更高维（甚至无限维）的特征空间中，使得原本线性不可分的数据在该空间中反而线性可分。</p>
@@ -2841,6 +2850,7 @@ L(w,b,\alpha) &= \frac{1}{2}\|\mathbf{w}\|^2 - \sum_{i=1}^n \alpha_i y_i (\mathb
 \min_\alpha \quad 
 \frac{1}{2}\sum_{i,j=1}^n \alpha_i \alpha_j y_i y_j 
 \langle \phi(x_i), \phi(x_j) \rangle 
+
 - \sum_{i=1}^n \alpha_i
 \end{align*}</script><p>就像我们提出设想时那样，理论上可能出现的无限维空间的内积庞大计算量，仅有计算同该空间内积值相同的某个可计算的函数才有实现的可能。这就是<strong>核技巧</strong>的核心思想：用核函数直接计算高维空间的内积，避免维度灾难。</p>
 <p>使用 $K(x_i,x_j)$ 代替 $\phi(x_i) \cdot \phi(x_j)$ ，可计算的问题最终形式如下：</p>
@@ -2891,6 +2901,12 @@ K(x, x') = \left(x^{\top} x^{\prime}\right)^{n}=\sum_{|\alpha|=n} \frac{n!}{\alp
 </li>
 </ul>
 <h2 id="5-序列最小化算法-SMO"><a href="#5-序列最小化算法-SMO" class="headerlink" title="5. 序列最小化算法 (SMO)"></a>5. 序列最小化算法 (SMO)</h2><p>流程说明：<br><img src="https://pic1.imgdb.cn/item/698dde43c46878ce9faef1a9.png" class="lazyload" data-srcset="https://pic1.imgdb.cn/item/698dde43c46878ce9faef1a9.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="伪代码示例"></p>
+<p><em>本文参考了如下的书籍，衷心感谢每位老师对于基础知识普及教育的坚守！：</em></p>
+<ol>
+<li>统计学习方法 第二版 李航 清华大学出版社</li>
+<li>机器学习 周志华 清华大学出版社</li>
+<li>bilbili up主 <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1No4y1o7ac/?spm_id_from=333.337.search-card.all.click&amp;vd_source=650f8650d0591afa0e69273ac978d84b">简博士</a></li>
+</ol>
 
   </div>
   
@@ -2915,10 +2931,10 @@ K(x, x') = \left(x^{\top} x^{\prime}\right)^{n}=\sum_{|\alpha|=n} \frac{n!}{\alp
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateModified" datetime="2026-02-13T08:07:05+08:00">
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2026-02-15T11:42:44+08:00">
   <a class='notlink'>
     <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2026年2月13日</p>
+    <p>更新于：2026年2月15日</p>
   </a>
 </div>
 
@@ -3800,7 +3816,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":"想法自留地~~"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"渔人码头 ⚓🛶"}},{"@type":"ListItem","position":2,"item":{"@id":"http://example.com/categories/计算机/","name":"计算机"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/2026/02/09/机器学习算法02-支持向量机/","name":"机器学习算法02-支持向量机"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"渔人码头 ⚓🛶","url":"http://example.com/","keywords":null,"description":"想法自留地~~","author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","description":"想法自留地~~"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://example.com?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"机器学习算法02-支持向量机","description":"本文将复习并记录支持向量机的概念、数学推导及SMO实现。","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2026/02/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9502-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/"},"author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://example.com/2026/02/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9502-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/","wordCount":28,"datePublished":"2026-02-09T07:42:49.000Z","dateModified":"2026-02-13T00:07:05.220Z","articleSection":"计算机","keywords":"支持向量机","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":"想法自留地~~"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"渔人码头 ⚓🛶"}},{"@type":"ListItem","position":2,"item":{"@id":"http://example.com/categories/计算机/","name":"计算机"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/2026/02/09/机器学习算法02-支持向量机/","name":"机器学习算法02-支持向量机"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"渔人码头 ⚓🛶","url":"http://example.com/","keywords":null,"description":"想法自留地~~","author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","description":"想法自留地~~"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://example.com?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"机器学习算法02-支持向量机","description":"本文将复习并记录支持向量机的概念、数学推导及SMO实现。","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2026/02/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9502-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/"},"author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://example.com/2026/02/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9502-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/","wordCount":28,"datePublished":"2026-02-09T07:42:49.000Z","dateModified":"2026-02-15T03:42:44.857Z","articleSection":"计算机","keywords":"支持向量机","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
