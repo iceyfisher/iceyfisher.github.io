@@ -5,8 +5,8 @@
   <meta name="Volantis" content="5.8.0">
   <meta charset="utf-8">
   <!-- SEO相关 -->
-  <meta name="robots" content="noindex,follow">
-  <link rel="canonical" href="http://example.com/tags/正则表达式/"/>
+  
+  <link rel="canonical" href="http://example.com/2026/02/21/机器学习算法03-logistics和最大熵模型/"/>
   <!-- 渲染优化 -->
     <meta http-equiv='x-dns-prefetch-control' content='on' />
       <link rel='dns-prefetch' href='https://unpkg.com'>
@@ -34,18 +34,22 @@
 
   <!-- feed -->
   <!-- 页面元数据 -->
-  <title>标签：正则表达式 - 渔人码头 ⚓🛶</title>
-  <meta name="keywords" content="null">
-  <meta desc name="description" content="想法自留地~~ - icy_fisher - 渔人码头 ⚓🛶">
+  <title>机器学习算法03-logistics和最大熵模型 - 渔人码头 ⚓🛶</title>
+  <meta name="keywords" content="最大熵模型,logistics,null">
+  <meta desc name="description" content="本文将复习并记录的最大熵&amp;logistics模型的推导和思想。 - icy_fisher - 渔人码头 ⚓🛶">
   
-<meta property="og:type" content="website">
-<meta property="og:title" content="渔人码头 ⚓🛶">
-<meta property="og:url" content="http://example.com/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习算法03-logistics和最大熵模型">
+<meta property="og:url" content="http://example.com/2026/02/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9503-logistics%E5%92%8C%E6%9C%80%E5%A4%A7%E7%86%B5%E6%A8%A1%E5%9E%8B/index.html">
 <meta property="og:site_name" content="渔人码头 ⚓🛶">
-<meta property="og:description" content="想法自留地~~">
+<meta property="og:description" content="本文将复习并记录的最大熵&amp;logistics模型的推导和思想。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+<meta property="article:published_time" content="2026-02-21T07:32:32.000Z">
+<meta property="article:modified_time" content="2026-02-22T01:57:12.140Z">
 <meta property="article:author" content="icy_fisher">
+<meta property="article:tag" content="最大熵模型">
+<meta property="article:tag" content="logistics">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
   <style>
@@ -2631,7 +2635,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
       <!-- see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs -->
-      <div id="none" class='cover-wrapper  dock' style="display: none;">
+      <div id="none" class='cover-wrapper post dock' style="display: none;">
         
   <div class='cover-bg lazyload placeholder' data-bg="https://pic1.imgdb.cn/item/685d07fd58cb8da5c8734724.jpg"></div>
 
@@ -2693,25 +2697,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="safearea">
         <div class="body-wrapper">
           
-
 <div id="l_main" class=''>
-  
-    
-      
-  <section class="post-list">
-    
-      
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
-  <link itemprop="mainEntityOfPage" href="http://example.com/2025/08/25/正则表达式/">
+  <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2026/02/21/机器学习算法03-logistics和最大熵模型/">
   <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
     <meta itemprop="name" content="渔人码头 ⚓🛶">
   </span>
@@ -2720,72 +2708,306 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <meta itemprop="description" content="想法自留地~~">
   </span>
   
-  
+
+
   
     <span hidden>
       <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
     </span>
   
-  
+  <div class="article-meta" id="top">
     
-    <h2 class="article-title"  itemprop="name headline">
-      <a href="/2025/08/25/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"  itemprop="url">
-        正则表达式01--表达式语法
-      </a>
-    </h2>
-  
-  <div class='md article-desc' itemprop="articleBody">
     
-      <p>正则表达式可以允许我们对于文本进行十分精细的处理，但首先我们需要明确其语法与使用方式。在日常使用时，可以结合<a target="_blank" rel="noopener" href="https://regexr.com">https://regexr.com</a>食用！网站提供了即时的正则表达式可视化，真是再好不过了！🎇🎇🎇</p>
+    
+      <h1 class="title" itemprop="name headline">
+        机器学习算法03-logistics和最大熵模型
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author' itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <a itemprop="url" class='author' href="/" rel="nofollow">
+    <img itemprop="image" src="https://pic1.imgdb.cn/item/685d014258cb8da5c87322b7.png" class="lazyload" data-srcset="https://pic1.imgdb.cn/item/685d014258cb8da5c87322b7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+    <p itemprop="name">icy_fisher</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i>
+    <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
+    
+      <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
+        <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" itemprop="url"><span itemprop="name">计算机</span></a>
+      </span>
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-          
-          <a class='avatar' href='/'><img src='https://pic1.imgdb.cn/item/685d014258cb8da5c87322b7.png'></a>
-          <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-            <meta itemprop="image" content="https://pic1.imgdb.cn/item/685d014258cb8da5c87322b7.png">
-            <meta itemprop="name" content="icy_fisher">
-            <meta itemprop="url" content="/">
-          </span>
-        
-        <time itemprop="dateCreated datePublished" datetime="2025-08-25T13:28:48+08:00">2025-08-25</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a>
-          
-            <span hidden itemprop="about" itemscope itemtype="http://schema.org/Thing">
-              <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" itemprop="url"><span itemprop="name">计算机</span></a>
-            </span>
+
+
           
         
+          
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2026-02-21T15:32:32+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2026年2月21日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+
+
+          
+        
+        <!-- Custom Files topMeta begin-->
+        
+        <!-- Custom Files topMeta end-->
       </div>
+    
+  </div>
+
+
+  <div id="layoutHelper-page-plugins"></div>
+  <div id="post-body" itemprop="articleBody">
+    <p>本文将复习并记录的最大熵&amp;logistics模型的推导和思想。</p>
+<span id="more"></span>
+<p>本文将要介绍的内容如下图所示：</p>
+<p><img src="https://pic1.imgdb.cn/item/699a60bdd908540f9e202c3d.png" class="lazyload" data-srcset="https://pic1.imgdb.cn/item/699a60bdd908540f9e202c3d.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="流程"></p>
+<h2 id="1-Logistic-函数的历史起源"><a href="#1-Logistic-函数的历史起源" class="headerlink" title="1. Logistic 函数的历史起源"></a>1. Logistic 函数的历史起源</h2><p>Logistic 函数的思想最早可以追溯到 1838 年由比利时数学家Verhulst提出。Verhulst 当时面临的问题是如何修正 Malthus 人口增长模型的局限性。Malthus 模型假设人口呈几何级数增长，即 $P(t) = P_0 e^{rt}$ ，但这一模型忽略了环境承载能力有限的事实，就像现发达国家的年人口增长规模远低于指数函数做预测的那样。Verhulst 引入了人口承载上限的概念，认为人口增长速度会随着人口规模逼近环境上限而逐渐衰减。</p>
+<p>于是乎，Verhulst 建立了著名的 logistic 微分方程。设 $N(t)$ 为时刻 $t$ 的人口数量，$K$ 为环境承载容量，$r$ 为种群增长潜力指数，则增长率可表示为：</p>
+<script type="math/tex; mode=display">r_{t} = \frac{dN}{dt} = rN \left(1 - \frac{N}{K}\right)</script><p>令 $x(t) = \frac{N}{K}$, 简化得：</p>
+<script type="math/tex; mode=display">\begin{aligned}
+\frac{dx}{dt} &= rx(1-x) \\
+\frac{dx}{x(1-x)} &= r\ dt \\
+\end{aligned}</script><p>积分：</p>
+<script type="math/tex; mode=display">\begin{aligned}
+\ln(x) - \ln(1-x) &= rt + c \\
+\frac{x}{1-x} &= e^{rt+c}
+\end{aligned}</script><p>解得，常数的正负号无所谓：</p>
+<script type="math/tex; mode=display">\begin{aligned}
+x = \frac{N}{K} = \frac{1}{1 + e^{-rt+c}}
+\end{aligned}</script><p><img src="https://pic1.imgdb.cn/item/699948f5d908540f9e2016e3.png" class="lazyload" data-srcset="https://pic1.imgdb.cn/item/699948f5d908540f9e2016e3.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="如图">如图函数的曲线为s型，值域仅在 [0,1] 之间。</p>
+<h2 id="2-logistics-回归模型"><a href="#2-logistics-回归模型" class="headerlink" title="2. logistics 回归模型"></a>2. logistics 回归模型</h2><p>从人口增长模型到分类模型，logistics模型是如何完成这一转变的？首先其形式保证了概率分布的输出值落在 $(0, 1)$ 区间内,分布和密度函数可写作:</p>
+<script type="math/tex; mode=display">\begin{aligned}
+F(x)=P(X \leqslant x)=\frac{1}{1+\mathrm{e}^{-(x-\mu) / \gamma}} \\
+f(x)=F^{\prime}(x)=\frac{\mathrm{e}^{-(x-\mu) / \gamma}}{\gamma\left(1+\mathrm{e}^{-(x-\mu) / \gamma}\right)^{2}}
+\end{aligned}</script><p>将二分类任务引入，对于类别$Y=\{0,1\}$,：</p>
+<script type="math/tex; mode=display">\begin{aligned}
+P(Y=1 \mid x)=\frac{\exp (w \cdot x+b)}{1+\exp (w \cdot x+b)} \\
+P(Y=0 \mid x)=\frac{1}{1+\exp (w \cdot x+b)}
+\end{aligned}</script><p>将两者相比，得到<strong>几率</strong>的角度来理解。几率定义为发生概率与不发生概率之比，取对数后得到 <strong>logit 函数</strong>：</p>
+<script type="math/tex; mode=display">\log \frac{P(Y=1|\mathbf{x})}{1-P(Y=1|\mathbf{x})} = w\cdot x + b</script><p>注意我这里的向量大小无论 $w,x$ 均为 <strong>n 维向量</strong>，有些书上将$b$写入了向量中所以为 <strong>n+1维</strong>。</p>
+<p>通过这个回归式就可将线性函数$wx+b$赋予概率上的意义——每个特征$x_{i}$ 对几率的贡献是可加的。对于 $w$ 的参数估计采用极大似然估计方法，将对数似然函数写作：</p>
+<script type="math/tex; mode=display">\begin{aligned}
+L(w) & =\sum_{i=1}^{N}\left[y_{i} \log \pi\left(x_{i}\right)+\left(1-y_{i}\right) \log \left(1-\pi\left(x_{i}\right)\right)\right] \\
+& =\sum_{i=1}^{N}\left[y_{i} \log \frac{\pi\left(x_{i}\right)}{1-\pi\left(x_{i}\right)}+\log \left(1-\pi\left(x_{i}\right)\right)\right] \\
+& =\sum_{i=1}^{N}\left[y_{i}\left(w \cdot x_{i}+b\right)-\log \left(1+\exp \left(w \cdot x_{i}+b\right)\right]\right.
+\end{aligned}</script><p>求$L(w)$的最大值，也就是一系列的 $\frac{\partial L}{\partial x_i} = 0$ 方程求解，得到参数。</p>
+<p>对于多类分类问题，逻辑斯谛回归可以推广为多项逻辑斯谛回归，采用 softmax 函数进行归一化，归根到底 softmax 就是 logistics 函数在多维的推广，继承了 logistics 函数的映射特点，让它在很多领域中大方光彩，比如神经网络嘻嘻：</p>
+<script type="math/tex; mode=display">P(Y=k|\mathbf{x}) = \frac{\exp(\mathbf{w}_k^\top\mathbf{x})}{1 + \sum_{j=1}^{K-1}\exp(\mathbf{w}_j^\top\mathbf{x})}, \quad k=1,\dots,K-1</script><p>确保各类别概率之和为 1，那么 $P(Y=K|\mathbf{x})$ 的分子就必须唯一参考二分类的第二个式子。 </p>
+<h2 id="3-最大熵模型"><a href="#3-最大熵模型" class="headerlink" title="3. 最大熵模型"></a>3. 最大熵模型</h2><h3 id="3-1-信息熵的基本概念"><a href="#3-1-信息熵的基本概念" class="headerlink" title="3.1. 信息熵的基本概念"></a>3.1. 信息熵的基本概念</h3><p>在已知部分信息的前提下，应当选择熵最大的概率分布，即在满足已知约束的条件下保持最大的不确定性，这就是最大熵原理。我认为把信息定义为不确定性是一个很好的理解方式，在这里简要的介绍一下可能需要用到的概念，在信息论中衡量有多少信息，也就是多少不确定性的信息熵定义为：</p>
+<script type="math/tex; mode=display">H(P) = -\sum_x P(x)\log P(x)</script><p>用于度量概率分布的不确定性，注意了千万别和$S(x) = \int \frac{\delta Q}{T} dT$混了，this is 热力学中的熵。</p>
+<p>互信息是两个随机变量之间相互依赖性的信息量，换句话说就是 知道了X之后的Y的信息熵减少的量，互信息永远非负，写作：</p>
+<script type="math/tex; mode=display">I(X ; Y)=\sum_{x, y} p(x, y) \log \frac{p(x, y)}{p(x) p(y)}</script><p>从概率和期望的角度可以把熵理解为 $-log P(\cdots)$ 的期望<br>.条件熵可以写为，衡量的在$X$已知后的$Y$剩余的不确定性是：</p>
+<script type="math/tex; mode=display">H(Y|X) = -\sum_x\sum_y P(x,y) \log P(y|x) = H(Y) - I(X;Y)</script><p>证明：</p>
+<script type="math/tex; mode=display">\begin{aligned}
+I(X ; Y) & =\sum_{x, y} p(x, y) \log \frac{p(x, y)}{p(x) p(y)} \\
+& =\sum_{x, y} p(x, y) \log \frac{p(y \mid x) p(x)}{p(x) p(y)} \\
+& =\sum_{x, y} p(x, y) \log \frac{p(y \mid x)}{p(y)} \\
+& =\sum_{x, y} p(x, y) \log p(y \mid x)-\sum_{x, y} p(x, y) \log p(y) \\
+& =-H(Y \mid X)-\sum_{y}\left(\sum_{x} p(x, y)\right) \log p(y) \\
+& =-H(Y \mid X)-\sum_{y} p(y) \log p(y) \\
+& =-H(Y \mid X)+H(Y)
+\end{aligned}</script><h3 id="3-2-最大熵模型的基本形式"><a href="#3-2-最大熵模型的基本形式" class="headerlink" title="3.2. 最大熵模型的基本形式"></a>3.2. 最大熵模型的基本形式</h3><p>最大熵原理认为要选择的概率模型首先必须满足已有的事实，即约束条件。在没有更多信息的情况下，那些不确定的部分都是＂等可能的＂。最大熵原理通过熵的最大化来表示等可能性；换句话说最大熵原理认为最好的概率模型是熵最大的，即不确定性最大最富有 <strong>information</strong> 的。</p>
+<p>从上面定义的条件熵开始，我们可以展开前面的概率密度分布$P(x,y) =  P(x)\cdot P(y|x)$，那么条件熵的形式就可以写作为$H(Y|X)= -\sum_x\sum_y P(x)\cdot P(y|x)\cdot \log P(y|x)$。面对分类任务，我们希望这个模型可以起到输入一连串的“特征变量($X$)”输出“这个类别的概率( $P(y = 0 \ or\  1\ |\ x)$ )”。</p>
+<p>但首先我们模型必须满足的是任务中提供的必要条件，使用特征函数 $f(x, y)$进行描述。特征函数 $f(x, y)$ 通常取值为 0 或 1，若输入输出之间满足某一特定事实则为1，不满足则为0。说起来简单，但这里最重要的问题是如何让模型可以通过数据来学习呢？简单的想法是通过学习数据上的比较宏观的指标—<strong>期望</strong>，来模仿这种规律。</p>
+<p>对于数据端而言，归纳出的经验分布写作$\bar P(x,y)$，期望则为：$E_{\hat P} = \sum_{x,y} \bar P(x,y) \cdot f(x,y)$</p>
+<p>对于模型端而言，x，y经验分布写作$P(x,y)$，期望则为：$E_{P} = \sum_{x,y} P(x,y) \cdot f(x,y) = \sum_{x,y} P(x) \cdot P(y|x) \cdot f(x,y)$。根据大数定理，在样本足够多的情况下，$\bar P(x) \rightarrow P(x)$，期望改写为：$E_{P} = \sum_{x,y} \bar P(x) \cdot P(y|x) \cdot f(x,y)$。</p>
+<p>概括地来说，最大熵模型学习目标找到一个条件概率分布 $P(y|x)$，使其熵最大，同时满足模型期望等于经验期望的约束条件，因而可以把优化问题写为</p>
+<script type="math/tex; mode=display">\begin{aligned}
+&\max_{P \in C}  \ H(P)  =-\sum_{x, y} \bar P(x) P(y \mid x) \log P(y \mid x)  \\
+& s.t. \quad \bar E_{P}(f_{i}(x,y)) = E_{P}(f_{i}(x,y)) \qquad i = 1,2,\dots,n \qquad (\text{特征函数约束})\\ 
+& \qquad \sum _{y} P(y|x)= 1 \qquad (\text{概率归一化})\end{aligned}</script><p>小小调整一下变成最小化问题：</p>
+<script type="math/tex; mode=display">\begin{aligned}
+&\min_{P \in C}  \ H(P)  =-\sum_{x, y} \bar P(x) P(y \mid x) \log P(y \mid x)  \\
+& s.t. \quad \bar E_{P}(f_{i}(x,y)) - E_{P}(f_{i}(x,y)) =0\qquad i = 1,2,\dots,n \qquad (\text{特征函数约束})\\ 
+& \qquad \sum _{y} P(y|x)= 1 \qquad (\text{概率归一化})\end{aligned}</script><h3 id="3-3-优化问题转化"><a href="#3-3-优化问题转化" class="headerlink" title="3.3. 优化问题转化"></a>3.3. 优化问题转化</h3><p>通过引入广义拉格朗日乘子法求解这一带约束的优化问题：</p>
+<script type="math/tex; mode=display">\begin{aligned}
+    L\left(P, \mathbf{w}\right)=-H(P)+\sum_{i=1}^{n} w_{i}\left(E_{\bar{P}}\left(f_{i}\right)-E_{P}\left(f_{i}\right)\right)+w_{0}\left(1-\sum_{y} P(y \mid x)\right) \\
+    = -H(P)+\sum_{i=1}^{n} w_{i}(\sum_{x,y} \bar P(x,y) \cdot f(x,y)+ \sum_{x,y} \bar P(x) \cdot P(y|x) \cdot f(x,y)) \\  +w_{0}\left(1-\sum_{y} P(y \mid x)\right) 
+\end{aligned}</script><p>将原始问题转换成对偶问题，因为该拉格朗日函数是凸函数且满足<strong>KKT条件</strong>，两问题等价：</p>
+<script type="math/tex; mode=display">\min _{P \in \mathbf{C}} \max _{ \mathbf{w}} L(P,  \mathbf{w}) \Longleftrightarrow   \max _{ \mathbf{w}} \min _{P \in \mathbf{C}} L(P,  \mathbf{w})</script><p>$\min _{P \in \mathbf{C}} L(P,  \mathbf{w})$ 是一个关于 $\mathbf{w}$ 的函数，记作 $\Psi(\mathbf{w})$ ，而 $L(P,  \mathbf{w})$ 是一个关于 $P(x|y)$ 的函数对其求偏导：</p>
+<script type="math/tex; mode=display">\begin{aligned}
+    \frac{\partial L\left(P, \mathbf{w}\right)}{\partial P(x|y)}  
+    = \sum_{x,y} \bar P(x) (log P(y|x)+1)- \sum^{n}_{i=1}\sum_{x,y} \bar P(x) w_{i} f_{i}(x,y) -\sum_{y} w_{0}  \\ 
+    = \sum_{x,y} \bar P(x) (log P(y|x)+1)- \sum^{n}_{i=1}\sum_{x,y} \bar P(x) w_{i} f_{i}(x,y) -\sum_{x,y} w_{0} \bar P(x) \\ 
+    =\sum_{x,y} \bar P(x) (log P(y|x)+1-\sum^{n}_{i=1}w_{i} f_{i}(x,y) -w_{0}） = 0
+\end{aligned}</script><p>分布恒为正，因而第二项为0：</p>
+<script type="math/tex; mode=display">\begin{aligned}
+    log P(y|x)=\sum^{n}_{i=1}w_{i} f_{i}(x,y) +w_{0}-1 \\
+    P(y|x) = \frac{e^{\sum^{n}_{i=1}w_{i} f_{i}(x,y) }}{e^{w_{0}-1}}\\
+    \text{带入概率的的归一性质：} \sum_{y} P(y|x)= 1 \\ 
+    \sum_{y} e^{\sum_{i=1}^n w_i f_i(x,y) } =  e^{w_{0}-1} \\ 
+    \text{P(x|y)改写为：} P(x|y) = \frac{e^{\sum_{i=1}^n w_i f_i(x,y) }}{\sum_{y} e^{\sum_{i=1}^n w_i f_i(x,y) } } = \frac{e^{\sum_{i=1}^n w_i f_i(x,y) }}{Z_w(x)}
+\end{aligned}</script><p>其中 $Z_w(x) = \sum_y \exp\left(\sum_{i=1}^n w_i f_i(x,y)\right)$ 为归一化因子。当特征函数选择适当时，最大熵模型与逻辑斯谛回归模型是等价的，居然通过不同的优化路径（最大熵原理 vs. 极大似然估计）到达了相同的解。</p>
+<h2 id="4-模型学习的优化算法"><a href="#4-模型学习的优化算法" class="headerlink" title="4. 模型学习的优化算法"></a>4. 模型学习的优化算法</h2><p>逻辑斯谛回归和最大熵模型的参数学习本质上都是对数似然函数的最大化问题。对于逻辑斯谛回归，常用的优化方法包括梯度下降法、牛顿法和拟牛顿法（如 BFGS）。拟牛顿法通过近似 Hessian 矩阵的逆矩阵，在保持较快收敛速度的同时避免了直接计算 Hessian 矩阵的高昂代价，特别适合大规模问题。优化目标可写为：</p>
+<script type="math/tex; mode=display">\min_{\mathbf{w}} -\ell(\mathbf{w})</script><p>最大熵模型的传统学习算法是改进的迭代尺度法（Improved Iterative Scaling, IIS）。该算法的核心思想是每次迭代只更新一个参数，通过求解一个单变量方程来确定参数的增量：</p>
+<script type="math/tex; mode=display">\sum_{x,y} \tilde{P}(x)P_w(y|x)f_i(x,y)\exp(\delta_i f^*(x,y)) = \mathbb{E}_{\tilde{P}}[f_i]</script><p>其中 $f^{*}(x,y) = \sum_i f_i(x,y)$。IIS 算法的优点是每次迭代都能保证对数似然函数增加，但收敛速度相对较慢。在实际应用中，拟牛顿法往往比 IIS 更为高效。</p>
+<h2 id="5-模型的局限性-amp-对比"><a href="#5-模型的局限性-amp-对比" class="headerlink" title="5. 模型的局限性&amp;对比"></a>5. 模型的局限性&amp;对比</h2><p>逻辑斯谛回归虽然简单有效，但也存在一些固有的局限性。</p>
+<p>首先，它只能产生线性决策边界，对于非线性可分的问题需要人工构造非线性特征。其次，模型对特征之间的多重共线性较为敏感，高度相关的特征会导致参数估计不稳定。此外，在类别不平衡的场景下，模型对少数类的预测效果往往较差。</p>
+<p>从建模方式来看，逻辑斯谛回归属于判别式模型，直接对条件概率 $P(Y|X)$ 进行建模；而朴素贝叶斯属于生成式模型，对联合概率 $P(X, Y) = P(X|Y)P(Y)$ 进行建模。判别式模型假设较弱，通常需要更多训练数据，但渐近误差更低；生成式模型假设较强（如特征条件独立性），在小数据场景下表现更好，但渐近误差相对较高。两种模型各有优劣，应根据具体任务和数据特点进行选择。</p>
+
+  </div>
+  
+  
+    
+    <div class='footer'>
+       <!-- 参考资料、相关资料等 -->
       
-        <div>
-          <a class='readmore' href='/2025/08/25/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/' itemprop="url">
-            阅读全文
-          </a>
-        </div>
+       <!-- 相关文章 -->
+      
+      <!-- 版权声明组件 -->
+      
+      <!-- 打赏组件 -->
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2026-02-22T09:57:12+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2026年2月22日</p>
+  </a>
 </div>
 
-          </div>
         
       
-    
-  </section>
+        
+          
   
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%9C%80%E5%A4%A7%E7%86%B5%E6%A8%A1%E5%9E%8B/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>最大熵模型</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/logistics/" rel="nofollow"><i class="fa-solid fa-hashtag fa-fw" aria-hidden="true"></i><p>logistics</p></a></div>
+  <span hidden itemprop="keywords">最大熵模型 logistics</span>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/2026/02/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9503-logistics%E5%92%8C%E6%9C%80%E5%A4%A7%E7%86%B5%E6%A8%A1%E5%9E%8B/&title=机器学习算法03-logistics和最大熵模型 - 渔人码头 ⚓🛶&summary=本文将复习并记录的最大熵&amp;logistics模型的推导和思想。"
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qq.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qq.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/2026/02/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9503-logistics%E5%92%8C%E6%9C%80%E5%A4%A7%E7%86%B5%E6%A8%A1%E5%9E%8B/&title=机器学习算法03-logistics和最大熵模型 - 渔人码头 ⚓🛶&summary=本文将复习并记录的最大熵&amp;logistics模型的推导和思想。"
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qzone.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qzone.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/2026/02/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9503-logistics%E5%92%8C%E6%9C%80%E5%A4%A7%E7%86%B5%E6%A8%A1%E5%9E%8B/&title=机器学习算法03-logistics和最大熵模型 - 渔人码头 ⚓🛶&summary=本文将复习并记录的最大熵&amp;logistics模型的推导和思想。"
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/weibo.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/weibo.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+    <!-- Custom Files bottomMeta begin -->
+    
+    <!-- Custom Files bottomMeta end -->
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2026/02/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9502-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/'>
+          <p class='title'>机器学习算法02-支持向量机<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>本文将复习并记录支持向量机的概念、数学推导及SMO实现。
+
+本文将要介绍的内容如下图所示：
+
+支持向量机 (Support Vector Machine)1. 从朴素直觉开始—使用线 or 面分...</p>
+        </a>
+      
+    </div>
+  
+  <!-- Custom Files postEnd begin-->
+  
+  <!-- Custom Files postEnd end-->
+</article>
+
+
   
 
 
+  <article class="post white-box shadow floatable blur" id="comments">
+    <span hidden>
+      <meta itemprop="discussionUrl" content="/2026/02/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9503-logistics%E5%92%8C%E6%9C%80%E5%A4%A7%E7%86%B5%E6%A8%A1%E5%9E%8B/index.html#comments">
+    </span>
+    <p ct><i class='fa-solid fa-comments'></i> 评论</p>
     
-  
+
+    <div id="layoutHelper-comments"></div>
+
+  </article>
+
+
+
+
+
+
 </div>
 <aside id='l_side' itemscope itemtype="http://schema.org/WPSideBar">
   
@@ -2794,195 +3016,56 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
       
-<section class="widget blogger desktop mobile pjax">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://pic1.imgdb.cn/item/685ad33858cb8da5c86c5d89.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-          <h2>icy_fisher</h2>
-        
-        
-          <p>上海化学大二在读 菜狗捞捞┭┮﹏┭┮</p>
-
-        
-        
-          <p><span id="jinrishici-sentence">渔人码头 ⚓🛶</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/wxj-123@shu.edu.cn"
-              class="social fa-solid fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
-
-    
-  
-
-  
-    
-    
-      
-  
-  <section class="widget category desktop pjax">
-    
-  <header>
-    
-      <a href='/blog/categories/'><i class="fa-solid fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%8C%96%E5%AD%A6/" href="/categories/%E5%8C%96%E5%AD%A6/"
-            active-action="action-categoriesE58C96E5ADA6"
-            ><div class='name'>化学</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/"
-            active-action="action-categoriesE8AEA1E7AE97E69CBA"
-            ><div class='name'>计算机</div><div class='badge'>(5)</div></a></li>
-        
-      </ul>
-    </div>
-  </section>
-
-
-    
-  
-
-  
-    
-    
-      
-  
-  <section class="widget tagcloud desktop mobile pjax">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fa-solid fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/logistics/" style="font-size: 14px; color: #999">logistics</a> <a href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/" style="font-size: 14px; color: #999">强化学习</a> <a href="/tags/%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/" style="font-size: 14px; color: #999">支持向量机</a> <a href="/tags/%E6%9C%80%E5%A4%A7%E7%86%B5%E6%A8%A1%E5%9E%8B/" style="font-size: 14px; color: #999">最大熵模型</a> <a href="/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" style="font-size: 14px; color: #999">正则表达式</a> <a href="/tags/%E7%AB%9E%E8%B5%9B/" style="font-size: 14px; color: #999">竞赛</a> <a href="/tags/%E7%BB%93%E6%9E%84%E5%8C%96%E5%AD%A6/" style="font-size: 14px; color: #999">结构化学</a> <a href="/tags/%E8%81%9A%E7%B1%BB/" style="font-size: 14px; color: #999">聚类</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%8C%96%E5%AD%A6/" style="font-size: 14px; color: #999">计算化学</a>
-    </div>
-  </section>
-
-
-    
-  
-
-  
-    
-    
-      
-<section class="widget desktop pjax">
-  
-  <header>
-    
-      <i class="fa-solid fa-award fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章数目：</div>
-          <div>9 篇</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>已运行时间：</div>
-          <div id="webinfo-runtime-count"></div>
-        </div>
-      
-
-
-      
-
-      
-
-      
-
-      
-        <div class="webinfo-item">
-          <div>最后活动时间：</div>
-          <div id="last-update-show">2026-02-22 日</div>
-        </div>
-      
-    </div>
-  </div>
-</section>
-
-    
-  
-
-  
-    
-    
-      
-
-<section class="widget desktop mobile pjax">
-  
-  <header>
-    
-      <i class="fa-solid fa-clock WISTERIA fa-fw" aria-hidden="true"></i><span class='name'>最近更新</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <ul class="list entry navigation"><li><a class="widget-last" href="/2026/02/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9503-logistics%E5%92%8C%E6%9C%80%E5%A4%A7%E7%86%B5%E6%A8%A1%E5%9E%8B/"><div class="item"><time>2026-02-22</time><span>计算机</span></div><span>机器学习算法03-logistics和最大熵模型</span></a></li><li><a class="widget-last" href="/2026/02/09/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9502-%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA/"><div class="item"><time>2026-02-15</time><span>计算机</span></div><span>机器学习算法02-支持向量机</span></a></li><li><a class="widget-last" href="/2025/11/20/%E7%BB%93%E6%9E%84%E5%8C%96%E5%AD%A6%E5%BA%94%E8%AF%95%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B001-%E5%91%A8%E5%85%AC%E5%BA%A6%E4%B9%A6%E5%89%8D%E4%B8%89%E7%AB%A0%E8%80%83%E7%82%B9%E6%8C%87%E5%8C%97/"><div class="item"><time>2025-11-20</time><span>化学</span></div><span>结构化学应试复习笔记01 -- 周公度书前三章考点指北</span></a></li><li><a class="widget-last" href="/2025/11/18/%E4%B8%8A%E6%B5%B7%E5%8C%96%E5%AD%A6%E5%AE%9E%E9%AA%8C%E7%AB%9E%E8%B5%9B%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/"><div class="item"><time>2025-11-18</time><span>化学</span></div><span>上海化学实验竞赛经验分享</span></a></li><li><a class="widget-last" href="/2025/08/25/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"><div class="item"><time>2025-09-19</time><span>计算机</span></div><span>正则表达式01--表达式语法</span></a></li></ul>
-  </div>
-</section>
-
     
   
 
 
 <div class="widget-sticky pjax">
 
+  
+  
+
+
+  <section class="widget toc-wrapper desktop mobile " id="toc-div" >
+    
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Logistic-%E5%87%BD%E6%95%B0%E7%9A%84%E5%8E%86%E5%8F%B2%E8%B5%B7%E6%BA%90"><span class="toc-text">1. Logistic 函数的历史起源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-logistics-%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8B"><span class="toc-text">2. logistics 回归模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%9C%80%E5%A4%A7%E7%86%B5%E6%A8%A1%E5%9E%8B"><span class="toc-text">3. 最大熵模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E4%BF%A1%E6%81%AF%E7%86%B5%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">3.1. 信息熵的基本概念</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E6%9C%80%E5%A4%A7%E7%86%B5%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%BD%A2%E5%BC%8F"><span class="toc-text">3.2. 最大熵模型的基本形式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98%E8%BD%AC%E5%8C%96"><span class="toc-text">3.3. 优化问题转化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%A8%A1%E5%9E%8B%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95"><span class="toc-text">4. 模型学习的优化算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%A8%A1%E5%9E%8B%E7%9A%84%E5%B1%80%E9%99%90%E6%80%A7-amp-%E5%AF%B9%E6%AF%94"><span class="toc-text">5. 模型的局限性&amp;对比</span></a></li></ol>
+    </div>
+  </section>
+
+  
+
 </div>
 
 
 <!-- 没有 pjax 占位会报错 万恶的 pjax -->
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
 
   <div class="pjax">
     <!-- pjax占位 -->
@@ -3002,13 +3085,14 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </aside>
 
 
+
           <!--此文件用来存放一些不方便取值的变量-->
 <!--思路大概是将值藏到重加载的区域内-->
 
 <pjax>
 <script>
   window.pdata={}
-  pdata.ispage=false;
+  pdata.ispage=true;
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   pdata.commentConfig={};
@@ -3507,6 +3591,60 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 <!-- pjax 标签必须存在于所有页面 否则 pjax error -->
 <pjax>
 
+        <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = "https://unpkg.com/volantis-static@0.0.1654736714924/libs/mathjax/es5/tex-mml-chtml.js";
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typesetPromise();
+  }
+</script>
+
+
+
 </pjax>
 
 <script>
@@ -3638,7 +3776,7 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 </script>
 
 
-  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":"想法自留地~~"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"渔人码头 ⚓🛶"}},{"@type":"ListItem","position":2,"item":{"@id":"http://example.com/tags/正则表达式/","name":"正则表达式"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"渔人码头 ⚓🛶","url":"http://example.com/","keywords":null,"description":"想法自留地~~","author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","description":"想法自留地~~"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://example.com?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","description":"想法自留地~~","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage"},"author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"wordCount":0,"image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":"想法自留地~~"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"渔人码头 ⚓🛶"}},{"@type":"ListItem","position":2,"item":{"@id":"http://example.com/categories/计算机/","name":"计算机"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/2026/02/21/机器学习算法03-logistics和最大熵模型/","name":"机器学习算法03-logistics和最大熵模型"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"渔人码头 ⚓🛶","url":"http://example.com/","keywords":null,"description":"想法自留地~~","author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","description":"想法自留地~~"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://example.com?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"机器学习算法03-logistics和最大熵模型","description":"本文将复习并记录的最大熵&amp;logistics模型的推导和思想。","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2026/02/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9503-logistics%E5%92%8C%E6%9C%80%E5%A4%A7%E7%86%B5%E6%A8%A1%E5%9E%8B/"},"author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://example.com/2026/02/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9503-logistics%E5%92%8C%E6%9C%80%E5%A4%A7%E7%86%B5%E6%A8%A1%E5%9E%8B/","wordCount":35,"datePublished":"2026-02-21T07:32:32.000Z","dateModified":"2026-02-22T01:57:12.140Z","articleSection":"计算机","keywords":"最大熵模型,logistics","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
 
 
 
