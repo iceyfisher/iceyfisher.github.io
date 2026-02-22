@@ -29,8 +29,8 @@
   <!-- front-matter head_begin end -->
     <link rel="shortcut icon" type='image/x-icon' href="https://pic1.imgdb.cn/item/68aabc0258cb8da5c8479c37.png">
   <link rel="preload" href="/css/style.css" as="style">
-  <link rel="preload" href="https://unpkg.com/volantis-static@0.0.1654736714924/media/fonts/VarelaRound/VarelaRound-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
-<link rel="preload" href="https://unpkg.com/volantis-static@0.0.1654736714924/media/fonts/UbuntuMono/UbuntuMono-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="https://unpkg.com/source-han-serif-sc@2.0.0/Variable/TTF/SourceHanSerifSC-VF.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+<link rel="preload" href="https://unpkg.com/source-han-serif-sc@2.0.0/Variable/TTF/SourceHanSerifSC-VF.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 
   <!-- feed -->
   <!-- 页面元数据 -->
@@ -105,7 +105,7 @@ html {
   color: var(--color-text);
   width: 100%;
   height: 100%;
-  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  font-family: "Noto Serif SC", "Source Han Serif SC", "PingFang SC", "Microsoft YaHei", serif, Menlo, Monaco, monospace, sans-serif;
   font-size: 16px;
 }
 html >::-webkit-scrollbar {
@@ -516,7 +516,7 @@ button {
   margin-top: 32px;
 }
 .cover-wrapper .cover-body .title {
-  font-family: "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", "PingFang SC", serif, Helvetica, monospace;
   font-size: 3.125rem;
   line-height: 1.2;
   text-shadow: 0 1px 2px rgba(0,0,0,0.1);
@@ -983,15 +983,15 @@ button {
   }
 }
 @font-face {
-  font-family: 'UbuntuMono';
-  src: url("https://unpkg.com/volantis-static@0.0.1654736714924/media/fonts/UbuntuMono/UbuntuMono-Regular.ttf");
+  font-family: 'Noto Serif SC';
+  src: url("https://unpkg.com/source-han-serif-sc@2.0.0/Variable/TTF/SourceHanSerifSC-VF.ttf");
   font-weight: 'normal';
   font-style: 'normal';
   font-display: swap;
 }
 @font-face {
-  font-family: 'Varela Round';
-  src: url("https://unpkg.com/volantis-static@0.0.1654736714924/media/fonts/VarelaRound/VarelaRound-Regular.ttf");
+  font-family: 'Noto Serif SC';
+  src: url("https://unpkg.com/source-han-serif-sc@2.0.0/Variable/TTF/SourceHanSerifSC-VF.ttf");
   font-weight: 'normal';
   font-style: 'normal';
   font-display: swap;
@@ -1114,7 +1114,7 @@ button {
   line-height: 64px;
   padding: 0 24px;
   font-size: 1.25rem;
-  font-family: "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Helvetica, monospace;
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", "PingFang SC", serif, Helvetica, monospace;
 }
 .l_header #wrapper .nav-main .title img {
   height: 64px;
@@ -1125,7 +1125,7 @@ button {
 }
 .l_header .nav-sub .title {
   font-weight: bold;
-  font-family: UbuntuMono, "Varela Round", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, Menlo, Monaco, monospace, sans-serif;
+  font-family: "Noto Serif SC", "Source Han Serif SC", "PingFang SC", "Microsoft YaHei", serif, Menlo, Monaco, monospace, sans-serif;
   line-height: 1.2;
   max-height: 64px;
   white-space: normal;
@@ -1907,7 +1907,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1771725467024),
+    lastupdate: new Date(1771767482517),
     sidebar: {
       for_page: ["blogger","category","tagcloud","webinfo","lastupdate"],
       for_post: ["toc"],
@@ -2337,7 +2337,45 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <!-- import body_begin begin-->
     <!-- import body_begin end-->
     <!-- Custom Files bodyBegin begin-->
-    
+    <div class="loading-pacman">
+  <div class="pacman-wrapper">
+    <div class="load20">
+      <div></div><div></div><div></div><div></div><div></div><div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var pacmanLoader = document.querySelector('.loading-pacman');
+  
+  function showPacman() {
+    if (pacmanLoader) pacmanLoader.style.display = 'block';
+  }
+  
+  function hidePacman() {
+    if (pacmanLoader) pacmanLoader.style.display = 'none';
+  }
+  
+  window.ShowLoading = showPacman;
+  window.HideLoading = hidePacman;
+  
+  if (typeof volantis !== 'undefined' && volantis.pjax) {
+    volantis.pjax.push(hidePacman, 'HidePacman');
+    volantis.pjax.send(showPacman, 'ShowPacman');
+    volantis.pjax.error(hidePacman, 'HidePacman');
+  }
+  
+  document.addEventListener('pjax:send', showPacman);
+  document.addEventListener('pjax:complete', hidePacman);
+  document.addEventListener('pjax:error', hidePacman);
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(hidePacman, 100);
+  });
+})();
+</script>
+
     <!-- Custom Files bodyBegin end-->
     <!-- front-matter body_begin begin -->
     <!-- front-matter body_begin end -->
@@ -2704,9 +2742,75 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         
           
         
+          
+        
       
     
     
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow floatable blur"  itemscope itemtype="http://schema.org/Article" >
+  <link itemprop="mainEntityOfPage" href="http://example.com/2026/02/22/hello-world/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="渔人码头 ⚓🛶">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="渔人码头 ⚓🛶">
+    <meta itemprop="description" content="想法自留地~~">
+  </span>
+  
+  
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  
+    
+    <h2 class="article-title"  itemprop="name headline">
+      <a href="/2026/02/22/hello-world/"  itemprop="url">
+        Hello World
+      </a>
+    </h2>
+  
+  <div class='md article-desc' itemprop="articleBody">
+    
+      
+        Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Qu...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+          
+          <a class='avatar' href='/'><img src='https://pic1.imgdb.cn/item/685d014258cb8da5c87322b7.png'></a>
+          <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <meta itemprop="image" content="https://pic1.imgdb.cn/item/685d014258cb8da5c87322b7.png">
+            <meta itemprop="name" content="icy_fisher">
+            <meta itemprop="url" content="/">
+          </span>
+        
+        <time itemprop="dateCreated datePublished" datetime="2026-02-22T18:52:35+08:00">2026-02-22</time>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/2026/02/22/hello-world/' itemprop="url">
+            阅读全文
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
       
         
           <div class='post-wrapper'>
@@ -3724,28 +3828,6 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
 <script src="https://unpkg.com/volantis-static@0.0.1654736714924/libs/pjax/pjax.min.js"></script>
 
 
-<!-- 样式位于：source/css/_plugins/pjaxanimate.styl -->
-
-<div class="pjax-animate">
-  
-    <div class="loading-circle"><div id="loader-circle"></div></div>
-    <script>
-      window.ShowLoading = function() {
-        document.querySelector(".loading-circle").style.display="block"
-      };
-      window.HideLoading = function() {
-        document.querySelector(".loading-circle").style.display="none"
-      }
-    </script>
-  
-	<script>
-		volantis.pjax.push(window.HideLoading,'HideLoading');
-		volantis.pjax.send(window.ShowLoading,'ShowLoading');
-		volantis.pjax.error(window.HideLoading,'HideLoading');
-	</script>
-</div>
-
-
 <script>
     var pjax;
     document.addEventListener('DOMContentLoaded', function () {
@@ -3810,7 +3892,137 @@ window.matchMedia('(prefers-color-scheme: light)').addListener(darkModelListener
     <!-- import body_end begin-->
     <!-- import body_end end-->
     <!-- Custom Files bodyEnd begin-->
+    <script>
+(function() {
+  var emojis = ['😊', '❤️', '⭐', '🎉', '🔥', '✨', '👍', '💕', '🌟', '💖', '🎈', '🌈', '🦋', '🌸', '🍀'];
+  var fireworkColors = [
+    ['#ff6b6b', '#ee5a5a', '#ff8787'],
+    ['#feca57', '#ff9f43', '#ffbe76'],
+    ['#48dbfb', '#0abde3', '#74b9ff'],
+    ['#ff9ff3', '#f368e0', '#fd79a8'],
+    ['#1dd1a1', '#10ac84', '#00d2d3'],
+    ['#ffeaa7', '#fdcb6e', '#f9ca24'],
+    ['#a29bfe', '#6c5ce7', '#9b59b6']
+  ];
+
+  document.addEventListener('click', function(e) {
+    createEmoji(e.clientX, e.clientY);
+    createFirework(e.clientX, e.clientY);
+  });
+
+  function createEmoji(x, y) {
+    var emoji = document.createElement('span');
+    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    emoji.style.cssText = 'position:fixed;left:' + x + 'px;top:' + y + 'px;font-size:30px;pointer-events:none;z-index:9999;animation:emojiFloat 1s ease-out forwards;';
+    document.body.appendChild(emoji);
+    setTimeout(function() { emoji.remove(); }, 1000);
+  }
+
+  function createFirework(x, y) {
+    var particleCount = 30;
+    var colorSet = fireworkColors[Math.floor(Math.random() * fireworkColors.length)];
+    var container = document.createElement('div');
+    container.style.cssText = 'position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:9998;overflow:hidden;';
+    document.body.appendChild(container);
+
+    for (var i = 0; i < particleCount; i++) {
+      createParticle(container, x, y, colorSet, i, particleCount);
+    }
+
+    setTimeout(function() { container.remove(); }, 1500);
+  }
+
+  function createParticle(container, x, y, colorSet, index, total) {
+    var particle = document.createElement('div');
+    var angle = (Math.PI * 2 / total) * index + (Math.random() - 0.5) * 0.5;
+    var velocity = 80 + Math.random() * 120;
+    var size = 3 + Math.random() * 4;
+    var color = colorSet[Math.floor(Math.random() * colorSet.length)];
     
+    particle.style.cssText = 'position:absolute;left:' + x + 'px;top:' + y + 'px;width:' + size + 'px;height:' + size + 'px;background:' + color + ';border-radius:50%;pointer-events:none;box-shadow:0 0 ' + (size * 2) + 'px ' + color + ';';
+    
+    container.appendChild(particle);
+
+    var vx = Math.cos(angle) * velocity;
+    var vy = Math.sin(angle) * velocity;
+    var gravity = 150;
+    var friction = 0.98;
+    var opacity = 1;
+    var posX = 0;
+    var posY = 0;
+    var startTime = performance.now();
+    var duration = 1200 + Math.random() * 300;
+
+    function animate(currentTime) {
+      var elapsed = currentTime - startTime;
+      var progress = elapsed / duration;
+
+      if (progress >= 1) {
+        particle.remove();
+        return;
+      }
+
+      vx *= friction;
+      vy *= friction;
+      vy += gravity * 0.016;
+
+      posX += vx * 0.016;
+      posY += vy * 0.016;
+
+      opacity = 1 - progress;
+      var scale = 1 - progress * 0.5;
+
+      particle.style.transform = 'translate(' + posX + 'px, ' + posY + 'px) scale(' + scale + ')';
+      particle.style.opacity = opacity;
+
+      if (progress > 0.3 && Math.random() > 0.7) {
+        createTrail(container, x + posX, y + posY, color);
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  function createTrail(container, x, y, color) {
+    var trail = document.createElement('div');
+    var size = 2 + Math.random() * 2;
+    
+    trail.style.cssText = 'position:absolute;left:' + x + 'px;top:' + y + 'px;width:' + size + 'px;height:' + size + 'px;background:' + color + ';border-radius:50%;pointer-events:none;opacity:0.6;';
+    
+    container.appendChild(trail);
+
+    var startTime = performance.now();
+    var duration = 300;
+
+    function animateTrail(currentTime) {
+      var elapsed = currentTime - startTime;
+      var progress = elapsed / duration;
+
+      if (progress >= 1) {
+        trail.remove();
+        return;
+      }
+
+      trail.style.opacity = 0.6 * (1 - progress);
+      trail.style.transform = 'scale(' + (1 - progress) + ')';
+
+      requestAnimationFrame(animateTrail);
+    }
+
+    requestAnimationFrame(animateTrail);
+  }
+})();
+</script>
+
+<style>
+@keyframes emojiFloat {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-80px) scale(1.5); }
+}
+</style>
+
     <!-- Custom Files bodyEnd end-->
     <!-- front-matter body_end begin -->
     <!-- front-matter body_end end -->
