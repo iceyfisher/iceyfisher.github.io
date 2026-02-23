@@ -7436,6 +7436,9 @@ html[color-scheme="dark"] .loading-pacman {
   -o-animation: pacman-balls 1s 0s infinite linear;
   -ms-animation: pacman-balls 1s 0s infinite linear;
 }
+.widget.calendar-widget {
+  --calendar-ambient: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.7), rgba(255,255,255,0));
+}
 .widget.calendar-widget .calendar-grid.is-shifting {
   animation: calendar-shift 0.35s ease-out both;
   -webkit-animation: calendar-shift 0.35s ease-out both;
@@ -7464,6 +7467,25 @@ html[color-scheme="dark"] .loading-pacman {
   -moz-animation: calendar-glow 2.4s ease-in-out infinite;
   -o-animation: calendar-glow 2.4s ease-in-out infinite;
   -ms-animation: calendar-glow 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+.widget.calendar-widget .calendar-cell.selected::before {
+  content: '';
+  position: absolute;
+  inset: -30%;
+  border: 1px solid rgba(255,255,255,0.65);
+  border-radius: 999px;
+  -webkit-border-radius: 999px;
+  opacity: 0;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  animation: calendar-ring 1.6s ease-out infinite;
+  -webkit-animation: calendar-ring 1.6s ease-out infinite;
+  -khtml-animation: calendar-ring 1.6s ease-out infinite;
+  -moz-animation: calendar-ring 1.6s ease-out infinite;
+  -o-animation: calendar-ring 1.6s ease-out infinite;
+  -ms-animation: calendar-ring 1.6s ease-out infinite;
+  pointer-events: none;
 }
 .widget.calendar-widget .time-current.tick {
   animation: time-tick 0.35s ease-out;
@@ -7960,44 +7982,103 @@ html[color-scheme="dark"] .widget.calendar-widget .calendar-footer button:hover,
   color: #fff;
 }
 .widget.calendar-widget {
-  --calendar-bg: linear-gradient(145deg, rgba(250,249,246,0.98), rgba(234,232,228,0.92));
-  --calendar-surface: rgba(255,255,255,0.9);
+  --calendar-bg: linear-gradient(145deg, rgba(255,255,255,0.98), rgba(245,244,242,0.92));
+  --calendar-surface: rgba(255,255,255,0.96);
   --calendar-ink: #2e3238;
-  --calendar-ink-muted: #6f757d;
-  --calendar-ink-soft: #a0a6ae;
-  --calendar-line: rgba(46,50,56,0.08);
-  --calendar-highlight: rgba(46,50,56,0.06);
-  --calendar-accent: #59636d;
-  --calendar-accent-strong: #3b424a;
-  --calendar-selected: linear-gradient(135deg, #5a646d, #7b858f);
-  --calendar-selected-shadow: 0 6px 16px rgba(90,100,109,0.3);
-  --calendar-card-shadow: 0 14px 32px rgba(20,24,28,0.08), inset 0 1px 0 rgba(255,255,255,0.75);
+  --calendar-ink-muted: #5f666f;
+  --calendar-ink-soft: #8f959e;
+  --calendar-line: rgba(46,50,56,0.06);
+  --calendar-highlight: rgba(46,50,56,0.05);
+  --calendar-accent: #4f5862;
+  --calendar-accent-strong: #2f3740;
+  --calendar-selected: linear-gradient(135deg, #606a73, #8a949e);
+  --calendar-selected-shadow: 0 10px 18px rgba(96,106,115,0.28);
+  --calendar-card-shadow: 0 18px 36px rgba(20,24,28,0.1), inset 0 1px 0 rgba(255,255,255,0.85);
 }
 .widget.calendar-widget .calendar-card {
   background: var(--calendar-bg);
   border-color: var(--calendar-line);
   box-shadow: var(--calendar-card-shadow);
   -webkit-box-shadow: var(--calendar-card-shadow);
+  transition: background 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease, transform 0.45s ease;
+  -webkit-transition: background 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease, transform 0.45s ease;
+  -khtml-transition: background 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease, transform 0.45s ease;
+  -moz-transition: background 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease, transform 0.45s ease;
+  -o-transition: background 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease, transform 0.45s ease;
+  -ms-transition: background 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease, transform 0.45s ease;
+  position: relative;
+}
+.widget.calendar-widget .calendar-card::before {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background: var(--calendar-ambient);
+  opacity: 0.5;
+  -webkit-opacity: 0.5;
+  -moz-opacity: 0.5;
+  transform: translate3d(-8%, -6%, 0);
+  -webkit-transform: translate3d(-8%, -6%, 0);
+  -khtml-transform: translate3d(-8%, -6%, 0);
+  -moz-transform: translate3d(-8%, -6%, 0);
+  -o-transform: translate3d(-8%, -6%, 0);
+  -ms-transform: translate3d(-8%, -6%, 0);
+  animation: calendar-ambient 14s ease-in-out infinite;
+  -webkit-animation: calendar-ambient 14s ease-in-out infinite;
+  -khtml-animation: calendar-ambient 14s ease-in-out infinite;
+  -moz-animation: calendar-ambient 14s ease-in-out infinite;
+  -o-animation: calendar-ambient 14s ease-in-out infinite;
+  -ms-animation: calendar-ambient 14s ease-in-out infinite;
+  pointer-events: none;
 }
 .widget.calendar-widget .time-display::after {
   background: linear-gradient(90deg, transparent, var(--calendar-line), transparent);
 }
 .widget.calendar-widget .time-current {
   color: var(--calendar-ink);
+  transition: color 0.35s ease, text-shadow 0.35s ease;
+  -webkit-transition: color 0.35s ease, text-shadow 0.35s ease;
+  -khtml-transition: color 0.35s ease, text-shadow 0.35s ease;
+  -moz-transition: color 0.35s ease, text-shadow 0.35s ease;
+  -o-transition: color 0.35s ease, text-shadow 0.35s ease;
+  -ms-transition: color 0.35s ease, text-shadow 0.35s ease;
 }
 .widget.calendar-widget .time-date {
   color: var(--calendar-ink-muted);
+  transition: color 0.35s ease;
+  -webkit-transition: color 0.35s ease;
+  -khtml-transition: color 0.35s ease;
+  -moz-transition: color 0.35s ease;
+  -o-transition: color 0.35s ease;
+  -ms-transition: color 0.35s ease;
 }
 .widget.calendar-widget .calendar-title span:first-child {
   color: var(--calendar-ink);
+  transition: color 0.35s ease;
+  -webkit-transition: color 0.35s ease;
+  -khtml-transition: color 0.35s ease;
+  -moz-transition: color 0.35s ease;
+  -o-transition: color 0.35s ease;
+  -ms-transition: color 0.35s ease;
 }
 .widget.calendar-widget .calendar-title span:last-child {
   color: var(--calendar-ink-muted);
+  transition: color 0.35s ease;
+  -webkit-transition: color 0.35s ease;
+  -khtml-transition: color 0.35s ease;
+  -moz-transition: color 0.35s ease;
+  -o-transition: color 0.35s ease;
+  -ms-transition: color 0.35s ease;
 }
 .widget.calendar-widget .calendar-nav {
   background: var(--calendar-surface);
   border: 1px solid var(--calendar-line);
   color: var(--calendar-ink-muted);
+  transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  -webkit-transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  -khtml-transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  -moz-transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  -o-transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+  -ms-transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
 }
 .widget.calendar-widget .calendar-nav:hover {
   background: var(--calendar-highlight);
@@ -8005,9 +8086,21 @@ html[color-scheme="dark"] .widget.calendar-widget .calendar-footer button:hover,
 }
 .widget.calendar-widget .calendar-weekdays {
   color: var(--calendar-ink-soft);
+  transition: color 0.35s ease;
+  -webkit-transition: color 0.35s ease;
+  -khtml-transition: color 0.35s ease;
+  -moz-transition: color 0.35s ease;
+  -o-transition: color 0.35s ease;
+  -ms-transition: color 0.35s ease;
 }
 .widget.calendar-widget .calendar-cell {
   color: var(--calendar-ink);
+  transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  -webkit-transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  -khtml-transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  -moz-transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  -o-transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  -ms-transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 .widget.calendar-widget .calendar-cell:hover {
   background: var(--calendar-highlight);
@@ -8023,6 +8116,12 @@ html[color-scheme="dark"] .widget.calendar-widget .calendar-footer button:hover,
   background: var(--calendar-selected);
   box-shadow: var(--calendar-selected-shadow);
   -webkit-box-shadow: var(--calendar-selected-shadow);
+  transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  -webkit-transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  -khtml-transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  -moz-transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  -o-transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  -ms-transition: background 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
 }
 .widget.calendar-widget .calendar-cell.muted {
   color: var(--calendar-ink-soft);
@@ -8030,11 +8129,23 @@ html[color-scheme="dark"] .widget.calendar-widget .calendar-footer button:hover,
 .widget.calendar-widget .calendar-footer {
   color: var(--calendar-ink-muted);
   border-top: 1px solid var(--calendar-line);
+  transition: color 0.35s ease, border-color 0.35s ease;
+  -webkit-transition: color 0.35s ease, border-color 0.35s ease;
+  -khtml-transition: color 0.35s ease, border-color 0.35s ease;
+  -moz-transition: color 0.35s ease, border-color 0.35s ease;
+  -o-transition: color 0.35s ease, border-color 0.35s ease;
+  -ms-transition: color 0.35s ease, border-color 0.35s ease;
 }
 .widget.calendar-widget .calendar-footer button {
   background: var(--calendar-surface);
   border: 1px solid var(--calendar-line);
   color: var(--calendar-ink-muted);
+  transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  -webkit-transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  -khtml-transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  -moz-transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  -o-transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
+  -ms-transition: background 0.35s ease, border-color 0.35s ease, color 0.35s ease, box-shadow 0.35s ease, transform 0.35s ease;
 }
 .widget.calendar-widget .calendar-footer button:hover {
   background: var(--calendar-accent-strong);
@@ -8042,20 +8153,35 @@ html[color-scheme="dark"] .widget.calendar-widget .calendar-footer button:hover,
   box-shadow: 0 4px 12px rgba(20,24,28,0.16);
   -webkit-box-shadow: 0 4px 12px rgba(20,24,28,0.16);
 }
+.widget.calendar-widget .calendar-grid.is-shifting .calendar-cell {
+  animation-name: calendar-slide;
+}
+.widget.calendar-widget .calendar-title.is-switching {
+  animation: calendar-title-switch 0.35s ease-out;
+  -webkit-animation: calendar-title-switch 0.35s ease-out;
+  -khtml-animation: calendar-title-switch 0.35s ease-out;
+  -moz-animation: calendar-title-switch 0.35s ease-out;
+  -o-animation: calendar-title-switch 0.35s ease-out;
+  -ms-animation: calendar-title-switch 0.35s ease-out;
+}
+.widget.calendar-widget .time-current.tick {
+  text-shadow: 0 6px 20px rgba(46,50,56,0.18);
+}
 html[color-scheme="dark"] .widget.calendar-widget,
 [color-scheme="dark"] .widget.calendar-widget {
-  --calendar-bg: linear-gradient(145deg, rgba(22,22,22,0.96), rgba(16,16,16,0.92));
-  --calendar-surface: rgba(255,255,255,0.06);
-  --calendar-ink: #e7e9ec;
-  --calendar-ink-muted: #b1b6bd;
-  --calendar-ink-soft: #7b8086;
-  --calendar-line: rgba(255,255,255,0.1);
-  --calendar-highlight: rgba(255,255,255,0.07);
-  --calendar-accent: #c3c7cc;
-  --calendar-accent-strong: #e2e6ea;
-  --calendar-selected: linear-gradient(135deg, #535c64, #6d7780);
-  --calendar-selected-shadow: 0 6px 16px rgba(0,0,0,0.45);
-  --calendar-card-shadow: 0 14px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.06);
+  --calendar-ambient: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.18), rgba(255,255,255,0));
+  --calendar-bg: linear-gradient(145deg, rgba(30,30,32,0.96), rgba(22,22,24,0.92));
+  --calendar-surface: rgba(255,255,255,0.08);
+  --calendar-ink: #f2f4f6;
+  --calendar-ink-muted: #c7cbd1;
+  --calendar-ink-soft: #8f959c;
+  --calendar-line: rgba(255,255,255,0.12);
+  --calendar-highlight: rgba(255,255,255,0.09);
+  --calendar-accent: #d4d8de;
+  --calendar-accent-strong: #f0f2f4;
+  --calendar-selected: linear-gradient(135deg, #6a7480, #8a94a0);
+  --calendar-selected-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  --calendar-card-shadow: 0 18px 36px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
 }
 @-moz-keyframes fade-in {
   from {
@@ -8613,6 +8739,102 @@ html[color-scheme="dark"] .widget.calendar-widget,
     -ms-transform: scale(1);
   }
 }
+@-moz-keyframes calendar-slide {
+  from {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    -webkit-transform: translateY(10px) scale(0.98);
+    -khtml-transform: translateY(10px) scale(0.98);
+    -moz-transform: translateY(10px) scale(0.98);
+    -o-transform: translateY(10px) scale(0.98);
+    -ms-transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+    transform: translateY(0) scale(1);
+    -webkit-transform: translateY(0) scale(1);
+    -khtml-transform: translateY(0) scale(1);
+    -moz-transform: translateY(0) scale(1);
+    -o-transform: translateY(0) scale(1);
+    -ms-transform: translateY(0) scale(1);
+  }
+}
+@-webkit-keyframes calendar-slide {
+  from {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    -webkit-transform: translateY(10px) scale(0.98);
+    -khtml-transform: translateY(10px) scale(0.98);
+    -moz-transform: translateY(10px) scale(0.98);
+    -o-transform: translateY(10px) scale(0.98);
+    -ms-transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+    transform: translateY(0) scale(1);
+    -webkit-transform: translateY(0) scale(1);
+    -khtml-transform: translateY(0) scale(1);
+    -moz-transform: translateY(0) scale(1);
+    -o-transform: translateY(0) scale(1);
+    -ms-transform: translateY(0) scale(1);
+  }
+}
+@-o-keyframes calendar-slide {
+  from {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    -webkit-transform: translateY(10px) scale(0.98);
+    -khtml-transform: translateY(10px) scale(0.98);
+    -moz-transform: translateY(10px) scale(0.98);
+    -o-transform: translateY(10px) scale(0.98);
+    -ms-transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+    transform: translateY(0) scale(1);
+    -webkit-transform: translateY(0) scale(1);
+    -khtml-transform: translateY(0) scale(1);
+    -moz-transform: translateY(0) scale(1);
+    -o-transform: translateY(0) scale(1);
+    -ms-transform: translateY(0) scale(1);
+  }
+}
+@keyframes calendar-slide {
+  from {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    -webkit-transform: translateY(10px) scale(0.98);
+    -khtml-transform: translateY(10px) scale(0.98);
+    -moz-transform: translateY(10px) scale(0.98);
+    -o-transform: translateY(10px) scale(0.98);
+    -ms-transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+    transform: translateY(0) scale(1);
+    -webkit-transform: translateY(0) scale(1);
+    -khtml-transform: translateY(0) scale(1);
+    -moz-transform: translateY(0) scale(1);
+    -o-transform: translateY(0) scale(1);
+    -ms-transform: translateY(0) scale(1);
+  }
+}
 @-moz-keyframes calendar-shift {
   from {
     opacity: 0;
@@ -8849,6 +9071,122 @@ html[color-scheme="dark"] .widget.calendar-widget,
     -ms-transform: scale(1.1);
   }
 }
+@-moz-keyframes calendar-ring {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -khtml-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -o-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+  }
+  40% {
+    opacity: 0.65;
+    -webkit-opacity: 0.65;
+    -moz-opacity: 0.65;
+  }
+  100% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    transform: scale(1.25);
+    -webkit-transform: scale(1.25);
+    -khtml-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -o-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+  }
+}
+@-webkit-keyframes calendar-ring {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -khtml-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -o-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+  }
+  40% {
+    opacity: 0.65;
+    -webkit-opacity: 0.65;
+    -moz-opacity: 0.65;
+  }
+  100% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    transform: scale(1.25);
+    -webkit-transform: scale(1.25);
+    -khtml-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -o-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+  }
+}
+@-o-keyframes calendar-ring {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -khtml-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -o-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+  }
+  40% {
+    opacity: 0.65;
+    -webkit-opacity: 0.65;
+    -moz-opacity: 0.65;
+  }
+  100% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    transform: scale(1.25);
+    -webkit-transform: scale(1.25);
+    -khtml-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -o-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+  }
+}
+@keyframes calendar-ring {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+    -khtml-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -o-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+  }
+  40% {
+    opacity: 0.65;
+    -webkit-opacity: 0.65;
+    -moz-opacity: 0.65;
+  }
+  100% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    transform: scale(1.25);
+    -webkit-transform: scale(1.25);
+    -khtml-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -o-transform: scale(1.25);
+    -ms-transform: scale(1.25);
+  }
+}
 @-moz-keyframes time-tick {
   0% {
     transform: scale(1);
@@ -8951,5 +9289,241 @@ html[color-scheme="dark"] .widget.calendar-widget,
     -moz-transform: scale(1);
     -o-transform: scale(1);
     -ms-transform: scale(1);
+  }
+}
+@-moz-keyframes calendar-title-switch {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    transform: translateY(-6px);
+    -webkit-transform: translateY(-6px);
+    -khtml-transform: translateY(-6px);
+    -moz-transform: translateY(-6px);
+    -o-transform: translateY(-6px);
+    -ms-transform: translateY(-6px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -khtml-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    -ms-transform: translateY(0);
+  }
+}
+@-webkit-keyframes calendar-title-switch {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    transform: translateY(-6px);
+    -webkit-transform: translateY(-6px);
+    -khtml-transform: translateY(-6px);
+    -moz-transform: translateY(-6px);
+    -o-transform: translateY(-6px);
+    -ms-transform: translateY(-6px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -khtml-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    -ms-transform: translateY(0);
+  }
+}
+@-o-keyframes calendar-title-switch {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    transform: translateY(-6px);
+    -webkit-transform: translateY(-6px);
+    -khtml-transform: translateY(-6px);
+    -moz-transform: translateY(-6px);
+    -o-transform: translateY(-6px);
+    -ms-transform: translateY(-6px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -khtml-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    -ms-transform: translateY(0);
+  }
+}
+@keyframes calendar-title-switch {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    transform: translateY(-6px);
+    -webkit-transform: translateY(-6px);
+    -khtml-transform: translateY(-6px);
+    -moz-transform: translateY(-6px);
+    -o-transform: translateY(-6px);
+    -ms-transform: translateY(-6px);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -khtml-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    -ms-transform: translateY(0);
+  }
+}
+@-moz-keyframes calendar-ambient {
+  0% {
+    opacity: 0.35;
+    -webkit-opacity: 0.35;
+    -moz-opacity: 0.35;
+    transform: translate3d(-8%, -6%, 0);
+    -webkit-transform: translate3d(-8%, -6%, 0);
+    -khtml-transform: translate3d(-8%, -6%, 0);
+    -moz-transform: translate3d(-8%, -6%, 0);
+    -o-transform: translate3d(-8%, -6%, 0);
+    -ms-transform: translate3d(-8%, -6%, 0);
+  }
+  50% {
+    opacity: 0.55;
+    -webkit-opacity: 0.55;
+    -moz-opacity: 0.55;
+    transform: translate3d(6%, 8%, 0);
+    -webkit-transform: translate3d(6%, 8%, 0);
+    -khtml-transform: translate3d(6%, 8%, 0);
+    -moz-transform: translate3d(6%, 8%, 0);
+    -o-transform: translate3d(6%, 8%, 0);
+    -ms-transform: translate3d(6%, 8%, 0);
+  }
+  100% {
+    opacity: 0.35;
+    -webkit-opacity: 0.35;
+    -moz-opacity: 0.35;
+    transform: translate3d(-8%, -6%, 0);
+    -webkit-transform: translate3d(-8%, -6%, 0);
+    -khtml-transform: translate3d(-8%, -6%, 0);
+    -moz-transform: translate3d(-8%, -6%, 0);
+    -o-transform: translate3d(-8%, -6%, 0);
+    -ms-transform: translate3d(-8%, -6%, 0);
+  }
+}
+@-webkit-keyframes calendar-ambient {
+  0% {
+    opacity: 0.35;
+    -webkit-opacity: 0.35;
+    -moz-opacity: 0.35;
+    transform: translate3d(-8%, -6%, 0);
+    -webkit-transform: translate3d(-8%, -6%, 0);
+    -khtml-transform: translate3d(-8%, -6%, 0);
+    -moz-transform: translate3d(-8%, -6%, 0);
+    -o-transform: translate3d(-8%, -6%, 0);
+    -ms-transform: translate3d(-8%, -6%, 0);
+  }
+  50% {
+    opacity: 0.55;
+    -webkit-opacity: 0.55;
+    -moz-opacity: 0.55;
+    transform: translate3d(6%, 8%, 0);
+    -webkit-transform: translate3d(6%, 8%, 0);
+    -khtml-transform: translate3d(6%, 8%, 0);
+    -moz-transform: translate3d(6%, 8%, 0);
+    -o-transform: translate3d(6%, 8%, 0);
+    -ms-transform: translate3d(6%, 8%, 0);
+  }
+  100% {
+    opacity: 0.35;
+    -webkit-opacity: 0.35;
+    -moz-opacity: 0.35;
+    transform: translate3d(-8%, -6%, 0);
+    -webkit-transform: translate3d(-8%, -6%, 0);
+    -khtml-transform: translate3d(-8%, -6%, 0);
+    -moz-transform: translate3d(-8%, -6%, 0);
+    -o-transform: translate3d(-8%, -6%, 0);
+    -ms-transform: translate3d(-8%, -6%, 0);
+  }
+}
+@-o-keyframes calendar-ambient {
+  0% {
+    opacity: 0.35;
+    -webkit-opacity: 0.35;
+    -moz-opacity: 0.35;
+    transform: translate3d(-8%, -6%, 0);
+    -webkit-transform: translate3d(-8%, -6%, 0);
+    -khtml-transform: translate3d(-8%, -6%, 0);
+    -moz-transform: translate3d(-8%, -6%, 0);
+    -o-transform: translate3d(-8%, -6%, 0);
+    -ms-transform: translate3d(-8%, -6%, 0);
+  }
+  50% {
+    opacity: 0.55;
+    -webkit-opacity: 0.55;
+    -moz-opacity: 0.55;
+    transform: translate3d(6%, 8%, 0);
+    -webkit-transform: translate3d(6%, 8%, 0);
+    -khtml-transform: translate3d(6%, 8%, 0);
+    -moz-transform: translate3d(6%, 8%, 0);
+    -o-transform: translate3d(6%, 8%, 0);
+    -ms-transform: translate3d(6%, 8%, 0);
+  }
+  100% {
+    opacity: 0.35;
+    -webkit-opacity: 0.35;
+    -moz-opacity: 0.35;
+    transform: translate3d(-8%, -6%, 0);
+    -webkit-transform: translate3d(-8%, -6%, 0);
+    -khtml-transform: translate3d(-8%, -6%, 0);
+    -moz-transform: translate3d(-8%, -6%, 0);
+    -o-transform: translate3d(-8%, -6%, 0);
+    -ms-transform: translate3d(-8%, -6%, 0);
+  }
+}
+@keyframes calendar-ambient {
+  0% {
+    opacity: 0.35;
+    -webkit-opacity: 0.35;
+    -moz-opacity: 0.35;
+    transform: translate3d(-8%, -6%, 0);
+    -webkit-transform: translate3d(-8%, -6%, 0);
+    -khtml-transform: translate3d(-8%, -6%, 0);
+    -moz-transform: translate3d(-8%, -6%, 0);
+    -o-transform: translate3d(-8%, -6%, 0);
+    -ms-transform: translate3d(-8%, -6%, 0);
+  }
+  50% {
+    opacity: 0.55;
+    -webkit-opacity: 0.55;
+    -moz-opacity: 0.55;
+    transform: translate3d(6%, 8%, 0);
+    -webkit-transform: translate3d(6%, 8%, 0);
+    -khtml-transform: translate3d(6%, 8%, 0);
+    -moz-transform: translate3d(6%, 8%, 0);
+    -o-transform: translate3d(6%, 8%, 0);
+    -ms-transform: translate3d(6%, 8%, 0);
+  }
+  100% {
+    opacity: 0.35;
+    -webkit-opacity: 0.35;
+    -moz-opacity: 0.35;
+    transform: translate3d(-8%, -6%, 0);
+    -webkit-transform: translate3d(-8%, -6%, 0);
+    -khtml-transform: translate3d(-8%, -6%, 0);
+    -moz-transform: translate3d(-8%, -6%, 0);
+    -o-transform: translate3d(-8%, -6%, 0);
+    -ms-transform: translate3d(-8%, -6%, 0);
   }
 }
