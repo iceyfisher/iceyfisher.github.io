@@ -7436,6 +7436,14 @@ html[color-scheme="dark"] .loading-pacman {
   -o-animation: pacman-balls 1s 0s infinite linear;
   -ms-animation: pacman-balls 1s 0s infinite linear;
 }
+@media screen and (min-width: 901px) {
+  .l_main {
+    width: calc(100% - 320px) !important;
+  }
+  .l_side {
+    width: 320px !important;
+  }
+}
 .widget.calendar-widget {
   --calendar-ambient: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.7), rgba(255,255,255,0));
 }
