@@ -1909,7 +1909,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1772365110920),
+    lastupdate: new Date(1774351216371),
     sidebar: {
       for_page: ["blogger","category","tagcloud","webinfo","calendar","lastupdate"],
       for_post: ["toc"],
@@ -2340,44 +2340,43 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <!-- import body_begin end-->
     <!-- Custom Files bodyBegin begin-->
     <div class="loading-pacman">
-  <div class="pacman-wrapper">
-    <div class="load20">
-      <div></div><div></div><div></div><div></div><div></div><div></div>
+  <div class="spin-wrapper">
+    <div class="loading">
+      <i></i><i></i><i></i><i></i>
     </div>
   </div>
 </div>
 
 <script>
 (function() {
-  var pacmanLoader = document.querySelector('.loading-pacman');
-  
-  function showPacman() {
-    if (pacmanLoader) pacmanLoader.style.display = 'block';
+  var loader = document.querySelector('.loading-pacman');
+
+  function showLoader() {
+    if (loader) loader.style.display = 'block';
   }
-  
-  function hidePacman() {
-    if (pacmanLoader) pacmanLoader.style.display = 'none';
+
+  function hideLoader() {
+    if (loader) loader.style.display = 'none';
   }
-  
-  window.ShowLoading = showPacman;
-  window.HideLoading = hidePacman;
-  
+
+  window.ShowLoading = showLoader;
+  window.HideLoading = hideLoader;
+
   if (typeof volantis !== 'undefined' && volantis.pjax) {
-    volantis.pjax.push(hidePacman, 'HidePacman');
-    volantis.pjax.send(showPacman, 'ShowPacman');
-    volantis.pjax.error(hidePacman, 'HidePacman');
+    volantis.pjax.push(hideLoader, 'HideSpin');
+    volantis.pjax.send(showLoader, 'ShowSpin');
+    volantis.pjax.error(hideLoader, 'HideSpin');
   }
-  
-  document.addEventListener('pjax:send', showPacman);
-  document.addEventListener('pjax:complete', hidePacman);
-  document.addEventListener('pjax:error', hidePacman);
-  
+
+  document.addEventListener('pjax:send', showLoader);
+  document.addEventListener('pjax:complete', hideLoader);
+  document.addEventListener('pjax:error', hideLoader);
+
   document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(hidePacman, 100);
+    setTimeout(hideLoader, 100);
   });
 })();
 </script>
-
     <!-- Custom Files bodyBegin end-->
     <!-- front-matter body_begin begin -->
     <!-- front-matter body_begin end -->
@@ -2918,7 +2917,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>最后活动时间：</div>
-          <div id="last-update-show">2026-03-01 日</div>
+          <div id="last-update-show">2026-03-24 日</div>
         </div>
       
     </div>
