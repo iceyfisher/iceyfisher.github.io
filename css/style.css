@@ -7005,185 +7005,6 @@ a.result.search-result-fix,
 .cur-text {
   cursor: url("https://pic1.imgdb.cn/item/68cd5990c5157e1a881d4a0a.png"), text !important;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-mode: 'dark';
-  }
-  :root:not([color-scheme]) {
-    --block-hover: #1c1c1c;
-    --text-p1: #fff;
-    --text-p3: #777;
-    --card: #fff;
-  }
-  :root:not([color-scheme]) fa-solid,
-  :root:not([color-scheme]) fa-regular,
-  :root:not([color-scheme]) fa-duotone,
-  :root:not([color-scheme]) fa-light,
-  :root:not([color-scheme]) fa-thin,
-  :root:not([color-scheme]) fal,
-  :root:not([color-scheme]) fad,
-  :root:not([color-scheme]) fa,
-  :root:not([color-scheme]) svg.iconfont,
-  :root:not([color-scheme]) img,
-  :root:not([color-scheme]) .lazyload {
-    filter: brightness(70%) !important;
-  }
-  :root:not([color-scheme]) .widget.blogger .content .social-wrapper a.social:hover {
-    background: var(--color-card);
-  }
-  :root:not([color-scheme]) .widget >.content ul.entry a .badge,
-  :root:not([color-scheme]) .widget >.content ul.popular-posts a .badge {
-    color: unset !important;
-  }
-  :root:not([color-scheme]) .content {
-    color: var(--color-p);
-  }
-  :root:not([color-scheme]) .widget >.content a {
-    color: var(--color-p) !important;
-  }
-  :root:not([color-scheme]) .widget >.content a:hover {
-    color: var(--color-list-hl) !important;
-  }
-  :root:not([color-scheme]) .note {
-    background: var(--color-block) !important;
-  }
-  :root:not([color-scheme]) div.tabs ul.nav-tabs li.tab.active a {
-    color: var(--color-p);
-    background: var(--color-card);
-  }
-  :root:not([color-scheme]) kbd {
-    background: var(--color-block) !important;
-  }
-  :root:not([color-scheme]) .cover-wrapper.dock .menu .list-h a:hover,
-  :root:not([color-scheme]) .cover-wrapper.featured .menu .list-h a:hover,
-  :root:not([color-scheme]) .cover-wrapper.focus .menu .list-h a:hover {
-    color: var(--color-text) !important;
-  }
-  :root:not([color-scheme]) .gutter {
-    background: var(--color-card) !important;
-    background-color: var(--color-card) !important;
-  }
-  :root:not([color-scheme]) .highlight figcaption {
-    background-color: #14161a;
-  }
-  :root:not([color-scheme]) .highlight pre .line,
-  :root:not([color-scheme]) .highlight pre .params {
-    color: rgba(158,142,142,0.9);
-  }
-  :root:not([color-scheme]) *:not(.highlight) >table tr {
-    background-color: var(--color-card);
-  }
-  :root:not([color-scheme]) *:not(.highlight) >table th {
-    background: var(--color-site-bg);
-  }
-  :root:not([color-scheme]) *:not(.highlight) table td,
-  :root:not([color-scheme]) *:not(.highlight) table th {
-    border-color: var(--color-site-bg);
-  }
-  :root:not([color-scheme]) *:not(.highlight) >table tr:hover {
-    background: var(--color-codeblock);
-  }
-  :root:not([color-scheme]) .timenode .highlight {
-    border-color: var(--color-site-bg) !important;
-  }
-  :root:not([color-scheme]) blockquote p {
-    color: var(--color-p);
-  }
-  :root:not([color-scheme]) #archive-page .archive .all-tags ul li span {
-    color: var(--color-text);
-    background: #6f6f72;
-  }
-  :root:not([color-scheme]) .btn-copy:hover {
-    background: var(--color-site-body);
-  }
-}
-[color-scheme='dark'] {
-  --block-hover: #1c1c1c;
-  --text-p1: #fff;
-  --text-p3: #777;
-  --card: #fff;
-}
-[color-scheme='dark'] fa-solid,
-[color-scheme='dark'] fa-regular,
-[color-scheme='dark'] fa-duotone,
-[color-scheme='dark'] fa-light,
-[color-scheme='dark'] fa-thin,
-[color-scheme='dark'] fal,
-[color-scheme='dark'] fad,
-[color-scheme='dark'] fa,
-[color-scheme='dark'] svg.iconfont,
-[color-scheme='dark'] img,
-[color-scheme='dark'] .lazyload {
-  filter: brightness(70%) !important;
-}
-[color-scheme='dark'] .widget.blogger .content .social-wrapper a.social:hover {
-  background: var(--color-card);
-}
-[color-scheme='dark'] .widget >.content ul.entry a .badge,
-[color-scheme='dark'] .widget >.content ul.popular-posts a .badge {
-  color: unset !important;
-}
-[color-scheme='dark'] .content {
-  color: var(--color-p);
-}
-[color-scheme='dark'] .widget >.content a {
-  color: var(--color-p) !important;
-}
-[color-scheme='dark'] .widget >.content a:hover {
-  color: var(--color-list-hl) !important;
-}
-[color-scheme='dark'] .note {
-  background: var(--color-block) !important;
-}
-[color-scheme='dark'] div.tabs ul.nav-tabs li.tab.active a {
-  color: var(--color-p);
-  background: var(--color-card);
-}
-[color-scheme='dark'] kbd {
-  background: var(--color-block) !important;
-}
-[color-scheme='dark'] .cover-wrapper.dock .menu .list-h a:hover,
-[color-scheme='dark'] .cover-wrapper.featured .menu .list-h a:hover,
-[color-scheme='dark'] .cover-wrapper.focus .menu .list-h a:hover {
-  color: var(--color-text) !important;
-}
-[color-scheme='dark'] .gutter {
-  background: var(--color-card) !important;
-  background-color: var(--color-card) !important;
-}
-[color-scheme='dark'] .highlight figcaption {
-  background-color: #14161a;
-}
-[color-scheme='dark'] .highlight pre .line,
-[color-scheme='dark'] .highlight pre .params {
-  color: rgba(158,142,142,0.9);
-}
-[color-scheme='dark'] *:not(.highlight) >table tr {
-  background-color: var(--color-card);
-}
-[color-scheme='dark'] *:not(.highlight) >table th {
-  background: var(--color-site-bg);
-}
-[color-scheme='dark'] *:not(.highlight) table td,
-[color-scheme='dark'] *:not(.highlight) table th {
-  border-color: var(--color-site-bg);
-}
-[color-scheme='dark'] *:not(.highlight) >table tr:hover {
-  background: var(--color-codeblock);
-}
-[color-scheme='dark'] .timenode .highlight {
-  border-color: var(--color-site-bg) !important;
-}
-[color-scheme='dark'] blockquote p {
-  color: var(--color-p);
-}
-[color-scheme='dark'] #archive-page .archive .all-tags ul li span {
-  color: var(--color-text);
-  background: #6f6f72;
-}
-[color-scheme='dark'] .btn-copy:hover {
-  background: var(--color-site-body);
-}
 /* 此处调节字体大小
 .top .title font{
     font-size: 1em;
@@ -8166,6 +7987,196 @@ html[color-scheme="dark"] .widget.calendar-widget,
   --calendar-selected: linear-gradient(135deg, #6a7480, #8a94a0);
   --calendar-selected-shadow: 0 10px 20px rgba(0,0,0,0.5);
   --calendar-card-shadow: 0 18px 36px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+.widget.text:has(#minimal-analog-clock) {
+  background: #fff !important;
+}
+#minimal-analog-clock.minimal-analog-clock {
+  --clock-face: #e8edf1;
+  --clock-ring: rgba(122,142,158,0.25);
+  --clock-tick: rgba(116,136,152,0.34);
+  --clock-hour: #66798a;
+  --clock-minute: #788b9a;
+  --clock-second: #8178a8;
+  --clock-shadow-light: rgba(255,255,255,0.68);
+  --clock-shadow-dark: rgba(112,132,148,0.2);
+  --clock-tooltip-bg: rgba(255,255,255,0.92);
+  --clock-tooltip-ink: #5e6f7d;
+  --clock-tooltip-shadow: rgba(80,98,112,0.18);
+  width: clamp(156px, 78%, 184px);
+  max-width: calc(100% - 24px);
+  aspect-ratio: 1;
+  margin: 0 auto;
+}
+#minimal-analog-clock .minimal-analog-clock__dial {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  background: var(--clock-face);
+  box-shadow: -7px -7px 15px var(--clock-shadow-light), 8px 8px 17px var(--clock-shadow-dark), inset 1px 1px 2px rgba(255,255,255,0.42), inset -1px -1px 2px rgba(102,122,138,0.1);
+  -webkit-box-shadow: -7px -7px 15px var(--clock-shadow-light), 8px 8px 17px var(--clock-shadow-dark), inset 1px 1px 2px rgba(255,255,255,0.42), inset -1px -1px 2px rgba(102,122,138,0.1);
+}
+#minimal-analog-clock .minimal-analog-clock__svg {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+#minimal-analog-clock .minimal-analog-clock__inner-ring {
+  fill: none;
+  stroke: var(--clock-ring);
+  stroke-width: 1.2;
+}
+#minimal-analog-clock .minimal-analog-clock__ticks line {
+  stroke: var(--clock-tick);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+#minimal-analog-clock .minimal-analog-clock__rotor {
+  cursor: pointer;
+}
+#minimal-analog-clock .minimal-analog-clock__rotor--hour {
+  color: var(--clock-hour);
+  --clock-hand-width: 7;
+  --clock-hand-hover-width: 8.2;
+}
+#minimal-analog-clock .minimal-analog-clock__rotor--minute {
+  color: var(--clock-minute);
+  --clock-hand-width: 4.5;
+  --clock-hand-hover-width: 5.4;
+}
+#minimal-analog-clock .minimal-analog-clock__rotor--second {
+  color: var(--clock-second);
+  --clock-hand-width: 2.2;
+  --clock-hand-hover-width: 3;
+}
+#minimal-analog-clock .minimal-analog-clock__hand-group {
+  transform-box: view-box;
+  transform-origin: 100px 100px;
+  -webkit-transform-origin: 100px 100px;
+  -khtml-transform-origin: 100px 100px;
+  -moz-transform-origin: 100px 100px;
+  -o-transform-origin: 100px 100px;
+  -ms-transform-origin: 100px 100px;
+  transition: transform 180ms ease;
+  -webkit-transition: transform 180ms ease;
+  -khtml-transition: transform 180ms ease;
+  -moz-transition: transform 180ms ease;
+  -o-transition: transform 180ms ease;
+  -ms-transition: transform 180ms ease;
+}
+#minimal-analog-clock .clock-hand {
+  stroke: currentColor;
+  stroke-width: var(--clock-hand-width);
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+  transition: stroke-width 180ms ease, opacity 180ms ease, filter 180ms ease;
+  -webkit-transition: stroke-width 180ms ease, opacity 180ms ease, filter 180ms ease;
+  -khtml-transition: stroke-width 180ms ease, opacity 180ms ease, filter 180ms ease;
+  -moz-transition: stroke-width 180ms ease, opacity 180ms ease, filter 180ms ease;
+  -o-transition: stroke-width 180ms ease, opacity 180ms ease, filter 180ms ease;
+  -ms-transition: stroke-width 180ms ease, opacity 180ms ease, filter 180ms ease;
+}
+#minimal-analog-clock .minimal-analog-clock__rotor--second .clock-hand {
+  stroke: var(--clock-second);
+}
+#minimal-analog-clock .minimal-analog-clock__hit-area {
+  stroke: transparent;
+  stroke-width: 18;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: stroke;
+}
+#minimal-analog-clock .minimal-analog-clock__rotor:hover .minimal-analog-clock__hand-group {
+  transform: scale(1.14);
+  -webkit-transform: scale(1.14);
+  -khtml-transform: scale(1.14);
+  -moz-transform: scale(1.14);
+  -o-transform: scale(1.14);
+  -ms-transform: scale(1.14);
+}
+#minimal-analog-clock .minimal-analog-clock__rotor:hover .clock-hand {
+  stroke-width: var(--clock-hand-hover-width);
+  filter: drop-shadow(0 2px 2px rgba(65,78,90,0.25));
+}
+#minimal-analog-clock:has(.minimal-analog-clock__rotor:hover) .minimal-analog-clock__rotor:not(:hover) .clock-hand {
+  opacity: 0.5;
+  -webkit-opacity: 0.5;
+  -moz-opacity: 0.5;
+}
+#minimal-analog-clock .minimal-analog-clock__tooltip {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  z-index: 2;
+  min-width: 42px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  -webkit-border-radius: 999px;
+  background: var(--clock-tooltip-bg);
+  box-shadow: 0 4px 10px var(--clock-tooltip-shadow);
+  -webkit-box-shadow: 0 4px 10px var(--clock-tooltip-shadow);
+  color: var(--clock-tooltip-ink);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  transform: translate(-50%, 4px);
+  -webkit-transform: translate(-50%, 4px);
+  -khtml-transform: translate(-50%, 4px);
+  -moz-transform: translate(-50%, 4px);
+  -o-transform: translate(-50%, 4px);
+  -ms-transform: translate(-50%, 4px);
+  transition: opacity 160ms ease, transform 160ms ease;
+  -webkit-transition: opacity 160ms ease, transform 160ms ease;
+  -khtml-transition: opacity 160ms ease, transform 160ms ease;
+  -moz-transition: opacity 160ms ease, transform 160ms ease;
+  -o-transition: opacity 160ms ease, transform 160ms ease;
+  -ms-transition: opacity 160ms ease, transform 160ms ease;
+}
+#minimal-analog-clock:has(.minimal-analog-clock__rotor:hover) .minimal-analog-clock__tooltip {
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  transform: translate(-50%, 0);
+  -webkit-transform: translate(-50%, 0);
+  -khtml-transform: translate(-50%, 0);
+  -moz-transform: translate(-50%, 0);
+  -o-transform: translate(-50%, 0);
+  -ms-transform: translate(-50%, 0);
+}
+#minimal-analog-clock:has(.minimal-analog-clock__rotor:hover) .minimal-analog-clock__tooltip::before {
+  content: attr(data-time);
+}
+#minimal-analog-clock .minimal-analog-clock__pin {
+  fill: var(--clock-second);
+  pointer-events: none;
+}
+[color-scheme="dark"] #minimal-analog-clock.minimal-analog-clock {
+  --clock-face: #293139;
+  --clock-ring: rgba(185,199,210,0.2);
+  --clock-tick: rgba(190,204,214,0.3);
+  --clock-hour: #a9bac6;
+  --clock-minute: #8fa4b2;
+  --clock-second: #9b91c2;
+  --clock-shadow-light: rgba(88,103,115,0.16);
+  --clock-shadow-dark: rgba(8,13,18,0.32);
+  --clock-tooltip-bg: rgba(31,39,46,0.92);
+  --clock-tooltip-ink: #d5dde3;
+  --clock-tooltip-shadow: rgba(0,0,0,0.28);
+}
+[color-scheme="dark"] .widget.text:has(#minimal-analog-clock) {
+  background: #20272d !important;
 }
 @-moz-keyframes fade-in {
   from {
