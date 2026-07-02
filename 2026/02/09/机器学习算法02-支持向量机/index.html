@@ -1747,7 +1747,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1782983027622),
+    lastupdate: new Date(1782997834075),
     sidebar: {
       for_page: ["blogger","minimal_analog_clock","category","tagcloud","webinfo","calendar","lastupdate"],
       for_post: ["toc"],
@@ -3947,6 +3947,91 @@ K(x, x') = \left(x^{\top} x^{\prime}\right)^{n}=\sum_{|\alpha|=n} \frac{n!}{\alp
   mount();
 })();
 </script>
+<script src="https://unpkg.com/smiles-drawer@2.4.1/dist/smiles-drawer.min.js"></script>
+<script>
+(function() {
+  var controllerKey = '__chemStructureRenderer';
+  var existingController = window[controllerKey];
+
+  if (existingController && typeof existingController.render === 'function') {
+    existingController.render();
+    return;
+  }
+
+  var canvasSequence = 0;
+
+  function renderChemStructures() {
+    if (!window.SmilesDrawer) return;
+
+    var structures = document.querySelectorAll(
+      '.chem-structure[data-smiles]:not([data-rendered="true"])'
+    );
+
+    structures.forEach(function(container) {
+      var smiles = container.dataset.smiles;
+      if (!smiles) return;
+
+      var width = Number(container.dataset.width) || 360;
+      var height = Number(container.dataset.height) || 240;
+      var canvasId = 'chem-canvas-' + (++canvasSequence);
+
+      var canvas = document.createElement('canvas');
+      canvas.id = canvasId;
+      canvas.width = width;
+      canvas.height = height;
+      canvas.setAttribute('role', 'img');
+      canvas.setAttribute('aria-label', 'SMILES 结构式：' + smiles);
+
+      container.innerHTML = '';
+      container.appendChild(canvas);
+
+      var isDark = document.documentElement.getAttribute('color-scheme') === 'dark';
+      var theme = isDark ? 'dark' : 'light';
+
+      var drawer = new SmilesDrawer.Drawer({
+        width: width,
+        height: height,
+        padding: 18,
+        bondLength: 30,
+        bondThickness: 1.2,
+        fontSizeLarge: 13,
+        compactDrawing: true
+      });
+
+      SmilesDrawer.parse(
+        smiles,
+        function(tree) {
+          drawer.draw(tree, canvasId, theme, false);
+          container.dataset.rendered = 'true';
+        },
+        function(error) {
+          console.error('SMILES 渲染失败：', smiles, error);
+          container.textContent = '结构式渲染失败：' + smiles;
+          container.dataset.rendered = 'true';
+          container.classList.add('chem-structure--error');
+        }
+      );
+    });
+  }
+
+  var controller = {
+    render: renderChemStructures
+  };
+
+  window[controllerKey] = controller;
+  window.renderChemStructures = renderChemStructures;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderChemStructures, { once: true });
+  } else {
+    renderChemStructures();
+  }
+
+  document.addEventListener('pjax:complete', renderChemStructures);
+})();
+</script>
+<script src="https://unpkg.com/3dmol@2.5.5/build/3Dmol-min.js"></script>
+<script src="/js/molecule3d.js"></script>
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
     <!-- Custom Files bodyEnd end-->

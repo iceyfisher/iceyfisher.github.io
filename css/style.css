@@ -8178,6 +8178,228 @@ html[color-scheme="dark"] .widget.calendar-widget,
 [color-scheme="dark"] .widget.text:has(#minimal-analog-clock) {
   background: #20272d !important;
 }
+.chem-structure {
+  max-width: 100%;
+  margin: 1rem auto;
+  overflow-x: auto;
+  text-align: center;
+}
+.chem-structure canvas {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+.chem-structure--error {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  background: rgba(180,55,55,0.08);
+  color: #a33434;
+}
+.molecule3d {
+  --molecule3d-bg: #f5f7fa;
+  --molecule3d-border: rgba(95,112,128,0.16);
+  --molecule3d-ink: #344250;
+  --molecule3d-muted: #678;
+  --molecule3d-control: rgba(255,255,255,0.88);
+  --molecule3d-control-hover: #fff;
+  --molecule3d-active: #5d7690;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  max-width: 100%;
+  margin: 1.25rem auto;
+  overflow: hidden;
+  border: 1px solid var(--molecule3d-border);
+  border-radius: 14px;
+  -webkit-border-radius: 14px;
+  background: var(--molecule3d-bg);
+  box-shadow: 0 10px 28px rgba(70,88,104,0.12);
+  -webkit-box-shadow: 0 10px 28px rgba(70,88,104,0.12);
+  color: var(--molecule3d-ink);
+}
+.molecule3d__canvas {
+  width: 100%;
+  height: var(--molecule3d-height, 360px);
+  min-height: 220px;
+  touch-action: none;
+}
+.molecule3d__canvas canvas {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+.molecule3d__toolbar {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 3;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -khtml-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -o-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  justify-content: flex-end;
+  -webkit-justify-content: flex-end;
+  -khtml-justify-content: flex-end;
+  -moz-justify-content: flex-end;
+  -o-justify-content: flex-end;
+  -ms-justify-content: flex-end;
+  gap: 5px;
+  max-width: calc(100% - 24px);
+}
+.molecule3d__button {
+  appearance: none;
+  min-height: 28px;
+  padding: 4px 8px;
+  border: 1px solid var(--molecule3d-border);
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  background: var(--molecule3d-control);
+  box-shadow: 0 3px 9px rgba(48,64,78,0.1);
+  -webkit-box-shadow: 0 3px 9px rgba(48,64,78,0.1);
+  color: var(--molecule3d-ink);
+  font: inherit;
+  font-size: 11px;
+  line-height: 1.2;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+  -webkit-transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+  -khtml-transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+  -moz-transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+  -o-transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+  -ms-transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+.molecule3d__button:hover:not(:disabled) {
+  background: var(--molecule3d-control-hover);
+  transform: translateY(-1px);
+  -webkit-transform: translateY(-1px);
+  -khtml-transform: translateY(-1px);
+  -moz-transform: translateY(-1px);
+  -o-transform: translateY(-1px);
+  -ms-transform: translateY(-1px);
+}
+.molecule3d__button:focus-visible {
+  outline: 2px solid var(--molecule3d-active);
+  outline-offset: 2px;
+}
+.molecule3d__button.is-active {
+  border-color: var(--molecule3d-active);
+  background: var(--molecule3d-active);
+  color: #fff;
+}
+.molecule3d__button:disabled {
+  cursor: wait;
+  opacity: 0.5;
+  -webkit-opacity: 0.5;
+  -moz-opacity: 0.5;
+}
+.molecule3d__status {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  color: var(--molecule3d-muted);
+  font-size: 14px;
+  text-align: center;
+  pointer-events: none;
+}
+.molecule3d__title {
+  padding: 9px 14px 11px;
+  border-top: 1px solid var(--molecule3d-border);
+  color: var(--molecule3d-ink);
+  font-size: 13px;
+  font-weight: 600;
+}
+.molecule3d--ready .molecule3d__status {
+  opacity: 0;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+}
+.molecule3d--error .molecule3d__canvas {
+  opacity: 0.18;
+  -webkit-opacity: 0.18;
+  -moz-opacity: 0.18;
+}
+.molecule3d--error .molecule3d__toolbar {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+}
+.molecule3d--error .molecule3d__status {
+  color: #a33434;
+}
+[color-scheme="dark"] .molecule3d {
+  --molecule3d-bg: #18212b;
+  --molecule3d-border: rgba(210,221,230,0.14);
+  --molecule3d-ink: #dbe3e9;
+  --molecule3d-muted: #a9b6c0;
+  --molecule3d-control: rgba(29,40,51,0.86);
+  --molecule3d-control-hover: rgba(45,59,72,0.96);
+  --molecule3d-active: #829cb5;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.32);
+  -webkit-box-shadow: 0 12px 30px rgba(0,0,0,0.32);
+}
+.molecule3d:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+}
+.molecule3d:fullscreen .molecule3d__canvas {
+  height: calc(100vh - 42px);
+}
+@media screen and (max-width: 767px) {
+  .molecule3d {
+    margin: 1rem auto;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+  }
+  .molecule3d__canvas {
+    height: 280px;
+    min-height: 240px;
+  }
+  .molecule3d__toolbar {
+    top: 8px;
+    right: 8px;
+    gap: 4px;
+    max-width: calc(100% - 16px);
+  }
+  .molecule3d__button {
+    min-height: 26px;
+    padding: 3px 6px;
+    font-size: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .molecule3d__button {
+    transition: none;
+    -webkit-transition: none;
+    -khtml-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    -ms-transition: none;
+  }
+}
 @-moz-keyframes fade-in {
   from {
     opacity: 0;
