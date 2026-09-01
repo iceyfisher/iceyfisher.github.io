@@ -7992,191 +7992,135 @@ html[color-scheme="dark"] .widget.calendar-widget,
   background: #fff !important;
 }
 #minimal-analog-clock.minimal-analog-clock {
-  --clock-face: #e8edf1;
-  --clock-ring: rgba(122,142,158,0.25);
-  --clock-tick: rgba(116,136,152,0.34);
-  --clock-hour: #66798a;
-  --clock-minute: #788b9a;
-  --clock-second: #8178a8;
-  --clock-shadow-light: rgba(255,255,255,0.68);
-  --clock-shadow-dark: rgba(112,132,148,0.2);
-  --clock-tooltip-bg: rgba(255,255,255,0.92);
-  --clock-tooltip-ink: #5e6f7d;
-  --clock-tooltip-shadow: rgba(80,98,112,0.18);
-  width: clamp(156px, 78%, 184px);
-  max-width: calc(100% - 24px);
-  aspect-ratio: 1;
+  --clock-face: #f4f7f9;
+  --clock-line: rgba(122,142,158,0.18);
+  --clock-ink: #5f7282;
+  --clock-muted: #8796a3;
+  --clock-shadow: rgba(91,113,130,0.14);
+  width: 100%;
   margin: 0 auto;
+  text-align: center;
+}
+#minimal-analog-clock .minimal-analog-clock__embed {
+  width: 100%;
+  margin: 0 auto;
+  padding: 8px;
+  overflow: hidden;
+  border: 1px solid var(--clock-line);
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  background: var(--clock-face);
+  box-shadow: 0 8px 20px var(--clock-shadow), inset 0 1px 0 rgba(255,255,255,0.9);
+  -webkit-box-shadow: 0 8px 20px var(--clock-shadow), inset 0 1px 0 rgba(255,255,255,0.9);
 }
 #minimal-analog-clock .minimal-analog-clock__dial {
-  position: relative;
   width: 100%;
-  height: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
   border-radius: 50%;
   -webkit-border-radius: 50%;
-  background: var(--clock-face);
-  box-shadow: -7px -7px 15px var(--clock-shadow-light), 8px 8px 17px var(--clock-shadow-dark), inset 1px 1px 2px rgba(255,255,255,0.42), inset -1px -1px 2px rgba(102,122,138,0.1);
-  -webkit-box-shadow: -7px -7px 15px var(--clock-shadow-light), 8px 8px 17px var(--clock-shadow-dark), inset 1px 1px 2px rgba(255,255,255,0.42), inset -1px -1px 2px rgba(102,122,138,0.1);
+  background: #fff;
 }
 #minimal-analog-clock .minimal-analog-clock__svg {
   display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
   display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
   display: block;
   width: 100%;
-  height: 100%;
-  overflow: visible;
+  height: auto;
 }
-#minimal-analog-clock .minimal-analog-clock__inner-ring {
-  fill: none;
-  stroke: var(--clock-ring);
-  stroke-width: 1.2;
+#minimal-analog-clock .minimal-analog-clock__bezel {
+  fill: #edf2f5;
+  stroke: rgba(103,126,143,0.22);
+  stroke-width: 1.5;
 }
-#minimal-analog-clock .minimal-analog-clock__ticks line {
-  stroke: var(--clock-tick);
-  stroke-width: 1.8;
+#minimal-analog-clock .minimal-analog-clock__face {
+  fill: #fff;
+  stroke: rgba(122,142,158,0.16);
+  stroke-width: 1;
+  filter: drop-shadow(0 4px 8px rgba(91,113,130,0.12));
+}
+#minimal-analog-clock .minimal-analog-clock__marks {
+  stroke: #a9b6c0;
   stroke-linecap: round;
+  stroke-width: 2;
+}
+#minimal-analog-clock .minimal-analog-clock__numerals {
+  fill: #5f7282;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: middle;
 }
 #minimal-analog-clock .minimal-analog-clock__rotor {
-  cursor: pointer;
-}
-#minimal-analog-clock .minimal-analog-clock__rotor--hour {
-  color: var(--clock-hour);
-  --clock-hand-width: 7;
-  --clock-hand-hover-width: 8.2;
+  color: #526675;
+  transform-box: view-box;
+  transform-origin: center;
+  -webkit-transform-origin: center;
+  -khtml-transform-origin: center;
+  -moz-transform-origin: center;
+  -o-transform-origin: center;
+  -ms-transform-origin: center;
+  will-change: transform;
 }
 #minimal-analog-clock .minimal-analog-clock__rotor--minute {
-  color: var(--clock-minute);
-  --clock-hand-width: 4.5;
-  --clock-hand-hover-width: 5.4;
+  color: #677b89;
 }
 #minimal-analog-clock .minimal-analog-clock__rotor--second {
-  color: var(--clock-second);
-  --clock-hand-width: 2.2;
-  --clock-hand-hover-width: 3;
+  color: #c66f62;
 }
-#minimal-analog-clock .minimal-analog-clock__hand-group {
-  transform-box: view-box;
-  transform-origin: 100px 100px;
-  -webkit-transform-origin: 100px 100px;
-  -khtml-transform-origin: 100px 100px;
-  -moz-transform-origin: 100px 100px;
-  -o-transform-origin: 100px 100px;
-  -ms-transform-origin: 100px 100px;
-  transition: transform 180ms ease;
-  -webkit-transition: transform 180ms ease;
-  -khtml-transition: transform 180ms ease;
-  -moz-transition: transform 180ms ease;
-  -o-transition: transform 180ms ease;
-  -ms-transition: transform 180ms ease;
-}
-#minimal-analog-clock .clock-hand {
+#minimal-analog-clock .minimal-analog-clock__hand {
   stroke: currentColor;
-  stroke-width: var(--clock-hand-width);
   stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-  pointer-events: none;
-  transition: stroke-width 180ms ease, opacity 180ms ease, filter 180ms ease;
-  -webkit-transition: stroke-width 180ms ease, opacity 180ms ease, filter 180ms ease;
-  -khtml-transition: stroke-width 180ms ease, opacity 180ms ease, filter 180ms ease;
-  -moz-transition: stroke-width 180ms ease, opacity 180ms ease, filter 180ms ease;
-  -o-transition: stroke-width 180ms ease, opacity 180ms ease, filter 180ms ease;
-  -ms-transition: stroke-width 180ms ease, opacity 180ms ease, filter 180ms ease;
+  stroke-width: 5;
+  filter: drop-shadow(0 2px 2px rgba(62,78,90,0.2));
 }
-#minimal-analog-clock .minimal-analog-clock__rotor--second .clock-hand {
-  stroke: var(--clock-second);
+#minimal-analog-clock .minimal-analog-clock__rotor--minute .minimal-analog-clock__hand {
+  stroke-width: 3.5;
 }
-#minimal-analog-clock .minimal-analog-clock__hit-area {
-  stroke: transparent;
-  stroke-width: 18;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-  pointer-events: stroke;
-}
-#minimal-analog-clock .minimal-analog-clock__rotor:hover .minimal-analog-clock__hand-group {
-  transform: scale(1.14);
-  -webkit-transform: scale(1.14);
-  -khtml-transform: scale(1.14);
-  -moz-transform: scale(1.14);
-  -o-transform: scale(1.14);
-  -ms-transform: scale(1.14);
-}
-#minimal-analog-clock .minimal-analog-clock__rotor:hover .clock-hand {
-  stroke-width: var(--clock-hand-hover-width);
-  filter: drop-shadow(0 2px 2px rgba(65,78,90,0.25));
-}
-#minimal-analog-clock:has(.minimal-analog-clock__rotor:hover) .minimal-analog-clock__rotor:not(:hover) .clock-hand {
-  opacity: 0.5;
-  -webkit-opacity: 0.5;
-  -moz-opacity: 0.5;
-}
-#minimal-analog-clock .minimal-analog-clock__tooltip {
-  position: absolute;
-  left: 50%;
-  bottom: 12px;
-  z-index: 2;
-  min-width: 42px;
-  padding: 3px 8px;
-  border-radius: 999px;
-  -webkit-border-radius: 999px;
-  background: var(--clock-tooltip-bg);
-  box-shadow: 0 4px 10px var(--clock-tooltip-shadow);
-  -webkit-box-shadow: 0 4px 10px var(--clock-tooltip-shadow);
-  color: var(--clock-tooltip-ink);
-  font-size: 12px;
-  font-variant-numeric: tabular-nums;
-  line-height: 1.4;
-  text-align: center;
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  -webkit-opacity: 0;
-  -moz-opacity: 0;
-  transform: translate(-50%, 4px);
-  -webkit-transform: translate(-50%, 4px);
-  -khtml-transform: translate(-50%, 4px);
-  -moz-transform: translate(-50%, 4px);
-  -o-transform: translate(-50%, 4px);
-  -ms-transform: translate(-50%, 4px);
-  transition: opacity 160ms ease, transform 160ms ease;
-  -webkit-transition: opacity 160ms ease, transform 160ms ease;
-  -khtml-transition: opacity 160ms ease, transform 160ms ease;
-  -moz-transition: opacity 160ms ease, transform 160ms ease;
-  -o-transition: opacity 160ms ease, transform 160ms ease;
-  -ms-transition: opacity 160ms ease, transform 160ms ease;
-}
-#minimal-analog-clock:has(.minimal-analog-clock__rotor:hover) .minimal-analog-clock__tooltip {
-  opacity: 1;
-  -webkit-opacity: 1;
-  -moz-opacity: 1;
-  transform: translate(-50%, 0);
-  -webkit-transform: translate(-50%, 0);
-  -khtml-transform: translate(-50%, 0);
-  -moz-transform: translate(-50%, 0);
-  -o-transform: translate(-50%, 0);
-  -ms-transform: translate(-50%, 0);
-}
-#minimal-analog-clock:has(.minimal-analog-clock__rotor:hover) .minimal-analog-clock__tooltip::before {
-  content: attr(data-time);
+#minimal-analog-clock .minimal-analog-clock__rotor--second .minimal-analog-clock__hand {
+  stroke-width: 1.6;
 }
 #minimal-analog-clock .minimal-analog-clock__pin {
-  fill: var(--clock-second);
-  pointer-events: none;
+  fill: #c66f62;
+  stroke: #fff;
+  stroke-width: 1.5;
+  filter: drop-shadow(0 1px 2px rgba(62,78,90,0.24));
 }
-[color-scheme="dark"] #minimal-analog-clock.minimal-analog-clock {
-  --clock-face: #293139;
-  --clock-ring: rgba(185,199,210,0.2);
-  --clock-tick: rgba(190,204,214,0.3);
-  --clock-hour: #a9bac6;
-  --clock-minute: #8fa4b2;
-  --clock-second: #9b91c2;
-  --clock-shadow-light: rgba(88,103,115,0.16);
-  --clock-shadow-dark: rgba(8,13,18,0.32);
-  --clock-tooltip-bg: rgba(31,39,46,0.92);
-  --clock-tooltip-ink: #d5dde3;
-  --clock-tooltip-shadow: rgba(0,0,0,0.28);
+#minimal-analog-clock .minimal-analog-clock__pin-cap {
+  fill: #fff;
 }
-[color-scheme="dark"] .widget.text:has(#minimal-analog-clock) {
-  background: #20272d !important;
+#minimal-analog-clock .minimal-analog-clock__digital {
+  width: 100%;
+  margin: 12px auto 0;
+  padding: 11px 14px 10px;
+  border: 1px solid var(--clock-line);
+  border-radius: 14px;
+  -webkit-border-radius: 14px;
+  background: var(--clock-face);
+  box-shadow: 0 6px 16px var(--clock-shadow), inset 0 1px 0 rgba(255,255,255,0.9);
+  -webkit-box-shadow: 0 6px 16px var(--clock-shadow), inset 0 1px 0 rgba(255,255,255,0.9);
+}
+#minimal-analog-clock .minimal-analog-clock__time {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  color: var(--clock-ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 24px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  line-height: 1.25;
+}
+#minimal-analog-clock .minimal-analog-clock__date {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  margin-top: 4px;
+  color: var(--clock-muted);
+  font-size: 11px;
+  line-height: 1.4;
 }
 .chem-structure {
   max-width: 100%;

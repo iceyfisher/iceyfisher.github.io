@@ -1,0 +1,4498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/#5.8.0'>
+  <meta name="generator" content="Hexo 7.3.0">
+  <meta name="Volantis" content="5.8.0">
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+  <link rel="canonical" href="http://example.com/2026/09/01/机器学习算法06-主成分分析pca/"/>
+  <!-- 渲染优化 -->
+    <meta http-equiv='x-dns-prefetch-control' content='on' />
+      <link rel='dns-prefetch' href='https://unpkg.com'>
+      <link rel="preconnect" href="https://unpkg.com" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Content-Security-Policy" content=" default-src 'self' https:; block-all-mixed-content; base-uri 'self' https:; form-action 'self' https:; worker-src 'self' https:; connect-src 'self' https: *; img-src 'self' data: https: *; media-src 'self' https: *; font-src 'self' data: https: *; frame-src 'self' https: *; manifest-src 'self' https: *; child-src https:; script-src 'self' https: 'unsafe-inline' *; style-src 'self' https: 'unsafe-inline' *; ">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+  <meta content="telephone=no" name="format-detection">
+  <!-- import head_begin begin -->
+  <!-- import head_begin end -->
+  <!-- Custom Files headBegin begin-->
+  
+  <!-- Custom Files headBegin end-->
+  <!-- front-matter head_begin begin -->
+  <!-- front-matter head_begin end -->
+    <link rel="shortcut icon" type='image/x-icon' href="https://pic1.imgdb.cn/item/68aabc0258cb8da5c8479c37.png">
+  <link rel="preload" href="/css/style.css" as="style">
+  <link rel="preload" href="https://fonts.gstatic.com/s/ebgaramond/v26/SlGDmQSNjdsmc35JDF1K5E55YMjF_7VUvF8mYdQ.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="https://fonts.gstatic.com/s/ebgaramond/v26/SlGDmQSNjdsmc35JDF1K5E55YMjF_7VUvF8mYdQ.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+  <!-- feed -->
+  <!-- 页面元数据 -->
+  <title>机器学习算法06-主成分分析（PCA） - 渔人码头 ⚓🛶</title>
+  <meta name="keywords" content="null">
+  <meta desc name="description" content="主成分分析基于本科线性代数中特征分解的思想，通过方差衡量不同方向所包含的信息量，从而实现特征压缩与降维。“分清主要矛盾与次要矛盾”，某种意义上正是 PCA 所做的事情。 - icy_fisher - 渔人码头 ⚓🛶">
+  
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习算法06-主成分分析（PCA）">
+<meta property="og:url" content="http://example.com/2026/09/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9506-%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90PCA/index.html">
+<meta property="og:site_name" content="渔人码头 ⚓🛶">
+<meta property="og:description" content="主成分分析基于本科线性代数中特征分解的思想，通过方差衡量不同方向所包含的信息量，从而实现特征压缩与降维。“分清主要矛盾与次要矛盾”，某种意义上正是 PCA 所做的事情。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+<meta property="article:published_time" content="2026-09-01T10:24:41.000Z">
+<meta property="article:modified_time" content="2026-09-01T13:30:45.703Z">
+<meta property="article:author" content="icy_fisher">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+  <style>
+    /* 首屏样式 */
+    #safearea {
+  display: none;
+}
+:root {
+  --color-site-body: #f4f4f4;
+  --color-site-bg: #f4f4f4;
+  --color-site-inner: #fff;
+  --color-site-footer: #666;
+  --color-card: #fff;
+  --color-text: #444;
+  --color-block: #f6f6f6;
+  --color-inlinecode: #c74f00;
+  --color-codeblock: #fff7ea;
+  --color-h1: #3a3a3a;
+  --color-h2: #3a3a3a;
+  --color-h3: #333;
+  --color-h4: #444;
+  --color-h5: #555;
+  --color-h6: #666;
+  --color-p: #444;
+  --color-list: #666;
+  --color-list-hl: #30ad91;
+  --color-meta: #888;
+  --color-read-bkg: #e0d8c8;
+  --color-read-post: #f8f1e2;
+  --color-copyright-bkg: #f5f5f5;
+}
+* {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  outline: none;
+  margin: 0;
+  padding: 0;
+}
+*::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+*::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: #3dd9b6;
+  cursor: pointer;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #ff5722;
+}
+html {
+  color: var(--color-text);
+  width: 100%;
+  height: 100%;
+  font-family: "EB Garamond", "Noto Serif SC", "PingFang SC", "Microsoft YaHei", serif, Menlo, Monaco, monospace, sans-serif;
+  font-size: 16px;
+}
+html >::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+}
+html >::-webkit-scrollbar-track-piece {
+  background: transparent;
+}
+html >::-webkit-scrollbar-thumb {
+  background: #54b5a0 linear-gradient(45deg, rgba(255,255,255,0.4) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.4) 75%, transparent 75%, transparent);
+  cursor: pointer;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+html >::-webkit-scrollbar-thumb:hover {
+  background: #54b5a0 linear-gradient(45deg, rgba(255,255,255,0.4) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0.4) 75%, transparent 75%, transparent);
+}
+body {
+  background-color: var(--color-site-body);
+  text-rendering: optimizelegibility;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body.modal-active {
+  overflow: hidden;
+}
+@media screen and (max-width: 680px) {
+  body.modal-active {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+a {
+  color: #2092ec;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+a:hover {
+  color: #ff5722;
+}
+a:active,
+a:hover {
+  outline: 0;
+}
+ul,
+ol {
+  padding-left: 0;
+}
+ul li,
+ol li {
+  list-style: none;
+}
+header {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+img {
+  border: 0;
+  background: none;
+  max-width: 100%;
+}
+svg:not(:root) {
+  overflow: hidden;
+}
+hr {
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  height: 0;
+  border: 0;
+  border-radius: 1px;
+  -webkit-border-radius: 1px;
+  border-bottom: 1px solid rgba(68,68,68,0.1);
+}
+button,
+input {
+  color: inherit;
+  font: inherit;
+  margin: 0;
+}
+button {
+  overflow: visible;
+  text-transform: none;
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+@supports (backdrop-filter: blur(20px)) {
+  .blur {
+    background: rgba(255,255,255,0.9) !important;
+    backdrop-filter: saturate(200%) blur(20px);
+  }
+}
+.shadow {
+  box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+}
+.shadow.floatable {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.shadow.floatable:hover {
+  box-shadow: 0 2px 4px 0px rgba(0,0,0,0.1), 0 4px 8px 0px rgba(0,0,0,0.1), 0 8px 16px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 2px 4px 0px rgba(0,0,0,0.1), 0 4px 8px 0px rgba(0,0,0,0.1), 0 8px 16px 0px rgba(0,0,0,0.1);
+}
+#l_cover {
+  min-height: 64px;
+}
+.cover-wrapper {
+  top: 0;
+  left: 0;
+  max-width: 100%;
+  height: 100vh;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  color: var(--color-site-inner);
+  padding: 0 16px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: -100px;
+}
+.cover-wrapper .cover-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+}
+.cover-wrapper .cover-bg.lazyload:not(.loaded) {
+  opacity: 0;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+}
+.cover-wrapper .cover-bg.lazyload.loaded {
+  animation-delay: 0s;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  animation-name: fadeIn;
+}
+@-moz-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-o-keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+    filter: blur(12px);
+    transform: scale(1.02);
+    -webkit-transform: scale(1.02);
+    -khtml-transform: scale(1.02);
+    -moz-transform: scale(1.02);
+    -o-transform: scale(1.02);
+    -ms-transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.cover-wrapper .cover-body {
+  z-index: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.cover-wrapper#full {
+  height: calc(100vh + 100px);
+  padding-bottom: 100px;
+}
+.cover-wrapper#half {
+  max-height: 640px;
+  min-height: 400px;
+  height: calc(36vh - 64px + 200px);
+}
+.cover-wrapper #scroll-down {
+  width: 100%;
+  height: 64px;
+  position: absolute;
+  bottom: 100px;
+  text-align: center;
+  cursor: pointer;
+}
+.cover-wrapper #scroll-down .scroll-down-effects {
+  color: #fff;
+  font-size: 24px;
+  line-height: 64px;
+  position: absolute;
+  width: 24px;
+  left: calc(50% - 12px);
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  animation: scroll-down-effect 1.5s infinite;
+  -webkit-animation: scroll-down-effect 1.5s infinite;
+  -khtml-animation: scroll-down-effect 1.5s infinite;
+  -moz-animation: scroll-down-effect 1.5s infinite;
+  -o-animation: scroll-down-effect 1.5s infinite;
+  -ms-animation: scroll-down-effect 1.5s infinite;
+}
+@-moz-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-webkit-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@-o-keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@keyframes scroll-down-effect {
+  0% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+  50% {
+    top: -16px;
+    opacity: 0.4;
+    -webkit-opacity: 0.4;
+    -moz-opacity: 0.4;
+  }
+  100% {
+    top: 0;
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.cover-wrapper .cover-body {
+  margin-top: 64px;
+  margin-bottom: 100px;
+}
+.cover-wrapper .cover-body,
+.cover-wrapper .cover-body .top,
+.cover-wrapper .cover-body .bottom {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  max-width: 100%;
+}
+.cover-wrapper .cover-body .bottom {
+  margin-top: 32px;
+}
+.cover-wrapper .cover-body .title {
+  font-family: "EB Garamond", "Noto Serif SC", "Source Han Serif SC", serif, Helvetica, monospace;
+  font-size: 3.125rem;
+  line-height: 1.2;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+.cover-wrapper .cover-body .subtitle {
+  font-size: 20px;
+}
+.cover-wrapper .cover-body .logo {
+  max-height: 120px;
+  max-width: calc(100% - 4 * 16px);
+}
+@media screen and (min-height: 1024px) {
+  .cover-wrapper .cover-body .title {
+    font-size: 3rem;
+  }
+  .cover-wrapper .cover-body .subtitle {
+    font-size: 1.05rem;
+  }
+  .cover-wrapper .cover-body .logo {
+    max-height: 150px;
+  }
+}
+.cover-wrapper .cover-body .m_search {
+  position: relative;
+  max-width: calc(100% - 16px);
+  width: 320px;
+  vertical-align: middle;
+}
+.cover-wrapper .cover-body .m_search .form {
+  position: relative;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  width: 100%;
+}
+.cover-wrapper .cover-body .m_search .icon,
+.cover-wrapper .cover-body .m_search .input {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.cover-wrapper .cover-body .m_search .icon {
+  position: absolute;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  line-height: 2.5rem;
+  width: 32px;
+  top: 0;
+  left: 5px;
+  color: rgba(68,68,68,0.75);
+}
+.cover-wrapper .cover-body .m_search .input {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  height: 2.5rem;
+  width: 100%;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  font-size: 0.875rem;
+  -webkit-appearance: none;
+  padding-left: 36px;
+  border-radius: 1.4rem;
+  -webkit-border-radius: 1.4rem;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px);
+  border: none;
+  color: var(--color-text);
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper .cover-body .m_search .input {
+    padding-left: 36px;
+  }
+}
+.cover-wrapper .cover-body .m_search .input:hover {
+  background: rgba(255,255,255,0.8);
+}
+.cover-wrapper .cover-body .m_search .input:focus {
+  background: #fff;
+}
+.cover-wrapper .list-h {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  flex-wrap: wrap;
+  -webkit-flex-wrap: wrap;
+  -khtml-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -o-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  align-items: stretch;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.cover-wrapper .list-h a {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1 0;
+  -ms-flex: 1 0;
+  flex: 1 0;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  font-weight: 600;
+}
+.cover-wrapper .list-h a img {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  margin: 4px;
+  min-width: 40px;
+  max-width: 44px;
+}
+@media screen and (max-width: 768px) {
+  .cover-wrapper .list-h a img {
+    min-width: 36px;
+    max-width: 40px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper .list-h a img {
+    margin: 2px 4px;
+    min-width: 32px;
+    max-width: 36px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .cover-wrapper .list-h a img {
+    min-width: 28px;
+    max-width: 32px;
+  }
+}
+.cover-wrapper {
+  max-width: 100%;
+}
+.cover-wrapper.search .bottom .menu {
+  margin-top: 16px;
+}
+.cover-wrapper.search .bottom .menu .list-h a {
+  white-space: nowrap;
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  align-items: baseline;
+  padding: 2px;
+  margin: 4px;
+  color: var(--color-site-inner);
+  opacity: 0.75;
+  -webkit-opacity: 0.75;
+  -moz-opacity: 0.75;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  border-bottom: 2px solid transparent;
+}
+.cover-wrapper.search .bottom .menu .list-h a i {
+  margin-right: 4px;
+}
+.cover-wrapper.search .bottom .menu .list-h a p {
+  font-size: 0.9375rem;
+}
+.cover-wrapper.search .bottom .menu .list-h a:hover,
+.cover-wrapper.search .bottom .menu .list-h a.active,
+.cover-wrapper.search .bottom .menu .list-h a:active {
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  border-bottom: 2px solid var(--color-site-inner);
+}
+.cover-wrapper.dock .menu,
+.cover-wrapper.featured .menu,
+.cover-wrapper.focus .menu {
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+}
+.cover-wrapper.dock .menu .list-h a,
+.cover-wrapper.featured .menu .list-h a,
+.cover-wrapper.focus .menu .list-h a {
+  -webkit-box-direction: normal;
+  -moz-box-direction: normal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  line-height: 24px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-bottom: none;
+  text-align: center;
+  align-content: flex-end;
+  color: rgba(68,68,68,0.7);
+  font-size: 1.5rem;
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper.dock .menu .list-h a,
+  .cover-wrapper.featured .menu .list-h a,
+  .cover-wrapper.focus .menu .list-h a {
+    padding: 12px 8px;
+  }
+}
+.cover-wrapper.dock .menu .list-h a i,
+.cover-wrapper.featured .menu .list-h a i,
+.cover-wrapper.focus .menu .list-h a i {
+  margin: 8px;
+}
+.cover-wrapper.dock .menu .list-h a p,
+.cover-wrapper.featured .menu .list-h a p,
+.cover-wrapper.focus .menu .list-h a p {
+  font-size: 0.875rem;
+}
+.cover-wrapper.dock .menu .list-h a.active,
+.cover-wrapper.featured .menu .list-h a.active,
+.cover-wrapper.focus .menu .list-h a.active {
+  background: var(--color-card);
+  backdrop-filter: none;
+}
+.cover-wrapper.dock .menu .list-h a.active i,
+.cover-wrapper.featured .menu .list-h a.active i,
+.cover-wrapper.focus .menu .list-h a.active i,
+.cover-wrapper.dock .menu .list-h a.active i+p,
+.cover-wrapper.featured .menu .list-h a.active i+p,
+.cover-wrapper.focus .menu .list-h a.active i+p {
+  color: #3dd9b6;
+}
+.cover-wrapper.dock .menu .list-h a.active img+p,
+.cover-wrapper.featured .menu .list-h a.active img+p,
+.cover-wrapper.focus .menu .list-h a.active img+p {
+  color: var(--color-text);
+}
+.cover-wrapper.dock .menu .list-h a:hover,
+.cover-wrapper.featured .menu .list-h a:hover,
+.cover-wrapper.focus .menu .list-h a:hover {
+  background: var(--color-card);
+}
+.cover-wrapper.dock .top {
+  margin-bottom: 48px;
+}
+.cover-wrapper.dock .menu {
+  background: rgba(255,255,255,0.5);
+  position: absolute;
+  bottom: 0;
+  max-width: 100%;
+}
+.cover-wrapper.dock .menu .list-h {
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  margin: 4px;
+}
+.cover-wrapper.dock .menu .list-h a+a {
+  margin-left: 4px;
+}
+@media screen and (max-width: 500px) {
+  .cover-wrapper.dock .menu .list-h {
+    overflow-x: scroll;
+  }
+  .cover-wrapper.dock .menu .list-h::-webkit-scrollbar {
+    height: 0;
+    width: 0;
+  }
+  .cover-wrapper.dock .menu .list-h::-webkit-scrollbar-track-piece {
+    background: transparent;
+  }
+  .cover-wrapper.dock .menu .list-h::-webkit-scrollbar-thumb {
+    background: #3dd9b6;
+    cursor: pointer;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+  }
+  .cover-wrapper.dock .menu .list-h::-webkit-scrollbar-thumb:hover {
+    background: #ff5722;
+  }
+}
+@supports (backdrop-filter: blur(20px)) {
+  .cover-wrapper.dock .menu {
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: saturate(200%) blur(20px);
+  }
+}
+@font-face {
+  font-family: 'EB Garamond';
+  src: url("https://fonts.gstatic.com/s/ebgaramond/v26/SlGDmQSNjdsmc35JDF1K5E55YMjF_7VUvF8mYdQ.woff2");
+  font-weight: 'normal';
+  font-style: 'normal';
+  font-display: swap;
+}
+@font-face {
+  font-family: 'EB Garamond';
+  src: url("https://fonts.gstatic.com/s/ebgaramond/v26/SlGDmQSNjdsmc35JDF1K5E55YMjF_7VUvF8mYdQ.woff2");
+  font-weight: 'normal';
+  font-style: 'normal';
+  font-display: swap;
+}
+.l_header {
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  width: 100%;
+  height: 64px;
+  background: var(--color-card);
+  box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0 1px 2px 0px rgba(0,0,0,0.1);
+}
+.l_header.auto {
+  transition: opacity 0.4s ease;
+  -webkit-transition: opacity 0.4s ease;
+  -khtml-transition: opacity 0.4s ease;
+  -moz-transition: opacity 0.4s ease;
+  -o-transition: opacity 0.4s ease;
+  -ms-transition: opacity 0.4s ease;
+  visibility: hidden;
+}
+.l_header.auto.show {
+  opacity: 1 !important;
+  -webkit-opacity: 1 !important;
+  -moz-opacity: 1 !important;
+  visibility: visible;
+}
+.l_header .container {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+.l_header #wrapper {
+  height: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.l_header #wrapper .nav-main,
+.l_header #wrapper .nav-sub {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  flex-wrap: nowrap;
+  -webkit-flex-wrap: nowrap;
+  -khtml-flex-wrap: nowrap;
+  -moz-flex-wrap: nowrap;
+  -o-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  justify-content: space-between;
+  -webkit-justify-content: space-between;
+  -khtml-justify-content: space-between;
+  -moz-justify-content: space-between;
+  -o-justify-content: space-between;
+  -ms-justify-content: space-between;
+  align-items: center;
+}
+.l_header #wrapper .nav-main {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.l_header #wrapper.sub .nav-main {
+  transform: translateY(-64px);
+  -webkit-transform: translateY(-64px);
+  -khtml-transform: translateY(-64px);
+  -moz-transform: translateY(-64px);
+  -o-transform: translateY(-64px);
+  -ms-transform: translateY(-64px);
+}
+.l_header #wrapper .nav-sub {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  opacity: 0;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  height: 64px;
+  width: calc(100% - 2 * 16px);
+  position: absolute;
+}
+.l_header #wrapper .nav-sub ::-webkit-scrollbar {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+}
+@media screen and (min-width: 2048px) {
+  .l_header #wrapper .nav-sub {
+    max-width: 55vw;
+    margin: auto;
+  }
+}
+.l_header #wrapper.sub .nav-sub {
+  opacity: 1;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+}
+.l_header #wrapper .title {
+  position: relative;
+  color: var(--color-text);
+  padding-left: 24px;
+  max-height: 64px;
+}
+.l_header #wrapper .nav-main .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+  line-height: 64px;
+  padding: 0 24px;
+  font-size: 1.25rem;
+  font-family: "EB Garamond", "Noto Serif SC", "Source Han Serif SC", serif, Helvetica, monospace;
+}
+.l_header #wrapper .nav-main .title img {
+  height: 64px;
+}
+.l_header .nav-sub {
+  max-width: 1080px;
+  margin: auto;
+}
+.l_header .nav-sub .title {
+  font-weight: bold;
+  font-family: "EB Garamond", "Noto Serif SC", "PingFang SC", "Microsoft YaHei", serif, Menlo, Monaco, monospace, sans-serif;
+  line-height: 1.2;
+  max-height: 64px;
+  white-space: normal;
+  flex-shrink: 1;
+}
+.l_header .switcher {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  line-height: 64px;
+  align-items: center;
+}
+.l_header .switcher .s-toc {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .l_header .switcher .s-toc {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: -ms-flexbox /* TWEENER - IE 10 */;
+    display: -webkit-flex /* NEW - Chrome */;
+    display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+    display: flex;
+  }
+}
+.l_header .switcher >li {
+  height: 48px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  margin: 2px;
+}
+@media screen and (max-width: 500px) {
+  .l_header .switcher >li {
+    margin: 0 1px;
+    height: 48px;
+  }
+}
+.l_header .switcher >li >a {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  align-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0.85em 1.1em;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  color: #3dd9b6;
+}
+.l_header .switcher >li >a:hover {
+  border: none;
+}
+.l_header .switcher >li >a.active,
+.l_header .switcher >li >a:active {
+  border: none;
+  background: var(--color-site-bg);
+}
+@media screen and (max-width: 500px) {
+  .l_header .switcher >li >a {
+    width: 36px;
+    height: 48px;
+  }
+}
+.l_header .nav-sub .switcher {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+}
+.l_header .m_search {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  height: 64px;
+  width: 240px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+@media screen and (max-width: 1024px) {
+  .l_header .m_search {
+    width: 44px;
+    min-width: 44px;
+  }
+  .l_header .m_search input::placeholder {
+    opacity: 0;
+    -webkit-opacity: 0;
+    -moz-opacity: 0;
+  }
+  .l_header .m_search:hover {
+    width: 240px;
+  }
+  .l_header .m_search:hover input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@media screen and (min-width: 500px) {
+  .l_header .m_search:hover .input {
+    width: 100%;
+  }
+  .l_header .m_search:hover .input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search {
+    min-width: 0;
+  }
+  .l_header .m_search input::placeholder {
+    opacity: 1;
+    -webkit-opacity: 1;
+    -moz-opacity: 1;
+  }
+}
+.l_header .m_search .form {
+  position: relative;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+.l_header .m_search .icon {
+  position: absolute;
+  width: 36px;
+  left: 5px;
+  color: var(--color-meta);
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search .icon {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: none;
+  }
+}
+.l_header .m_search .input {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 1.3;
+  width: 100%;
+  color: var(--color-text);
+  background: #fafafa;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  padding-left: 40px;
+  font-size: 0.875rem;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border: none;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+@media screen and (min-width: 500px) {
+  .l_header .m_search .input:focus {
+    box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0 4px 8px 0px rgba(0,0,0,0.1);
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .m_search .input {
+    background: var(--color-block);
+    padding-left: 8px;
+    border: none;
+  }
+  .l_header .m_search .input:hover,
+  .l_header .m_search .input:focus {
+    border: none;
+  }
+}
+@media (max-width: 500px) {
+  .l_header .m_search {
+    left: 0;
+    width: 0;
+    overflow: hidden;
+    position: absolute;
+    background: #fff;
+    transition: all 0.28s ease;
+    -webkit-transition: all 0.28s ease;
+    -khtml-transition: all 0.28s ease;
+    -moz-transition: all 0.28s ease;
+    -o-transition: all 0.28s ease;
+    -ms-transition: all 0.28s ease;
+  }
+  .l_header .m_search .input {
+    border-radius: 32px;
+    -webkit-border-radius: 32px;
+    margin-left: 16px;
+    padding-left: 16px;
+  }
+  .l_header.z_search-open .m_search {
+    width: 100%;
+  }
+  .l_header.z_search-open .m_search .input {
+    width: calc(100% - 120px);
+  }
+}
+ul.m-pc >li>a {
+  color: inherit;
+  border-bottom: 2px solid transparent;
+}
+ul.m-pc >li>a:active,
+ul.m-pc >li>a.active {
+  border-bottom: 2px solid #3dd9b6;
+}
+ul.m-pc li:hover >ul.list-v,
+ul.list-v li:hover >ul.list-v {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+ul.nav-list-h {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: -ms-flexbox /* TWEENER - IE 10 */;
+  display: -webkit-flex /* NEW - Chrome */;
+  display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+  display: flex;
+  align-items: stretch;
+}
+ul.nav-list-h>li {
+  position: relative;
+  justify-content: center;
+  -webkit-justify-content: center;
+  -khtml-justify-content: center;
+  -moz-justify-content: center;
+  -o-justify-content: center;
+  -ms-justify-content: center;
+  height: 100%;
+  line-height: 2.4;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+ul.nav-list-h>li >a {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-weight: 600;
+}
+ul.list-v {
+  z-index: 1;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  position: absolute;
+  background: var(--color-card);
+  box-shadow: 0 2px 4px 0px rgba(0,0,0,0.08), 0 4px 8px 0px rgba(0,0,0,0.08), 0 8px 16px 0px rgba(0,0,0,0.08);
+  -webkit-box-shadow: 0 2px 4px 0px rgba(0,0,0,0.08), 0 4px 8px 0px rgba(0,0,0,0.08), 0 8px 16px 0px rgba(0,0,0,0.08);
+  margin-top: -6px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  padding: 8px 0;
+}
+ul.list-v.show {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+}
+ul.list-v hr {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+ul.list-v >li {
+  white-space: nowrap;
+  word-break: keep-all;
+}
+ul.list-v >li.header {
+  font-size: 0.78125rem;
+  font-weight: bold;
+  line-height: 2em;
+  color: var(--color-meta);
+  margin: 8px 16px 4px;
+}
+ul.list-v >li.header i {
+  margin-right: 8px;
+}
+ul.list-v >li ul {
+  margin-left: 0;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  margin-top: -40px;
+}
+ul.list-v .aplayer-container {
+  min-height: 64px;
+  padding: 6px 16px;
+}
+ul.list-v >li>a {
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  color: var(--color-list);
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 36px;
+  padding: 0 20px 0 16px;
+  text-overflow: ellipsis;
+  margin: 0 4px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+}
+@media screen and (max-width: 1024px) {
+  ul.list-v >li>a {
+    line-height: 40px;
+  }
+}
+ul.list-v >li>a >i {
+  margin-right: 8px;
+}
+ul.list-v >li>a:active,
+ul.list-v >li>a.active {
+  color: var(--color-list-hl);
+}
+ul.list-v >li>a:hover {
+  color: var(--color-list-hl);
+  background: var(--color-site-bg);
+}
+.l_header .menu >ul>li>a {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: block;
+  padding: 0 8px;
+}
+.l_header .menu >ul>li>a >i {
+  margin-right: 4px;
+}
+.l_header ul.nav-list-h>li {
+  color: var(--color-list);
+  line-height: 64px;
+}
+.l_header ul.nav-list-h>li >a {
+  max-height: 64px;
+  overflow: hidden;
+  color: inherit;
+}
+.l_header ul.nav-list-h>li >a:active,
+.l_header ul.nav-list-h>li >a.active {
+  color: #3dd9b6;
+}
+.l_header ul.nav-list-h>li:hover>a {
+  color: var(--color-list-hl);
+}
+.l_header ul.nav-list-h>li i.music {
+  animation: rotate-effect 1.5s linear infinite;
+  -webkit-animation: rotate-effect 1.5s linear infinite;
+  -khtml-animation: rotate-effect 1.5s linear infinite;
+  -moz-animation: rotate-effect 1.5s linear infinite;
+  -o-animation: rotate-effect 1.5s linear infinite;
+  -ms-animation: rotate-effect 1.5s linear infinite;
+}
+@-moz-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@-o-keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+@keyframes rotate-effect {
+  0% {
+    transform: rotate(0);
+    -webkit-transform: rotate(0);
+    -khtml-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    -ms-transform: rotate(0);
+  }
+  25% {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+  }
+  50% {
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -khtml-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+  }
+  75% {
+    transform: rotate(270deg);
+    -webkit-transform: rotate(270deg);
+    -khtml-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+  }
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -khtml-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+  }
+}
+.menu-phone li ul.list-v {
+  right: calc(100% - 0.5 * 16px);
+}
+.menu-phone li ul.list-v ul {
+  right: calc(100% - 0.5 * 16px);
+}
+#wrapper {
+  max-width: 1080px;
+  margin: auto;
+}
+@media screen and (min-width: 2048px) {
+  #wrapper {
+    max-width: 55vw;
+  }
+}
+#wrapper .menu {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  -webkit-flex: 1 1;
+  -ms-flex: 1 1;
+  flex: 1 1;
+  margin: 0 16px 0 0;
+}
+#wrapper .menu .list-v ul {
+  left: calc(100% - 0.5 * 16px);
+}
+.menu-phone {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  margin-top: 16px;
+  right: 8px;
+  transition: all 0.28s ease;
+  -webkit-transition: all 0.28s ease;
+  -khtml-transition: all 0.28s ease;
+  -moz-transition: all 0.28s ease;
+  -o-transition: all 0.28s ease;
+  -ms-transition: all 0.28s ease;
+}
+.menu-phone ul {
+  right: calc(100% - 0.5 * 16px);
+}
+@media screen and (max-width: 500px) {
+  .menu-phone {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: block;
+  }
+}
+.l_header {
+  max-width: 65vw;
+  left: calc((100% - 65vw) * 0.5);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+@media screen and (max-width: 2048px) {
+  .l_header {
+    max-width: 1112px;
+    left: calc((100% - 1112px) * 0.5);
+  }
+}
+@media screen and (max-width: 1112px) {
+  .l_header {
+    left: 0;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    max-width: 100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .l_header .container {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .l_header #wrapper .nav-main .title {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .l_header #wrapper .nav-sub {
+    width: 100%;
+  }
+  .l_header #wrapper .nav-sub .title {
+    overflow-y: scroll;
+    margin-top: 2px;
+    padding: 8px 16px;
+  }
+  .l_header #wrapper .switcher {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: -ms-flexbox /* TWEENER - IE 10 */;
+    display: -webkit-flex /* NEW - Chrome */;
+    display: flex /* NEW, Spec - Opera 12.1, Firefox 20+ */;
+    display: flex;
+    margin-right: 8px;
+  }
+  .l_header .menu {
+    display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+    display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+    display: none;
+  }
+}
+@media screen and (max-width: 500px) {
+  .list-v li {
+    max-width: 270px;
+  }
+}
+#u-search {
+  display: -webkit-box /* OLD - iOS 6-, Safari 3.1-6 */;
+  display: -moz-box /* OLD - Firefox 19- (buggy but mostly works) */;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 60px 20px;
+  z-index: 1001;
+}
+@media screen and (max-width: 680px) {
+  #u-search {
+    padding: 0px;
+  }
+}
+
+
+  </style>
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+    '.kill-t{'+
+      'font-size: 2rem;'+
+    '}'+
+    '.kill-c{'+
+      'font-size: 1.2rem;'+
+    '}'+
+		'#l_header,#l_body{'+
+			'display: none;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        `<span class="kill-t"><b>抱歉，您的浏览器无法访问本站</b></span><br/>`+
+        `<span class="kill-c">微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</span><br/>`+
+        `<a target="_blank" rel="noopener" href="https://blogs.windows.com/windowsexperience/2021/05/19/the-future-of-internet-explorer-on-windows-10-is-in-microsoft-edge/"><strong>了解详情 ></strong></a>`+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+    .kill-t{
+      font-size: 2rem;
+    }
+    .kill-c{
+      font-size: 1.2rem;
+    }
+		#l_header,#l_body{
+			display: none;
+		}
+	</style>
+    <div class="kill-noscript">
+        <span class="kill-t"><b>抱歉，您的浏览器无法访问本站</b></span><br/>
+        <span class="kill-c">本页面需要浏览器支持（启用）JavaScript</span><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+
+  <script>
+  /************这个文件存放不需要重载的全局变量和全局函数*********/
+  window.volantis = {}; // volantis 全局变量
+  volantis.debug = "env"; // 调试模式
+  volantis.dom = {}; // 页面Dom see: /source/js/app.js etc.
+
+  volantis.GLOBAL_CONFIG ={
+    debug: "env",
+    cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
+    default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
+    lastupdate: new Date(1788271869535),
+    sidebar: {
+      for_page: ["blogger","minimal_analog_clock","category","tagcloud","webinfo","calendar","lastupdate"],
+      for_post: ["toc"],
+      webinfo: {
+        lastupd: {
+          enable: true,
+          friendlyShow: true
+        },
+        runtime: {
+          data: "2025/07/01",
+          unit: "天"
+        }
+      }
+    },
+    plugins: {
+      message: {"enable":true,"css":"https://unpkg.com/volantis-static@0.0.1654736714924/libs/izitoast/dist/css/iziToast.min.css","js":"https://unpkg.com/volantis-static@0.0.1654736714924/libs/izitoast/dist/js/iziToast.min.js","icon":{"default":"fa-solid fa-info-circle light-blue","quection":"fa-solid fa-question-circle light-blue"},"time":{"default":5000,"quection":20000},"position":"topRight","transitionIn":"bounceInLeft","transitionOut":"fadeOutRight","titleColor":"var(--color-text)","messageColor":"var(--color-text)","backgroundColor":"var(--color-card)","zindex":2147483647,"copyright":{"enable":true,"title":"知识共享许可协议","message":"请遵守 CC BY-NC-SA 4.0 协议。","icon":"far fa-copyright light-blue"},"aplayer":{"enable":true,"play":"fa-solid fa-play","pause":"fa-solid fa-pause"},"rightmenu":{"enable":true,"notice":true}},
+      fancybox: {"css":"https://unpkg.com/volantis-static@0.0.1654736714924/libs/@fancyapps/ui/dist/fancybox.css","js":"https://unpkg.com/volantis-static@0.0.1654736714924/libs/@fancyapps/ui/dist/fancybox.umd.js"},
+      
+      
+      
+    }
+  }
+
+  /******************** volantis.EventListener ********************************/
+  // 事件监听器 see: /source/js/app.js
+  volantis.EventListener = {}
+  // 这里存放pjax切换页面时将被移除的事件监听器
+  volantis.EventListener.list = []
+  //构造方法
+  function volantisEventListener(type, f, ele) {
+    this.type = type
+    this.f = f
+    this.ele = ele
+  }
+  // 移除事件监听器
+  volantis.EventListener.remove = () => {
+    volantis.EventListener.list.forEach(function (i) {
+      i.ele.removeEventListener(i.type, i.f, false)
+    })
+    volantis.EventListener.list = []
+  }
+  /******************** volantis.dom.$ ********************************/
+  // 注：这里没有选择器，也没有forEach一次只处理一个dom，这里重新封装主题常用的dom方法，返回的是dom对象，对象包含了以下方法，同时保留dom的原生API
+  function volantisDom(ele) {
+    if (!ele) ele = document.createElement("div")
+    this.ele = ele;
+    // ==============================================================
+    this.ele.find = (c) => {
+      let q = this.ele.querySelector(c)
+      if (q)
+        return new volantisDom(q)
+    }
+    // ==============================================================
+    this.ele.hasClass = (c) => {
+      return this.ele.className.match(new RegExp('(\\s|^)' + c + '(\\s|$)'));
+    }
+    this.ele.addClass = (c) => {
+      this.ele.classList.add(c);
+      return this.ele
+    }
+    this.ele.removeClass = (c) => {
+      this.ele.classList.remove(c);
+      return this.ele
+    }
+    this.ele.toggleClass = (c) => {
+      if (this.ele.hasClass(c)) {
+        this.ele.removeClass(c)
+      } else {
+        this.ele.addClass(c)
+      }
+      return this.ele
+    }
+    // ==============================================================
+    // 参数 r 为 true 表示pjax切换页面时事件监听器将被移除，false不移除
+    this.ele.on = (c, f, r = 1) => {
+      this.ele.addEventListener(c, f, false)
+      if (r) {
+        volantis.EventListener.list.push(new volantisEventListener(c, f, this.ele))
+      }
+      return this.ele
+    }
+    this.ele.click = (f, r) => {
+      this.ele.on("click", f, r)
+      return this.ele
+    }
+    this.ele.scroll = (f, r) => {
+      this.ele.on("scroll", f, r)
+      return this.ele
+    }
+    // ==============================================================
+    this.ele.html = (c) => {
+      // if(c=== undefined){
+      //   return this.ele.innerHTML
+      // }else{
+      this.ele.innerHTML = c
+      return this.ele
+      // }
+    }
+    // ==============================================================
+    this.ele.hide = (c) => {
+      this.ele.style.display = "none"
+      return this.ele
+    }
+    this.ele.show = (c) => {
+      this.ele.style.display = "block"
+      return this.ele
+    }
+    // ==============================================================
+    return this.ele
+  }
+  volantis.dom.$ = (ele) => {
+    return !!ele ? new volantisDom(ele) : null;
+  }
+  /******************** RunItem ********************************/
+  function RunItem() {
+    this.list = []; // 存放回调函数
+    this.start = () => {
+      for (var i = 0; i < this.list.length; i++) {
+        this.list[i].run();
+      }
+    };
+    this.push = (fn, name, setRequestAnimationFrame = true) => {
+      let myfn = fn
+      if (setRequestAnimationFrame) {
+        myfn = ()=>{
+          volantis.requestAnimationFrame(fn)
+        }
+      }
+      var f = new Item(myfn, name);
+      this.list.push(f);
+    };
+    this.remove = (name) =>{
+      for (let index = 0; index < this.list.length; index++) {
+        const e = this.list[index];
+        if (e.name == name) {
+          this.list.splice(index,1);
+        }
+      }
+    }
+    // 构造一个可以run的对象
+    function Item(fn, name) {
+      // 函数名称
+      this.name = name || fn.name;
+      // run方法
+      this.run = () => {
+        try {
+          fn()
+        } catch (error) {
+          console.log(error);
+        }
+      };
+    }
+  }
+  /******************** Pjax ********************************/
+  // /layout/_plugins/pjax/index.ejs
+  // volantis.pjax.send(callBack[,"callBackName"]) 传入pjax:send回调函数
+  // volantis.pjax.push(callBack[,"callBackName"]) 传入pjax:complete回调函数
+  // volantis.pjax.error(callBack[,"callBackName"]) 传入pjax:error回调函数
+  volantis.pjax = {};
+  volantis.pjax.method = {
+    complete: new RunItem(),
+    error: new RunItem(),
+    send: new RunItem(),
+  };
+  volantis.pjax = Object.assign(volantis.pjax, {
+    push: volantis.pjax.method.complete.push,
+    error: volantis.pjax.method.error.push,
+    send: volantis.pjax.method.send.push,
+  });
+  /******************** RightMenu ********************************/
+  // volantis.rightmenu.handle(callBack[,"callBackName"]) 外部菜单项控制
+  // 可在 volantis.mouseEvent 处获取右键事件
+  volantis.rightmenu = {};
+  volantis.rightmenu.method = {
+    handle: new RunItem(),
+  }
+  volantis.rightmenu = Object.assign(volantis.rightmenu, {
+    handle: volantis.rightmenu.method.handle.push,
+  });
+  /********************  Dark Mode  ********************************/
+  // /layout/_partial/scripts/darkmode.ejs
+  // volantis.dark.mode 当前模式 dark or light
+  // volantis.dark.toggle() 暗黑模式触发器
+  // volantis.dark.push(callBack[,"callBackName"]) 传入触发器回调函数
+  volantis.dark = {};
+  volantis.dark.method = {
+    toggle: new RunItem(),
+  };
+  volantis.dark = Object.assign(volantis.dark, {
+    push: volantis.dark.method.toggle.push,
+  });
+  /********************  Message  ********************************/
+  // VolantisApp.message
+  /********************  isMobile  ********************************/
+  // /source/js/app.js
+  // volantis.isMobile
+  // volantis.isMobileOld
+  /********************脚本动态加载函数********************************/
+  // volantis.js(src, cb)  cb 可以传入onload回调函数 或者 JSON对象 例如: volantis.js("src", ()=>{}) 或 volantis.js("src", {defer:true,onload:()=>{}})
+  // volantis.css(src)
+
+  // 返回Promise对象，如下方法同步加载资源，这利于处理文件资源之间的依赖关系，例如：APlayer 需要在 MetingJS 之前加载
+  // (async () => {
+  //     await volantis.js("...theme.plugins.aplayer.js.aplayer...")
+  //     await volantis.js("...theme.plugins.aplayer.js.meting...")
+  // })();
+
+  // 已经加入了setTimeout
+  volantis.js = (src, cb) => {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+  volantis.css = (src) => {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  }
+  /********************按需加载的插件********************************/
+  // volantis.import.jQuery().then(()=>{})
+  volantis.import = {
+    jQuery: () => {
+      if (typeof jQuery == "undefined") {
+        return volantis.js("https://unpkg.com/volantis-static@0.0.1654736714924/libs/jquery/dist/jquery.min.js")
+      } else {
+        return new Promise(resolve => {
+          resolve()
+        });
+      }
+    }
+  }
+  /********************** requestAnimationFrame ********************************/
+  // 1、requestAnimationFrame 会把每一帧中的所有 DOM 操作集中起来，在一次重绘或回流中就完成，并且重绘或回流的时间间隔紧紧跟随浏览器的刷新频率，一般来说，这个频率为每秒60帧。
+  // 2、在隐藏或不可见的元素中，requestAnimationFrame 将不会进行重绘或回流，这当然就意味着更少的的 cpu，gpu 和内存使用量。
+  volantis.requestAnimationFrame = (fn)=>{
+    if (!window.requestAnimationFrame) {
+      window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame;
+    }
+    window.requestAnimationFrame(fn)
+  }
+  /************************ layoutHelper *****************************************/
+  volantis.layoutHelper = (helper, html, opt)=>{
+    opt = Object.assign({clean:false, pjax:true}, opt)
+    function myhelper(helper, html, clean) {
+      volantis.tempDiv = document.createElement("div");
+      volantis.tempDiv.innerHTML = html;
+      let layoutHelper = document.querySelector("#layoutHelper-"+helper)
+      if (layoutHelper) {
+        if (clean) {
+          layoutHelper.innerHTML = ""
+        }
+        layoutHelper.append(volantis.tempDiv);
+      }
+    }
+    myhelper(helper, html, opt.clean)
+    if (opt.pjax) {
+      volantis.pjax.push(()=>{
+        myhelper(helper, html, opt.clean)
+      },"layoutHelper-"+helper)
+    }
+  }
+  /****************************** 滚动事件处理 ****************************************/
+  volantis.scroll = {
+    engine: new RunItem(),
+    unengine: new RunItem(),
+  };
+  volantis.scroll = Object.assign(volantis.scroll, {
+    push: volantis.scroll.engine.push,
+  });
+  // 滚动条距离顶部的距离
+  volantis.scroll.getScrollTop = () =>{
+    let scrollPos;
+    if (window.pageYOffset) {
+      scrollPos = window.pageYOffset;
+    } else if (document.compatMode && document.compatMode != 'BackCompat') {
+      scrollPos = document.documentElement.scrollTop;
+    } else if (document.body) {
+      scrollPos = document.body.scrollTop;
+    }
+    return scrollPos;
+  }
+  // 使用 requestAnimationFrame 处理滚动事件
+  // `volantis.scroll.del` 中存储了一个数值, 该数值检测一定时间间隔内滚动条滚动的位移, 数值的检测频率是浏览器的刷新频率. 数值为正数时, 表示向下滚动. 数值为负数时, 表示向上滚动.
+  volantis.scroll.handleScrollEvents = () => {
+    volantis.scroll.lastScrollTop = volantis.scroll.getScrollTop()
+    function loop() {
+      const scrollTop = volantis.scroll.getScrollTop();
+      if (volantis.scroll.lastScrollTop !== scrollTop) {
+        volantis.scroll.del = scrollTop - volantis.scroll.lastScrollTop;
+        volantis.scroll.lastScrollTop = scrollTop;
+        // if (volantis.scroll.del > 0) {
+        //   console.log("向下滚动");
+        // } else {
+        //   console.log("向上滚动");
+        // }
+        // 注销过期的unengine未滚动事件
+        volantis.scroll.unengine.list=[]
+        volantis.scroll.engine.start();
+      }else{
+        volantis.scroll.unengine.start();
+      }
+      volantis.requestAnimationFrame(loop)
+    }
+    volantis.requestAnimationFrame(loop)
+  }
+  volantis.scroll.handleScrollEvents()
+  volantis.scroll.ele = null;
+  // 触发页面滚动至目标元素位置
+  volantis.scroll.to = (ele, option = {}) => {
+    if (!ele) return;
+    volantis.scroll.ele = ele;
+    // 默认配置
+    opt = {
+      top: ele.getBoundingClientRect().top + document.documentElement.scrollTop,
+      behavior: "smooth"
+    }
+    // 定义配置
+    if ("top" in option) {
+      opt.top = option.top
+    }
+    if ("behavior" in option) {
+      opt.behavior = option.behavior
+    }
+    if ("addTop" in option) {
+      opt.top += option.addTop
+    }
+    if (!("observerDic" in option)) {
+      option.observerDic = 100
+    }
+    // 滚动
+    window.scrollTo(opt);
+    // 监视器
+    // 监视并矫正元素滚动到指定位置
+    // 用于处理 lazyload 引起的 cls 导致的定位失败问题
+    // option.observer = false
+    if (option.observer) {
+      setTimeout(() => {
+        if (volantis.scroll.ele != ele) {
+          return
+        }
+        volantis.scroll.unengine.push(() => {
+          let me = ele.getBoundingClientRect().top
+          if(!(me >= -option.observerDic && me <= option.observerDic)){
+            volantis.scroll.to(ele, option)
+          }
+          volantis.scroll.unengine.remove("unengineObserver")
+        },"unengineObserver")
+      },1000)
+    }
+  }
+  /********************** Content Visibility ********************************/
+  // 见 source/css/first.styl 如果遇到任何问题 删除 .post-story 即可
+  // 一个元素被声明 content-visibility 属性后 如果元素不在 viewport 中 浏览器不会计算其后代元素样式和属性 从而节省 Style & Layout 耗时
+  // content-visibility 的副作用: 锚点失效 等等(实验初期 暂不明确), 使用此方法清除样式
+  volantis.cleanContentVisibility = ()=>{
+    if (document.querySelector(".post-story")) {
+      console.log("cleanContentVisibility");
+      document.querySelectorAll(".post-story").forEach(e=>{
+        e.classList.remove("post-story")
+      })
+    }
+  }
+  /******************************************************************************/
+  /******************************************************************************/
+  /******************************************************************************/
+  //图像加载出错时的处理
+  function errorImgAvatar(img) {
+    img.src = "https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg";
+    img.onerror = null;
+  }
+  function errorImgCover(img) {
+    img.src = "https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg";
+    img.onerror = null;
+  }
+  /******************************************************************************/
+</script>
+
+  <!-- import head_end begin -->
+  <!-- import head_end end -->
+  <!-- Custom Files headEnd begin-->
+  
+  <!-- Custom Files headEnd end-->
+  <!-- front-matter head_end begin -->
+  <!-- front-matter head_end end -->
+  <!-- subtitle  typewriter effect -->
+  <script src="/js/binft-typewriter.js" defer></script>
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://unpkg.com/katex@0.12.0/dist/katex.min.css">
+
+<link rel="stylesheet" href="https://unpkg.com/hexo-math@4.0.0/dist/style.css">
+<!-- hexo injector head_end end --></head>
+  <body itemscope itemtype="http://schema.org/WebPage">
+    <!-- import body_begin begin-->
+    <!-- import body_begin end-->
+    <!-- Custom Files bodyBegin begin-->
+    <div class="loading-pacman">
+  <div class="spin-wrapper">
+    <div class="loading">
+      <i></i><i></i><i></i><i></i>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var loader = document.querySelector('.loading-pacman');
+
+  function showLoader() {
+    if (loader) loader.style.display = 'block';
+  }
+
+  function hideLoader() {
+    if (loader) loader.style.display = 'none';
+  }
+
+  window.ShowLoading = showLoader;
+  window.HideLoading = hideLoader;
+
+  if (typeof volantis !== 'undefined' && volantis.pjax) {
+    volantis.pjax.push(hideLoader, 'HideSpin');
+    volantis.pjax.send(showLoader, 'ShowSpin');
+    volantis.pjax.error(hideLoader, 'HideSpin');
+  }
+
+  document.addEventListener('pjax:send', showLoader);
+  document.addEventListener('pjax:complete', hideLoader);
+  document.addEventListener('pjax:error', hideLoader);
+
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(hideLoader, 100);
+  });
+})();
+</script>
+    <!-- Custom Files bodyBegin end-->
+    <!-- front-matter body_begin begin -->
+    <!-- front-matter body_begin end -->
+    <header itemscope itemtype="http://schema.org/WPHeader" id="l_header" class="l_header auto shadow floatable blur show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fa-solid fa-comments fa-fw" target="_self"  href="/" onclick="return false;" title="comment"></a></li>
+        
+          <li><a id="s-toc" class="s-toc fa-solid fa-list fa-fw" target="_self"  href="/" onclick="return false;" title="toc"></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://pic1.imgdb.cn/item/68aabec158cb8da5c847b847.png'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/" title="博客"
+                  
+                  
+                  
+                    active-action="action-home"
+                  >
+                  <i class='fa-solid fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/categories/" title="分类"
+                  
+                  
+                  
+                    active-action="action-categories"
+                  >
+                  <i class='fa-solid fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/tags/" title="标签"
+                  
+                  
+                  
+                    active-action="action-tags"
+                  >
+                  <i class='fa-solid fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/archives/" title="归档"
+                  
+                  
+                  
+                    active-action="action-archives"
+                  >
+                  <i class='fa-solid fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/friends/" title="友链"
+                  
+                  
+                  
+                    active-action="action-friends"
+                  >
+                  <i class='fa-solid fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/about/" title="关于"
+                  
+                  
+                  
+                    active-action="action-about"
+                  >
+                  <i class='fa-solid fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+      
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fa-solid fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+      
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fa-solid fa-search fa-fw" target="_self" href="/" onclick="return false;" title="search"></a></li>
+				
+				<li>
+          <a class="s-menu fa-solid fa-bars fa-fw" target="_self" href="/" onclick="return false;" title="menu"></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/" title="博客"
+                  
+                  
+                  
+                    active-action="action-home"
+                  >
+                  <i class='fa-solid fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/categories/" title="分类"
+                  
+                  
+                  
+                    active-action="action-categories"
+                  >
+                  <i class='fa-solid fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/tags/" title="标签"
+                  
+                  
+                  
+                    active-action="action-tags"
+                  >
+                  <i class='fa-solid fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/archives/" title="归档"
+                  
+                  
+                  
+                    active-action="action-archives"
+                  >
+                  <i class='fa-solid fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/friends/" title="友链"
+                  
+                  
+                  
+                    active-action="action-friends"
+                  >
+                  <i class='fa-solid fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover"
+                href="/about/" title="关于"
+                  
+                  
+                  
+                    active-action="action-about"
+                  >
+                  <i class='fa-solid fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+
+      <!-- Custom Files header begin -->
+      
+      <!-- Custom Files header end -->
+		</div>
+	</div>
+  </div>
+  
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+      <!-- see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs -->
+      <div id="none" class='cover-wrapper post dock' style="display: none;">
+        
+  <div class='cover-bg lazyload placeholder' data-bg="https://pic1.imgdb.cn/item/699bed118d93ad3aa183cbeb.jpg"></div>
+
+<div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title"><font><span>独</span> <span>钓</span> <span>寒</span> <span>江</span></font></p>
+    
+    
+      <p class="subtitle"><div id="binft"></div></p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a target="_blank" rel="noopener" href="https://iceyfisher.github.io/"
+              
+              
+              active-action="action-https:iceyfishergithubio">
+              <img src='https://pic1.imgdb.cn/item/68aab77658cb8da5c8477901.png'><p>文档</p>
+            </a>
+          
+            <a target="_blank" rel="noopener" href="https://volantis.js.org/"
+              
+              
+              active-action="action-https:volantisjsorg">
+              <img src='https://pic1.imgdb.cn/item/68aab77658cb8da5c8477903.png'><p>社区</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              active-action="action-archives">
+              <img src='https://pic1.imgdb.cn/item/68aab7b758cb8da5c8477907.png'><p>博客</p>
+            </a>
+          
+            <a target="_blank" rel="noopener" href="https://github.com/volantis-x/hexo-theme-volantis/"
+              
+              
+              active-action="action-https:githubcomvolantis-xhexo-theme-volantis">
+              <img src='https://pic1.imgdb.cn/item/68aab77658cb8da5c8477902.png'><p>源码</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+        <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+      </div>
+    
+  
+</div>
+
+      <div id="safearea">
+        <div class="body-wrapper">
+          
+<div id="l_main" class=''>
+  <article itemscope itemtype="http://schema.org/Article" class="article post white-box reveal md shadow floatable blur article-type-post" id="post" itemscope itemprop="blogPost">
+  <link itemprop="mainEntityOfPage" href="http://example.com/2026/09/01/机器学习算法06-主成分分析PCA/">
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="渔人码头 ⚓🛶">
+  </span>
+  <span hidden itemprop="post" itemscope itemtype="http://schema.org/Post">
+    <meta itemprop="name" content="渔人码头 ⚓🛶">
+    <meta itemprop="description" content="想法自留地~~">
+  </span>
+  
+
+
+  
+    <span hidden>
+      <meta itemprop="image" content="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png">
+    </span>
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title" itemprop="name headline">
+        机器学习算法06-主成分分析（PCA）
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author' itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <a itemprop="url" class='author' href="/" rel="nofollow">
+    <img itemprop="image" src="https://pic1.imgdb.cn/item/685d014258cb8da5c87322b7.png" class="lazyload" data-srcset="https://pic1.imgdb.cn/item/685d014258cb8da5c87322b7.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+    <p itemprop="name">icy_fisher</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateCreated datePublished" datetime="2026-09-01T18:24:41+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2026年9月1日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+
+
+
+          
+        
+        <!-- Custom Files topMeta begin-->
+        
+        <!-- Custom Files topMeta end-->
+      </div>
+    
+  </div>
+
+
+  <div id="layoutHelper-page-plugins"></div>
+  <div id="post-body" itemprop="articleBody">
+    <p>主成分分析基于本科线性代数中特征分解的思想，通过方差衡量不同方向所包含的信息量，从而实现特征压缩与降维。“分清主要矛盾与次要矛盾”，某种意义上正是 PCA 所做的事情。</p>
+<span id="more"></span>
+<p>本文思维导图如下。</p>
+<h1 id="1-主成分与降维"><a href="#1-主成分与降维" class="headerlink" title="1. 主成分与降维"></a>1. 主成分与降维</h1><h2 id="1-1-宝山某大专"><a href="#1-1-宝山某大专" class="headerlink" title="1.1 宝山某大专"></a>1.1 宝山某大专</h2><p>临近开学，宝山某大专组织了一次调研问卷。一共采访了 12 位学生，我们想研究同学的学习状态与日常生活安排之间的联系，于是记录了他们一周的生活数据并取平均，做出了下面这个表格：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>学生</th>
+<th style="text-align:right">每日学习时间 h</th>
+<th style="text-align:right">每周图书馆次数</th>
+<th style="text-align:right">每日睡眠 h</th>
+<th style="text-align:right">每周运动次数</th>
+<th style="text-align:right">每日手机娱乐 h</th>
+<th style="text-align:right">每日咖啡杯数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td style="text-align:right">7.2</td>
+<td style="text-align:right">6</td>
+<td style="text-align:right">7.8</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">1.4</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td>2</td>
+<td style="text-align:right">6.8</td>
+<td style="text-align:right">5</td>
+<td style="text-align:right">7.5</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">1.8</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td>3</td>
+<td style="text-align:right">6.1</td>
+<td style="text-align:right">5</td>
+<td style="text-align:right">7.1</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">2.0</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>4</td>
+<td style="text-align:right">5.7</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">7.3</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">2.4</td>
+<td style="text-align:right">1</td>
+</tr>
+<tr>
+<td>5</td>
+<td style="text-align:right">5.2</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">6.8</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">2.8</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>6</td>
+<td style="text-align:right">4.8</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">6.5</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">3.2</td>
+<td style="text-align:right">2</td>
+</tr>
+<tr>
+<td>7</td>
+<td style="text-align:right">4.2</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">6.2</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">3.8</td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td>8</td>
+<td style="text-align:right">3.8</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">6.0</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">4.1</td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td>9</td>
+<td style="text-align:right">3.2</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">5.8</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">4.8</td>
+<td style="text-align:right">3</td>
+</tr>
+<tr>
+<td>10</td>
+<td style="text-align:right">2.8</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">5.5</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">5.2</td>
+<td style="text-align:right">4</td>
+</tr>
+<tr>
+<td>11</td>
+<td style="text-align:right">2.3</td>
+<td style="text-align:right">1</td>
+<td style="text-align:right">5.2</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">5.8</td>
+<td style="text-align:right">4</td>
+</tr>
+<tr>
+<td>12</td>
+<td style="text-align:right">1.9</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">5.0</td>
+<td style="text-align:right">0</td>
+<td style="text-align:right">6.3</td>
+<td style="text-align:right">4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>喝咖啡是否大概率是因为通宵达旦学习，还是因为熬夜刷手机？去图书馆次数多，就真的说明学习时间更长吗？面对这样一个多变量问题，我们很难只靠肉眼直接看出变量之间的整体关系。</p>
+<p>没有头绪的时候，不妨先把问题写成数学形式。设第 $i$ 位学生的数据为一个六维向量：</p>
+<script type="math/tex; mode=display">
+x_i=
+\begin{bmatrix}
+b_{i1}\\
+b_{i2}\\
+b_{i3}\\
+b_{i4}\\
+b_{i5}\\
+b_{i6}
+\end{bmatrix}</script><p>其中六个特征分别为：</p>
+<script type="math/tex; mode=display">
+\{b_1,b_2,b_3,b_4,b_5,b_6\}
+=
+\{
+\text{学习时间},
+\text{图书馆次数},
+\text{睡眠时间},
+\text{运动次数},
+\text{手机娱乐时间},
+\text{咖啡杯数}
+\}</script><p>整个数据集可以写为：</p>
+<script type="math/tex; mode=display">
+X=\{x_1,x_2,\dots,x_{12}\}.</script><p>每个特征的均值组成均值向量：</p>
+<script type="math/tex; mode=display">
+\mu=E[x]
+=
+\begin{bmatrix}
+\bar b_1\\
+\bar b_2\\
+\vdots\\
+\bar b_6
+\end{bmatrix}.</script><h2 id="1-2-两个变量的共同变化"><a href="#1-2-两个变量的共同变化" class="headerlink" title="1.2 两个变量的共同变化"></a>1.2 两个变量的共同变化</h2><p>如果只研究一个变量，例如每日学习时间，可以用方差描述不同学生之间的差异：</p>
+<script type="math/tex; mode=display">
+\operatorname{Var}(x)
+=
+E[(x-\mu)^2].</script><p>如果同时观察两个变量 $x$ 和 $y$，想知道它们究竟是倾向于一起增加、一起减少，还是没有明显的共同变化趋势，就可以引入协方差：</p>
+<script type="math/tex; mode=display">
+\operatorname{Cov}(x,y)
+=
+E[(x-\mu_x)(y-\mu_y)].</script><p>对于有限样本，常用样本协方差：</p>
+<script type="math/tex; mode=display">
+s_{xy}
+=
+\frac{1}{n-1}
+\sum_{i=1}^{n}
+(x_i-\bar x)(y_i-\bar y).</script><p>这里使用 $n-1$ 而不是 $n$，是因为我们用样本均值估计总体均值以后损失了一个自由度。</p>
+<p>如果把当前 12 位学生本身就视为我们研究的完整总体，也可以写成：</p>
+<script type="math/tex; mode=display">
+\operatorname{Cov}(x,y)
+=
+\frac{1}{n}
+\sum_{i=1}^{n}
+(x_i-\bar x)(y_i-\bar y).</script><p>那么协方差究竟揭示了什么？</p>
+<ul>
+<li>$\operatorname{Cov}(x,y)&gt;0$：两个变量倾向于同增同减，即正相关；</li>
+<li>$\operatorname{Cov}(x,y)&lt;0$：一个增加时另一个倾向于减少，即负相关；</li>
+<li>$\operatorname{Cov}(x,y)\approx 0$：两个变量之间没有明显的线性共同变化趋势。</li>
+</ul>
+<p>于是，我们可以计算六个变量两两之间的关系，并组成一个协方差矩阵：</p>
+<script type="math/tex; mode=display">
+\Sigma=
+\begin{bmatrix}
+\operatorname{Cov}(b_1,b_1) & \cdots & \operatorname{Cov}(b_1,b_6)\\
+\vdots & \ddots & \vdots\\
+\operatorname{Cov}(b_6,b_1) & \cdots & \operatorname{Cov}(b_6,b_6)
+\end{bmatrix}.</script><p>它是一个 $6\times6$ 的对称矩阵。</p>
+<h2 id="1-3-标准化"><a href="#1-3-标准化" class="headerlink" title="1.3 标准化"></a>1.3 标准化</h2><p>这里马上会遇到一个问题。</p>
+<p>我们的六个变量单位并不相同：学习时间是小时，图书馆和运动是次数，睡眠和手机娱乐是小时，咖啡则是杯数。不同变量的数值尺度如果相差很大，那么原始协方差就会受到单位的明显影响。</p>
+<p>例如，一个数值本身在 $10000$ 左右的变量，变化 $100$ 可能只是一个很小的相对波动；但对于一个本身只有 $0.1$ 左右的变量而言，变化 $100$ 显然完全不是一个量级的问题。</p>
+<p>如果直接使用原始协方差矩阵，数值尺度大的变量很可能仅仅因为单位更大，就在 PCA 中占据更高权重。</p>
+<p>因此，对于这种不同量纲的数据，通常首先进行标准化：</p>
+<script type="math/tex; mode=display">
+z_{ij}
+=
+\frac{x_{ij}-\bar x_j}{s_j},</script><p>其中 $x_{ij}$ 表示第 $i$ 个学生的第 $j$ 个特征，$\bar x_j$ 和 $s_j$ 分别表示第 $j$ 个特征的均值和标准差。</p>
+<p>标准化以后，每个变量都满足：</p>
+<script type="math/tex; mode=display">
+E[z_j]=0,
+\qquad
+\operatorname{Var}(z_j)=1.</script><p>这样，不同变量就被放到了同一个尺度上。</p>
+<p>对标准化后的数据计算 Pearson 相关系数，可以得到：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:right">学习</th>
+<th style="text-align:right">图书馆</th>
+<th style="text-align:right">睡眠</th>
+<th style="text-align:right">运动</th>
+<th style="text-align:right">手机</th>
+<th style="text-align:right">咖啡</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>学习</strong></td>
+<td style="text-align:right">1.000</td>
+<td style="text-align:right">0.986</td>
+<td style="text-align:right">0.994</td>
+<td style="text-align:right">0.980</td>
+<td style="text-align:right">-0.993</td>
+<td style="text-align:right">-0.953</td>
+</tr>
+<tr>
+<td><strong>图书馆</strong></td>
+<td style="text-align:right">0.986</td>
+<td style="text-align:right">1.000</td>
+<td style="text-align:right">0.978</td>
+<td style="text-align:right">0.958</td>
+<td style="text-align:right">-0.983</td>
+<td style="text-align:right">-0.921</td>
+</tr>
+<tr>
+<td><strong>睡眠</strong></td>
+<td style="text-align:right">0.994</td>
+<td style="text-align:right">0.978</td>
+<td style="text-align:right">1.000</td>
+<td style="text-align:right">0.976</td>
+<td style="text-align:right">-0.990</td>
+<td style="text-align:right">-0.972</td>
+</tr>
+<tr>
+<td><strong>运动</strong></td>
+<td style="text-align:right">0.980</td>
+<td style="text-align:right">0.958</td>
+<td style="text-align:right">0.976</td>
+<td style="text-align:right">1.000</td>
+<td style="text-align:right">-0.964</td>
+<td style="text-align:right">-0.932</td>
+</tr>
+<tr>
+<td><strong>手机</strong></td>
+<td style="text-align:right">-0.993</td>
+<td style="text-align:right">-0.983</td>
+<td style="text-align:right">-0.990</td>
+<td style="text-align:right">-0.964</td>
+<td style="text-align:right">1.000</td>
+<td style="text-align:right">0.949</td>
+</tr>
+<tr>
+<td><strong>咖啡</strong></td>
+<td style="text-align:right">-0.953</td>
+<td style="text-align:right">-0.921</td>
+<td style="text-align:right">-0.972</td>
+<td style="text-align:right">-0.932</td>
+<td style="text-align:right">0.949</td>
+<td style="text-align:right">1.000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>这时，最开始提出的一些问题已经能够得到一些初步答案。</p>
+<h3 id="喝咖啡是因为学习还是刷手机？"><a href="#喝咖啡是因为学习还是刷手机？" class="headerlink" title="喝咖啡是因为学习还是刷手机？"></a>喝咖啡是因为学习还是刷手机？</h3><p>在这 12 位学生的数据中：</p>
+<script type="math/tex; mode=display">
+r(\text{咖啡},\text{学习})
+\approx -0.953,</script><p>而</p>
+<script type="math/tex; mode=display">
+r(\text{咖啡},\text{手机})
+\approx 0.949,</script><p>同时</p>
+<script type="math/tex; mode=display">
+r(\text{咖啡},\text{睡眠})
+\approx -0.972.</script><p>因此，在这组数据中，咖啡摄入较多通常伴随着更长的手机娱乐时间、更少的睡眠以及更少的学习时间。</p>
+<p>当然，这里描述的仅仅是相关关系，而不是因果关系。我们不能仅凭这些数据就得出“刷手机导致喝咖啡”或者“喝咖啡导致睡眠减少”这样的结论。</p>
+<h3 id="去图书馆次数多，就真的学习得多吗？"><a href="#去图书馆次数多，就真的学习得多吗？" class="headerlink" title="去图书馆次数多，就真的学习得多吗？"></a>去图书馆次数多，就真的学习得多吗？</h3><p>这组数据中：</p>
+<script type="math/tex; mode=display">
+r(\text{图书馆},\text{学习})
+\approx0.986,</script><p>是一个非常强的正相关。</p>
+<p>所以至少对于当前这 12 位学生而言，图书馆次数确实能够较好地反映学习时间。</p>
+<h2 id="1-4-PCA？"><a href="#1-4-PCA？" class="headerlink" title="1.4 PCA？"></a>1.4 PCA？</h2><p>对于六个变量而言，我们还可以勉强观察相关系数矩阵。</p>
+<p>但如果现在有 60 个变量，那么变量之间两两关系的数量将达到：</p>
+<script type="math/tex; mode=display">
+\frac{60\times59}{2}
+=
+1770.</script><p>此时，再试图逐个分析所有变量之间的关系就变得非常困难。</p>
+<p>重新观察刚才的相关系数矩阵，可以发现一个很明显的现象：</p>
+<blockquote>
+<p>学习时间、图书馆次数、睡眠和运动大体一起增加，而手机娱乐和咖啡摄入则大体向相反方向变化。</p>
+</blockquote>
+<p>也就是说，表面上我们观察了六个变量，但它们并不是六个完全独立的变化方向。多个变量之间可能存在大量重复信息，它们很可能共同反映某个更低维度的潜在状态。</p>
+<p>PCA 所做的事情，正是寻找一个新的坐标系，把原来彼此相关的多个变量重新组合成少数几个互相正交的新变量，并尽可能保留原始数据中的变化信息。</p>
+<p>这些新的变量就称为<strong>主成分（Principal Components）</strong>。</p>
+<h1 id="2-PCA"><a href="#2-PCA" class="headerlink" title="2. PCA"></a>2. PCA</h1><h2 id="2-1-第一主成分"><a href="#2-1-第一主成分" class="headerlink" title="2.1 第一主成分"></a>2.1 第一主成分</h2><p>设标准化后的学生数据记为随机向量：</p>
+<script type="math/tex; mode=display">
+z\in\mathbb{R}^6.</script><p>由于数据已经完成中心化，因此有：</p>
+<script type="math/tex; mode=display">
+E[z]=0.</script><p>其协方差矩阵记为：</p>
+<script type="math/tex; mode=display">
+\Sigma
+=
+E[zz^T].</script><p>现在我们希望在六维空间中寻找一个方向：</p>
+<script type="math/tex; mode=display">
+w\in\mathbb{R}^6,</script><p>并把原始数据投影到这个方向上，得到一个新的标量特征：</p>
+<script type="math/tex; mode=display">
+y=w^Tz.</script><p>PCA 希望这个新的特征尽可能保留原始数据中的变化，因此一个自然的想法就是：让投影后的方差尽可能大。</p>
+<p>由于 $E[z]=0$，所以：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\operatorname{Var}(y)
+&=
+\operatorname{Var}(w^Tz)\\
+&=
+E[(w^Tz)^2]\\
+&=
+E[w^Tzz^Tw]\\
+&=
+w^TE[zz^T]w\\
+&=
+w^T\Sigma w.
+\end{aligned}</script><p>因此，我们希望寻找一个方向 $w$，使：</p>
+<script type="math/tex; mode=display">
+w^T\Sigma w</script><p>尽可能大。</p>
+<p>但是这里还存在一个问题：如果完全不限制 $w$ 的长度，只需要不断把 $w$ 放大，例如：</p>
+<script type="math/tex; mode=display">
+w\rightarrow cw,</script><p>那么投影方差就会变成：</p>
+<script type="math/tex; mode=display">
+\operatorname{Var}((cw)^Tz)
+=
+c^2w^T\Sigma w.</script><p>只要 $c\rightarrow\infty$，目标函数就可以无限增大。</p>
+<p>因此，我们真正想比较的应该只是不同的“方向”，而不是向量的长度。于是规定 $w$ 为单位向量：</p>
+<script type="math/tex; mode=display">
+w^Tw=1.</script><p>这样，寻找第一主成分就可以写成下面这个约束优化问题：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\max_w\quad & w^T\Sigma w\\
+\text{s.t.}\quad & w^Tw=1.
+\end{aligned}</script><p>也就是说，PCA 寻找第一主成分的本质，就是在所有单位方向中寻找一个方向，使数据投影到该方向之后的方差最大。</p>
+<p>这个最优方向记为：</p>
+<script type="math/tex; mode=display">
+w_1,</script><p>它就是第一主成分所对应的方向。</p>
+<p>为了求解这个带约束的优化问题，可以引入拉格朗日乘子 $\lambda$，构造拉格朗日函数：</p>
+<script type="math/tex; mode=display">
+L(w,\lambda)
+=
+w^T\Sigma w
+-
+\lambda(w^Tw-1).</script><p>分别对 $w$ 和 $\lambda$ 求偏导。对于 $w$，有：</p>
+<script type="math/tex; mode=display">
+\frac{\partial L}{\partial w}
+=
+2\Sigma w-2\lambda w.</script><p>令其为 0：</p>
+<script type="math/tex; mode=display">
+2\Sigma w-2\lambda w=0,</script><p>于是得到：</p>
+<script type="math/tex; mode=display">
+\Sigma w=\lambda w.</script><p>这正是线性代数中非常熟悉的特征值方程。</p>
+<p>也就是说，PCA 中满足最优条件的方向 $w$，实际上就是协方差矩阵 $\Sigma$ 的特征向量，而对应的 $\lambda$ 则是这个特征向量对应的特征值。</p>
+<p>进一步来看，由于：</p>
+<script type="math/tex; mode=display">
+\Sigma w=\lambda w</script><p>且：</p>
+<script type="math/tex; mode=display">
+w^Tw=1,</script><p>在等式两边左乘 $w^T$，可以得到：</p>
+<script type="math/tex; mode=display">
+w^T\Sigma w
+=
+\lambda w^Tw
+=
+\lambda.</script><p>而前面已经知道：</p>
+<script type="math/tex; mode=display">
+w^T\Sigma w
+=
+\operatorname{Var}(w^Tz),</script><p>因此有：</p>
+<script type="math/tex; mode=display">
+\lambda
+=
+\operatorname{Var}(w^Tz).</script><p>这一步非常关键。</p>
+<p>它说明协方差矩阵的特征值并不是一个抽象的代数量，而是具有非常明确的统计意义：</p>
+<blockquote>
+<p>特征值 $\lambda$ 就是数据沿对应特征向量方向投影以后所具有的方差。</p>
+</blockquote>
+<p>于是，原来的优化问题：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\max_w\quad & w^T\Sigma w\\
+\text{s.t.}\quad & w^Tw=1
+\end{aligned}</script><p>就等价于寻找协方差矩阵中最大的特征值以及它对应的特征向量。</p>
+<p>如果把协方差矩阵的特征值按照从大到小排列：</p>
+<script type="math/tex; mode=display">
+\lambda_1
+\geq
+\lambda_2
+\geq
+\cdots
+\geq
+\lambda_6,</script><p>并把对应的单位特征向量记为：</p>
+<script type="math/tex; mode=display">
+w_1,w_2,\dots,w_6,</script><p>那么最大特征值 $\lambda_1$ 对应的特征向量 $w_1$，就是第一主成分方向。</p>
+<p>第一主成分可以写成：</p>
+<script type="math/tex; mode=display">
+PC_1=w_1^Tz.</script><h2 id="2-2-第二主成分与后续主成分"><a href="#2-2-第二主成分与后续主成分" class="headerlink" title="2.2 第二主成分与后续主成分"></a>2.2 第二主成分与后续主成分</h2><p>找到第一主成分以后，还可以继续寻找第二个方向。</p>
+<p>但第二个方向不能再次选择第一主成分，否则得到的仍然是相同的信息。因此，需要增加一个新的限制：</p>
+<script type="math/tex; mode=display">
+w_2^Tw_1=0.</script><p>也就是说，第二主成分必须与第一主成分正交。</p>
+<p>在这个条件下，我们继续寻找投影方差最大的方向：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\max_{w_2}\quad
+&
+w_2^T\Sigma w_2\\
+\text{s.t.}\quad
+&
+w_2^Tw_2=1,\\
+&
+w_2^Tw_1=0.
+\end{aligned}</script><p>最终得到的 $w_2$，正是协方差矩阵第二大特征值 $\lambda_2$ 所对应的特征向量。</p>
+<p>于是第二主成分写为：</p>
+<script type="math/tex; mode=display">
+PC_2=w_2^Tz.</script><p>同样地继续下去，可以得到：</p>
+<script type="math/tex; mode=display">
+PC_i=w_i^Tz,
+\qquad
+i=1,2,\dots,6.</script><p>由于协方差矩阵 $\Sigma$ 是一个实对称矩阵，因此它的特征向量可以选取为一组标准正交基，即：</p>
+<script type="math/tex; mode=display">
+w_i^Tw_j=0,
+\qquad i\neq j,</script><p>并且：</p>
+<script type="math/tex; mode=display">
+w_i^Tw_i=1.</script><p>因此，不同主成分之间在线性意义下也是互不相关的。</p>
+<p>例如对于两个主成分 $PC_i$ 和 $PC_j$，有：</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+\operatorname{Cov}(PC_i,PC_j)
+&=
+\operatorname{Cov}(w_i^Tz,w_j^Tz)\\
+&=
+w_i^T\Sigma w_j.
+\end{aligned}</script><p>利用：</p>
+<script type="math/tex; mode=display">
+\Sigma w_j=\lambda_jw_j,</script><p>可以得到：</p>
+<script type="math/tex; mode=display">
+w_i^T\Sigma w_j
+=
+\lambda_jw_i^Tw_j
+=
+0.</script><p>因此：</p>
+<script type="math/tex; mode=display">
+\operatorname{Cov}(PC_i,PC_j)=0,
+\qquad i\neq j.</script><p>原来六个彼此高度相关的变量，就这样被重新表示成了一组在线性意义下互不相关的新坐标轴。</p>
+<p>从这个角度来看，PCA 并不是简单地“删除几个原始变量”，而是在原来的六维空间中重新寻找一组更适合描述数据的坐标轴。</p>
+<p>第一条轴解释最多的数据变化，第二条轴解释剩余变化中最多的部分，第三条轴继续解释剩余变化，以此类推。</p>
+<p>如果前几个主成分已经能够解释绝大多数方差，那么后面的主成分就可以舍弃，从而实现降维。</p>
+<h2 id="2-3-方差贡献率"><a href="#2-3-方差贡献率" class="headerlink" title="2.3 方差贡献率"></a>2.3 方差贡献率</h2><p>前面已经得到，第 $i$ 个主成分对应的特征值满足：</p>
+<script type="math/tex; mode=display">
+\lambda_i
+=
+\operatorname{Var}(PC_i).</script><p>因此，每一个特征值都代表对应主成分所能够解释的方差大小。</p>
+<p>那么所有主成分所包含的总方差就是：</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{6}\lambda_i.</script><p>于是，第 $i$ 个主成分所解释的方差比例可以定义为：</p>
+<script type="math/tex; mode=display">
+\eta_i
+=
+\frac{\lambda_i}
+{\sum_{j=1}^{6}\lambda_j}.</script><p>这个量称为<strong>方差贡献率（explained variance ratio）</strong>。</p>
+<p>它表示第 $i$ 个主成分解释了原始数据总变化中的多少比例。</p>
+<p>例如，如果：</p>
+<script type="math/tex; mode=display">
+\eta_1=0.8,</script><p>就意味着第一主成分一个方向已经解释了原始数据中 $80\%$ 的总体方差。</p>
+<p>如果希望保留前 $k$ 个主成分，则可以进一步计算累计方差贡献率：</p>
+<script type="math/tex; mode=display">
+R_k
+=
+\frac{\sum_{i=1}^{k}\lambda_i}
+{\sum_{j=1}^{6}\lambda_j}.</script><p>例如，如果：</p>
+<script type="math/tex; mode=display">
+R_2=0.95,</script><p>说明只保留前两个主成分，就已经能够解释原数据中 $95\%$ 的总体变化。</p>
+<p>这时候，就可以考虑把原来的六维数据压缩为二维。</p>
+<h2 id="2-4-为什么标准化以后特征值之和等于-6？"><a href="#2-4-为什么标准化以后特征值之和等于-6？" class="headerlink" title="2.4 为什么标准化以后特征值之和等于 6？"></a>2.4 为什么标准化以后特征值之和等于 6？</h2><p>这里还有一个比较漂亮的线性代数关系。</p>
+<p>对于任意方阵，矩阵的迹等于其全部特征值之和：</p>
+<script type="math/tex; mode=display">
+\operatorname{tr}(\Sigma)
+=
+\sum_{i=1}^{6}\lambda_i.</script><p>而协方差矩阵的对角线元素分别就是每一个变量自己的方差：</p>
+<script type="math/tex; mode=display">
+\Sigma_{ii}
+=
+\operatorname{Var}(z_i).</script><p>由于我们已经对六个变量进行了标准化，所以每个变量都有：</p>
+<script type="math/tex; mode=display">
+\operatorname{Var}(z_i)=1.</script><p>因此协方差矩阵的迹为：</p>
+<script type="math/tex; mode=display">
+\operatorname{tr}(\Sigma)
+=
+1+1+1+1+1+1
+=
+6.</script><p>于是：</p>
+<script type="math/tex; mode=display">
+\sum_{i=1}^{6}\lambda_i=6.</script><p>这意味着，在标准化后的六维数据中，总方差正好等于特征数量，也就是 6。</p>
+<p>因此，第 $i$ 个主成分的方差贡献率也可以直接写成：</p>
+<script type="math/tex; mode=display">
+\eta_i
+=
+\frac{\lambda_i}{6}.</script><p>对前面的 12 位学生数据进行 PCA，可以得到六个特征值约为：</p>
+<script type="math/tex; mode=display">
+\lambda_1=5.8442,
+\qquad
+\lambda_2=0.0894,
+\qquad
+\lambda_3=0.0465,</script><script type="math/tex; mode=display">
+\lambda_4=0.0132,
+\qquad
+\lambda_5=0.0036,
+\qquad
+\lambda_6=0.0030.</script><p>可以先检查一下：</p>
+<script type="math/tex; mode=display">
+5.8442
++
+0.0894
++
+0.0465
++
+0.0132
++
+0.0036
++
+0.0030
+\approx
+6.</script><p>因此，第一主成分的方差贡献率为：</p>
+<script type="math/tex; mode=display">
+\eta_1
+=
+\frac{5.8442}{6}
+\approx
+97.40\%.</script><p>第二主成分的贡献率为：</p>
+<script type="math/tex; mode=display">
+\eta_2
+=
+\frac{0.0894}{6}
+\approx
+1.49\%.</script><p>第三主成分的贡献率约为：</p>
+<script type="math/tex; mode=display">
+\eta_3
+=
+\frac{0.0465}{6}
+\approx
+0.78\%.</script><p>所以前两个主成分的累计贡献率已经达到：</p>
+<script type="math/tex; mode=display">
+R_2
+=
+97.40\%
++
+1.49\%
+=
+98.89\%.</script><p>也就是说，原本需要六个变量描述的学生生活状态，仅仅用两个新的变量，就已经能够保留大约 $98.89\%$ 的总体变化。</p>
+<p>更加夸张的是，第一主成分一个方向就已经解释了约 $97.4\%$ 的数据变化。</p>
+<p>这说明我们的六个原始变量之间存在极其强烈的相关性。</p>
+<p>虽然表面上它们分别是：</p>
+<script type="math/tex; mode=display">
+\text{学习},
+\quad
+\text{图书馆},
+\quad
+\text{睡眠},
+\quad
+\text{运动},
+\quad
+\text{手机},
+\quad
+\text{咖啡},</script><p>但在这组数据中，它们实际上大体都沿着同一个潜在方向变化。</p>
+<p>这正是 PCA 能够降维的根本原因：</p>
+<blockquote>
+<p>当多个原始变量之间高度相关时，它们所携带的信息会大量重复。PCA 通过旋转坐标系，把这些重复的信息集中到少数几个主成分中，再舍弃那些只包含少量变化的方向，从而实现低维表示。</p>
+</blockquote>
+
+  </div>
+  
+  
+    
+    <div class='footer'>
+       <!-- 参考资料、相关资料等 -->
+      
+       <!-- 相关文章 -->
+      
+      <!-- 版权声明组件 -->
+      
+      <!-- 打赏组件 -->
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateModified" datetime="2026-09-01T21:30:45+08:00">
+  <a class='notlink'>
+    <i class="fa-solid fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2026年9月1日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://example.com/2026/09/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9506-%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90PCA/&title=机器学习算法06-主成分分析（PCA） - 渔人码头 ⚓🛶&summary=主成分分析基于本科线性代数中特征分解的思想，通过方差衡量不同方向所包含的信息量，从而实现特征压缩与降维。“分清主要矛盾与次要矛盾”，某种意义上正是 PCA 所做的事情。"
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qq.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qq.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://example.com/2026/09/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9506-%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90PCA/&title=机器学习算法06-主成分分析（PCA） - 渔人码头 ⚓🛶&summary=主成分分析基于本科线性代数中特征分解的思想，通过方差衡量不同方向所包含的信息量，从而实现特征压缩与降维。“分清主要矛盾与次要矛盾”，某种意义上正是 PCA 所做的事情。"
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qzone.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/qzone.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://example.com/2026/09/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9506-%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90PCA/&title=机器学习算法06-主成分分析（PCA） - 渔人码头 ⚓🛶&summary=主成分分析基于本科线性代数中特征分解的思想，通过方差衡量不同方向所包含的信息量，从而实现特征压缩与降维。“分清主要矛盾与次要矛盾”，某种意义上正是 PCA 所做的事情。"
+          
+          >
+          
+            <img src="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/weibo.png" class="lazyload" data-srcset="https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/logo/128/weibo.png" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+    <!-- Custom Files bottomMeta begin -->
+    
+    <!-- Custom Files bottomMeta end -->
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2026/07/02/%E5%8C%96%E5%AD%A6%E7%BB%93%E6%9E%84%E5%BC%8F%E6%B5%8B%E8%AF%95/'>
+          <p class='title'>化学结构式测试<i class="fa-solid fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>二维 SMILES 结构式苯
+
+乙醇
+
+阿司匹林
+
+
+三维分子结构以下示例使用本地三维坐标文件。二氧化钛团簇仅用于元素配色与交互测试，不代表经过计算优化的科研结构。
+乙醇（SDF）
+
+
+阿司匹林...</p>
+        </a>
+      
+    </div>
+  
+  <!-- Custom Files postEnd begin-->
+  
+  <!-- Custom Files postEnd end-->
+</article>
+
+
+  
+
+
+  <article class="post white-box shadow floatable blur" id="comments">
+    <span hidden>
+      <meta itemprop="discussionUrl" content="/2026/09/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9506-%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90PCA/index.html#comments">
+    </span>
+    <p ct><i class='fa-solid fa-comments'></i> 评论</p>
+    
+
+    <div id="layoutHelper-comments"></div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside id='l_side' itemscope itemtype="http://schema.org/WPSideBar">
+  
+
+  
+    
+    
+      
+    
+  
+
+
+<div class="widget-sticky pjax">
+
+  
+  
+    
+
+
+  <section class="widget toc-wrapper desktop mobile " id="toc-div" >
+    
+  <header>
+    
+      <i class="fa-solid fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E5%AE%9D%E5%B1%B1%E6%9F%90%E5%A4%A7%E4%B8%93"><span class="toc-text">1.1 宝山某大专</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E4%B8%A4%E4%B8%AA%E5%8F%98%E9%87%8F%E7%9A%84%E5%85%B1%E5%90%8C%E5%8F%98%E5%8C%96"><span class="toc-text">1.2 两个变量的共同变化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E6%A0%87%E5%87%86%E5%8C%96"><span class="toc-text">1.3 标准化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%96%9D%E5%92%96%E5%95%A1%E6%98%AF%E5%9B%A0%E4%B8%BA%E5%AD%A6%E4%B9%A0%E8%BF%98%E6%98%AF%E5%88%B7%E6%89%8B%E6%9C%BA%EF%BC%9F"><span class="toc-text">喝咖啡是因为学习还是刷手机？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%BB%E5%9B%BE%E4%B9%A6%E9%A6%86%E6%AC%A1%E6%95%B0%E5%A4%9A%EF%BC%8C%E5%B0%B1%E7%9C%9F%E7%9A%84%E5%AD%A6%E4%B9%A0%E5%BE%97%E5%A4%9A%E5%90%97%EF%BC%9F"><span class="toc-text">去图书馆次数多，就真的学习得多吗？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-PCA%EF%BC%9F"><span class="toc-text">1.4 PCA？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E7%AC%AC%E4%B8%80%E4%B8%BB%E6%88%90%E5%88%86"><span class="toc-text">2.1 第一主成分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E7%AC%AC%E4%BA%8C%E4%B8%BB%E6%88%90%E5%88%86%E4%B8%8E%E5%90%8E%E7%BB%AD%E4%B8%BB%E6%88%90%E5%88%86"><span class="toc-text">2.2 第二主成分与后续主成分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E6%96%B9%E5%B7%AE%E8%B4%A1%E7%8C%AE%E7%8E%87"><span class="toc-text">2.3 方差贡献率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%A0%87%E5%87%86%E5%8C%96%E4%BB%A5%E5%90%8E%E7%89%B9%E5%BE%81%E5%80%BC%E4%B9%8B%E5%92%8C%E7%AD%89%E4%BA%8E-6%EF%BC%9F"><span class="toc-text">2.4 为什么标准化以后特征值之和等于 6？</span></a></li></ol>
+    </div>
+  </section>
+
+  
+  
+
+</div>
+
+
+<!-- 没有 pjax 占位会报错 万恶的 pjax -->
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+  <div class="pjax">
+    <!-- pjax占位 -->
+  </div>
+
+
+  <!-- Custom Files side begin -->
+  
+  <!-- Custom Files side end -->
+</aside>
+
+
+
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<pjax>
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  pdata.commentConfig={};
+  //  see: /layout/_partial/scripts/_ctrl/coverCtrl.ejs
+  
+    // header
+    var l_header=document.getElementById("l_header");
+    
+    l_header.classList.add("show");
+    
+    
+      // cover
+      var cover_wrapper=document.querySelector('#l_cover .cover-wrapper');
+      var scroll_down=document.getElementById('scroll-down');
+      cover_wrapper.id="none";
+      cover_wrapper.style.display="none";
+      scroll_down.style.display="none";
+    
+  
+</script>
+</pjax>
+        </div>
+        
+  
+  <footer class="footer clearfix"  itemscope itemtype="http://schema.org/WPFooter">
+    <br><br>
+    
+      
+        <br>
+        <div class="social-wrapper" itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        
+          <div><p><span id="busuanzi_container_site_pv">本站总访问量为 <span id="busuanzi_value_site_pv"></span> 次&lt;/span&gt; <span id="busuanzi_container_site_uv">访客数为 <span id="busuanzi_value_site_uv"></span> 人&lt;/span&gt;</p>
+</div>
+        
+      
+    
+      
+        本站使用
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/#5.8.0" target="_blank" class="codename">Volantis</a>
+        作为主题
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2017-2026 icy_fisher</a></p>
+
+        </div>
+      
+    
+    <!-- Custom Files footer begin-->
+    
+    <!-- Custom Files footer end-->
+  </footer>
+
+
+        <a id="s-top" class="fa-solid fa-arrow-up fa-fw" href="/" onclick="return false;" title="top"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+  /******************** volantis.dom ********************************/
+  // 页面选择器 将dom对象缓存起来 see: /source/js/app.js etc.
+  volantis.dom.bodyAnchor = volantis.dom.$(document.getElementById("safearea")); // 页面主体
+  volantis.dom.topBtn = volantis.dom.$(document.getElementById('s-top')); // 向上
+  volantis.dom.wrapper = volantis.dom.$(document.getElementById('wrapper')); // 整个导航栏
+  volantis.dom.coverAnchor = volantis.dom.$(document.querySelector('#l_cover .cover-wrapper')); // 1个
+  volantis.dom.switcher = volantis.dom.$(document.querySelector('#l_header .switcher .s-search')); // 搜索按钮   移动端 1个
+  volantis.dom.header = volantis.dom.$(document.getElementById('l_header')); // 移动端导航栏
+  volantis.dom.search = volantis.dom.$(document.querySelector('#l_header .m_search')); // 搜索框 桌面端 移动端 1个
+  volantis.dom.mPhoneList = volantis.dom.$(document.querySelectorAll('#l_header .m-phone .list-v')); //  手机端 子菜单 多个
+</script>
+
+<script>
+  
+  volantis.css("https://unpkg.com/volantis-static@0.0.1654736714924/libs/@fortawesome/fontawesome-free/css/all.min.css");
+  
+  
+  
+</script>
+
+<!-- required -->
+
+
+<!-- internal -->
+
+<script src="/js/app.js"></script>
+
+
+
+
+
+
+<!-- rightmenu要在darkmode之前（ToggleButton） darkmode要在comments之前（volantis.dark.push）-->
+
+
+
+<script>
+  function loadIssuesJS() {
+    
+      const sites_api = document.getElementById('sites-api');
+      if (sites_api != undefined && typeof SitesJS === 'undefined') {
+        volantis.js("/js/plugins/tags/sites.js")
+      }
+    
+    
+      const friends_api = document.getElementById('friends-api');
+      if (friends_api != undefined && typeof FriendsJS === 'undefined') {
+        volantis.js("/js/plugins/tags/friends.js")
+      }
+    
+    
+      const contributors_api = document.getElementById('contributors-api');
+      if (contributors_api != undefined && typeof ContributorsJS === 'undefined') {
+        volantis.js("/js/plugins/tags/contributors.js")
+      }
+    
+  };
+  loadIssuesJS()
+  volantis.pjax.push(()=>{
+    loadIssuesJS();
+  })
+
+</script>
+
+
+
+
+  <script defer src="https://unpkg.com/volantis-static@0.0.1654736714924/libs/vanilla-lazyload/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: ["#"],
+	maxRPS: 6,
+	hoverDelay: 0
+  };
+</script>
+<script defer src="https://unpkg.com/volantis-static@0.0.1654736714924/libs/flying-pages/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+      <script>
+  volantis.layoutHelper("comments",`<div id="giscus_container"></div>`)
+
+  volantis.giscus = {};
+
+  function check_giscus() {
+    if (volantis.dark.mode === "dark") {
+      volantis.giscus.Theme = 'dark';
+    } else {
+      volantis.giscus.Theme = 'light';
+    }
+
+    return document.getElementById("giscus_container");
+  }
+
+  function pjax_giscus() {
+    const HEAD = check_giscus();
+    if (!HEAD) return;
+    let cfg = Object.assign({"theme":{"light":"light","dark":"dark"}},pdata.commentConfig)
+    const script = document.createElement('script');
+    script.setAttribute('src', 'https://giscus.app/client.js');
+    Object.keys(cfg).forEach(k=>{
+      if (k != "theme") {
+        script.setAttribute('data-'+k, cfg[k]);
+      }
+    })
+    script.setAttribute('data-theme', volantis.giscus.Theme);
+    script.setAttribute('crossorigin', "anonymous");
+    HEAD.appendChild(script);
+  }
+
+  function dark_giscus() {
+    const HEAD = check_giscus();
+    if (!HEAD) return;
+
+    const message = {
+      setConfig: {
+        theme: volantis.giscus.Theme
+      }
+    };
+    const giscusIframe = document.querySelector('iframe.giscus-frame');
+    giscusIframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+  }
+  pjax_giscus();
+  volantis.pjax.push(pjax_giscus);
+  volantis.dark.push(dark_giscus);
+</script>
+
+    
+
+
+
+
+
+<!-- optional -->
+
+  <script>
+  const SearchServiceDataPathRoot = ("/" || "/").endsWith("/") ?
+    "/" || "/" :
+    "//" || "/";
+  const SearchServiceDataPath = SearchServiceDataPathRoot + "content.json";
+
+  function loadSearchScript() {
+    // see: layout/_partial/scripts/_ctrl/cdnCtrl.ejs
+    return volantis.js("/js/search/hexo.js");
+  }
+
+  function loadSearchService() {
+    loadSearchScript();
+    document.querySelectorAll(".input.u-search-input").forEach((e) => {
+      e.removeEventListener("focus", loadSearchService, false);
+    });
+
+    document.querySelectorAll(".u-search-form").forEach((e) => {
+      e.addEventListener("submit", (event) => {
+        event.preventDefault();
+      }, false);
+    });
+  }
+
+  // 打开并搜索 字符串 s
+  function OpenSearch(s) {
+    if (typeof SearchService === 'undefined')
+      loadSearchScript().then(() => {
+        SearchService.setQueryText(s);
+        SearchService.search();
+      });
+    else {
+      SearchService.setQueryText(s);
+      SearchService.search();
+    }
+  }
+
+  // 访问含有 ?s=xxx  的链接时打开搜索 // 与搜索引擎 structured data 相关: /scripts/helpers/structured-data/lib/config.js
+  if (window.location.search && /^\?s=/g.test(window.location.search)) {
+    let queryText = decodeURI(window.location.search)
+      .replace(/\ /g, "-")
+      .replace(/^\?s=/g, "");
+    OpenSearch(queryText);
+  }
+
+  // 搜索输入框获取焦点时加载搜索
+  document.querySelectorAll(".input.u-search-input").forEach((e) => {
+    e.addEventListener("focus", loadSearchService, false);
+  });
+</script>
+
+
+
+
+
+
+
+  <script>
+
+
+
+  function pjax_highlightjs_copyCode(){
+    if (!(document.querySelector(".highlight .code pre") ||
+      document.querySelector(".article pre code"))) {
+      return;
+    }
+    VolantisApp.utilCopyCode(".highlight .code pre, .article pre code")
+  }
+  volantis.requestAnimationFrame(pjax_highlightjs_copyCode)
+  volantis.pjax.push(pjax_highlightjs_copyCode)
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+  function load_swiper() {
+    if (!document.querySelectorAll(".swiper-container")[0]) return;
+    volantis.css("https://unpkg.com/volantis-static@0.0.1654736714924/libs/swiper/swiper-bundle.min.css");
+    volantis.js("https://unpkg.com/volantis-static@0.0.1654736714924/libs/swiper/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    volantis.swiper = new Swiper('.swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+    });
+  }
+
+  volantis.pjax.push(() => {
+    if (!document.querySelectorAll(".swiper-container")[0]) return;
+    if (typeof volantis.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+
+
+<!-- pjax 标签必须存在于所有页面 否则 pjax error -->
+<pjax>
+
+        <script>
+  // https://github.com/theme-next/hexo-theme-next/blob/master/layout/_third-party/math/mathjax.swig
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = "https://unpkg.com/volantis-static@0.0.1654736714924/libs/mathjax/es5/tex-mml-chtml.js";
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    // 文章章节标题不能为 “MathJax” ，否则会报错。
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typesetPromise();
+  }
+</script>
+
+
+
+</pjax>
+
+<script>
+  function listennSidebarTOC() {
+    const navItems = document.querySelectorAll(".toc li");
+    if (!navItems.length) return;
+    let targets = []
+    const sections = [...navItems].map((element) => {
+      const link = element.querySelector(".toc-link");
+      const target = document.getElementById(
+        decodeURI(link.getAttribute("href")).replace("#", "")
+      );
+      targets.push(target)
+      // 解除 a 标签 href 的 锚点定位, a 标签 href 的 锚点定位 会随机启用?? 产生错位???
+      link.setAttribute("onclick","return false;")
+      link.setAttribute("toc-action","toc-"+decodeURI(link.getAttribute("href")).replace("#", ""))
+      link.setAttribute("href","/")
+      // 配置 点击 触发新的锚点定位
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        // 这里的 addTop 是通过错位使得 toc 自动展开.
+        volantis.scroll.to(target,{addTop: 5, observer:true})
+        // Anchor id
+        history.pushState(null, document.title, "#" + target.id);
+      });
+      return target;
+    });
+
+    function activateNavByIndex(target) {
+      if (target.classList.contains("active-current")) return;
+
+      document.querySelectorAll(".toc .active").forEach((element) => {
+        element.classList.remove("active", "active-current");
+      });
+      target.classList.add("active", "active-current");
+      let parent = target.parentNode;
+      while (!parent.matches(".toc")) {
+        if (parent.matches("li")) parent.classList.add("active");
+        parent = parent.parentNode;
+      }
+    }
+
+    // 方案一：
+    volantis.activateNavIndex=0
+    activateNavByIndex(navItems[volantis.activateNavIndex])
+    volantis.scroll.push(()=>{
+      if (targets[0].getBoundingClientRect().top >= 0) {
+        volantis.activateNavIndex = 0
+      }else if (targets[targets.length-1].getBoundingClientRect().top < 0) {
+        volantis.activateNavIndex = targets.length-1
+      } else {
+        for (let index = 0; index < targets.length; index++) {
+          const target0 = targets[index];
+          const target1 = targets[(index+1)%targets.length];
+          if (target0.getBoundingClientRect().top < 0&&target1.getBoundingClientRect().top >= 0) {
+            volantis.activateNavIndex=index
+            break;
+          }
+        }
+      }
+      activateNavByIndex(navItems[volantis.activateNavIndex])
+    })
+
+    // 方案二：
+    // IntersectionObserver 不是完美精确到像素级别 也不是低延时性的
+    // function findIndex(entries) {
+    //   let index = 0;
+    //   let entry = entries[index];
+    //   if (entry.boundingClientRect.top > 0) {
+    //     index = sections.indexOf(entry.target);
+    //     return index === 0 ? 0 : index - 1;
+    //   }
+    //   for (; index < entries.length; index++) {
+    //     if (entries[index].boundingClientRect.top <= 0) {
+    //       entry = entries[index];
+    //     } else {
+    //       return sections.indexOf(entry.target);
+    //     }
+    //   }
+    //   return sections.indexOf(entry.target);
+    // }
+    // function createIntersectionObserver(marginTop) {
+    //   marginTop = Math.floor(marginTop + 10000);
+    //   let intersectionObserver = new IntersectionObserver(
+    //     (entries, observe) => {
+    //       let scrollHeight = document.documentElement.scrollHeight;
+    //       if (scrollHeight > marginTop) {
+    //         observe.disconnect();
+    //         createIntersectionObserver(scrollHeight);
+    //         return;
+    //       }
+    //       let index = findIndex(entries);
+    //       activateNavByIndex(navItems[index]);
+    //     }, {
+    //       rootMargin: marginTop + "px 0px -100% 0px",
+    //       threshold: 0,
+    //     }
+    //   );
+    //   sections.forEach((element) => {
+    //     element && intersectionObserver.observe(element);
+    //   });
+    // }
+    // createIntersectionObserver(document.documentElement.scrollHeight);
+  }
+
+  document.addEventListener("DOMContentLoaded", ()=>{
+    volantis.requestAnimationFrame(listennSidebarTOC)
+  });
+  document.addEventListener("pjax:success", ()=>{
+    volantis.requestAnimationFrame(listennSidebarTOC)
+  });
+</script>
+
+
+
+<script>
+  document.onreadystatechange = function () {
+    if (document.readyState == 'complete') {
+      // 页面加载完毕 样式加载失败，或是当前网速慢，或是开启了省流模式
+      const { saveData, effectiveType } = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {}
+      if (getComputedStyle(document.querySelector("#safearea"), null)["display"] == "none" || saveData || /2g/.test(effectiveType)) {
+        document.querySelectorAll(".reveal").forEach(function (e) {
+          e.style["opacity"] = "1";
+        });
+        document.querySelector("#safearea").style["display"] = "block";
+      }
+    }
+  }
+</script>
+
+
+  <script type="application/ld+json">[{"@context":"http://schema.org","@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},{"@context":"http://schema.org","@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","sameAs":["https://github.com/volantis-x"],"description":"想法自留地~~"},{"@context":"http://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"http://example.com/","name":"渔人码头 ⚓🛶"}},{"@type":"ListItem","position":3,"item":{"@id":"http://example.com/2026/09/01/机器学习算法06-主成分分析PCA/","name":"机器学习算法06-主成分分析（PCA）"}}]},{"@context":"http://schema.org","@type":"WebSite","name":"渔人码头 ⚓🛶","url":"http://example.com/","keywords":null,"description":"想法自留地~~","author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/","description":"想法自留地~~"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","url":"http://example.com/","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"potentialAction":{"@type":"SearchAction","name":"Site Search","target":{"@type":"EntryPoint","urlTemplate":"http://example.com?s={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"http://schema.org","@type":"BlogPosting","headline":"机器学习算法06-主成分分析（PCA）","description":"主成分分析基于本科线性代数中特征分解的思想，通过方差衡量不同方向所包含的信息量，从而实现特征压缩与降维。“分清主要矛盾与次要矛盾”，某种意义上正是 PCA 所做的事情。","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"http://example.com/2026/09/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9506-%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90PCA/"},"author":{"@type":"Person","name":"icy_fisher","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png"},"url":"http://example.com/"},"publisher":{"@type":"Organization","name":"渔人码头 ⚓🛶","logo":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}},"url":"http://example.com/2026/09/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9506-%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90PCA/","wordCount":84,"datePublished":"2026-09-01T10:24:41.000Z","dateModified":"2026-09-01T13:30:45.703Z","image":{"@type":"ImageObject","url":"https://unpkg.com/volantis-static@0.0.1654736714924/media/org.volantis/blog/favicon/android-chrome-192x192.png","width":192,"height":192}}]</script>
+
+
+
+      
+        <!--
+  pjax重载区域接口：
+  1.  <pjax></pjax> 标签 pjax 标签必须存在于所有页面 否则 pjax error
+  2.  script[data-pjax]
+  3.  .pjax-reload script
+  4.  .pjax
+-->
+
+
+
+<script src="https://unpkg.com/volantis-static@0.0.1654736714924/libs/pjax/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox]):not([onclick="return false;"]):not([onclick="return!1"]):not([target="_blank"]):not([target="view_window"]):not([href$=".xml"])',
+        selectors: [
+          "head title",
+          "head meta[name=keywords]",
+          "head meta[name=description]",
+          
+          "#l_main",
+          "#pjax-header-nav-list",
+          ".pjax",
+          "pjax", // <pjax></pjax> 标签
+          "script[data-pjax], .pjax-reload script" // script标签添加data-pjax 或 script标签外层添加.pjax-reload 的script代码段重载
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000,
+        
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+      volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+      volantis.pjax.method.complete.start();
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      if(volantis.debug) {
+        console.error(e);
+        console.log('pjax error: \n' + JSON.stringify(e));
+      }else{
+        // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+        volantis.pjax.method.error.start();
+        window.location.href = e.triggerElement.href;
+      }
+    });
+</script>
+
+      
+    </div>
+    <!-- import body_end begin-->
+    <!-- import body_end end-->
+    <!-- Custom Files bodyEnd begin-->
+    <script>
+(function() {
+  var emojis = ['😊', '❤️', '⭐', '🎉', '🔥', '✨', '👍', '💕', '🌟', '💖', '🎈', '🌈', '🦋', '🌸', '🍀'];
+  var fireworkColors = [
+    ['#ff6b6b', '#ee5a5a', '#ff8787'],
+    ['#feca57', '#ff9f43', '#ffbe76'],
+    ['#48dbfb', '#0abde3', '#74b9ff'],
+    ['#ff9ff3', '#f368e0', '#fd79a8'],
+    ['#1dd1a1', '#10ac84', '#00d2d3'],
+    ['#ffeaa7', '#fdcb6e', '#f9ca24'],
+    ['#a29bfe', '#6c5ce7', '#9b59b6']
+  ];
+
+  document.addEventListener('click', function(e) {
+    createEmoji(e.clientX, e.clientY);
+    createFirework(e.clientX, e.clientY);
+  });
+
+  function createEmoji(x, y) {
+    var emoji = document.createElement('span');
+    emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    emoji.style.cssText = 'position:fixed;left:' + x + 'px;top:' + y + 'px;font-size:30px;pointer-events:none;z-index:9999;animation:emojiFloat 1s ease-out forwards;';
+    document.body.appendChild(emoji);
+    setTimeout(function() { emoji.remove(); }, 1000);
+  }
+
+  function createFirework(x, y) {
+    var particleCount = 30;
+    var colorSet = fireworkColors[Math.floor(Math.random() * fireworkColors.length)];
+    var container = document.createElement('div');
+    container.style.cssText = 'position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:9998;overflow:hidden;';
+    document.body.appendChild(container);
+
+    for (var i = 0; i < particleCount; i++) {
+      createParticle(container, x, y, colorSet, i, particleCount);
+    }
+
+    setTimeout(function() { container.remove(); }, 1500);
+  }
+
+  function createParticle(container, x, y, colorSet, index, total) {
+    var particle = document.createElement('div');
+    var angle = (Math.PI * 2 / total) * index + (Math.random() - 0.5) * 0.5;
+    var velocity = 80 + Math.random() * 120;
+    var size = 3 + Math.random() * 4;
+    var color = colorSet[Math.floor(Math.random() * colorSet.length)];
+    
+    particle.style.cssText = 'position:absolute;left:' + x + 'px;top:' + y + 'px;width:' + size + 'px;height:' + size + 'px;background:' + color + ';border-radius:50%;pointer-events:none;box-shadow:0 0 ' + (size * 2) + 'px ' + color + ';';
+    
+    container.appendChild(particle);
+
+    var vx = Math.cos(angle) * velocity;
+    var vy = Math.sin(angle) * velocity;
+    var gravity = 150;
+    var friction = 0.98;
+    var opacity = 1;
+    var posX = 0;
+    var posY = 0;
+    var startTime = performance.now();
+    var duration = 1200 + Math.random() * 300;
+
+    function animate(currentTime) {
+      var elapsed = currentTime - startTime;
+      var progress = elapsed / duration;
+
+      if (progress >= 1) {
+        particle.remove();
+        return;
+      }
+
+      vx *= friction;
+      vy *= friction;
+      vy += gravity * 0.016;
+
+      posX += vx * 0.016;
+      posY += vy * 0.016;
+
+      opacity = 1 - progress;
+      var scale = 1 - progress * 0.5;
+
+      particle.style.transform = 'translate(' + posX + 'px, ' + posY + 'px) scale(' + scale + ')';
+      particle.style.opacity = opacity;
+
+      if (progress > 0.3 && Math.random() > 0.7) {
+        createTrail(container, x + posX, y + posY, color);
+      }
+
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+  }
+
+  function createTrail(container, x, y, color) {
+    var trail = document.createElement('div');
+    var size = 2 + Math.random() * 2;
+    
+    trail.style.cssText = 'position:absolute;left:' + x + 'px;top:' + y + 'px;width:' + size + 'px;height:' + size + 'px;background:' + color + ';border-radius:50%;pointer-events:none;opacity:0.6;';
+    
+    container.appendChild(trail);
+
+    var startTime = performance.now();
+    var duration = 300;
+
+    function animateTrail(currentTime) {
+      var elapsed = currentTime - startTime;
+      var progress = elapsed / duration;
+
+      if (progress >= 1) {
+        trail.remove();
+        return;
+      }
+
+      trail.style.opacity = 0.6 * (1 - progress);
+      trail.style.transform = 'scale(' + (1 - progress) + ')';
+
+      requestAnimationFrame(animateTrail);
+    }
+
+    requestAnimationFrame(animateTrail);
+  }
+})();
+</script>
+
+<style>
+@keyframes emojiFloat {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  100% { opacity: 0; transform: translateY(-80px) scale(1.5); }
+}
+</style>
+
+<script>
+(function() {
+  var controllerKey = '__minimalAnalogClockController';
+  var existingController = window[controllerKey];
+
+  if (existingController && typeof existingController.mount === 'function') {
+    existingController.mount();
+    return;
+  }
+
+  var root = null;
+  var timeElement = null;
+  var dateElement = null;
+  var hourRotor = null;
+  var minuteRotor = null;
+  var secondRotor = null;
+  var frameId = 0;
+  var lastDigitalSecond = -1;
+
+  function setRunningState(isRunning) {
+    if (root && root.isConnected) {
+      root.dataset.clockRunning = isRunning ? 'true' : 'false';
+    }
+  }
+
+  function pad(value) {
+    return String(value).padStart(2, '0');
+  }
+
+  function stop() {
+    if (frameId) {
+      window.cancelAnimationFrame(frameId);
+      frameId = 0;
+    }
+    setRunningState(false);
+  }
+
+  function isRenderable() {
+    if (!root || !root.isConnected || document.hidden) return false;
+
+    var style = window.getComputedStyle(root);
+
+    return style.display !== 'none' &&
+      style.visibility !== 'hidden' &&
+      root.getClientRects().length > 0;
+  }
+
+  function getHandAngles(now) {
+    var seconds = now.getSeconds() + now.getMilliseconds() / 1000;
+    var minutes = now.getMinutes();
+    var hours = now.getHours() % 12;
+
+    return {
+      hour: hours * 30 + minutes * 0.5 + seconds / 120,
+      minute: minutes * 6 + seconds * 0.1,
+      second: seconds * 6
+    };
+  }
+
+  function rotateHand(rotor, degrees) {
+    rotor.style.transform = 'rotate(' + degrees + 'deg)';
+  }
+
+  function draw() {
+    frameId = 0;
+
+    if (!isRenderable()) {
+      setRunningState(false);
+      return;
+    }
+
+    var now = new Date();
+    var angles = getHandAngles(now);
+    var weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+
+    rotateHand(hourRotor, angles.hour);
+    rotateHand(minuteRotor, angles.minute);
+    rotateHand(secondRotor, angles.second);
+
+    if (now.getSeconds() !== lastDigitalSecond) {
+      var timeText = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+      var dateText = now.getFullYear() + '年' + pad(now.getMonth() + 1) + '月' +
+        pad(now.getDate()) + '日 · ' + weekdays[now.getDay()];
+
+      timeElement.textContent = timeText;
+      timeElement.setAttribute('datetime', now.toISOString());
+      dateElement.textContent = dateText;
+      lastDigitalSecond = now.getSeconds();
+    }
+
+    setRunningState(true);
+    frameId = window.requestAnimationFrame(draw);
+  }
+
+  function start() {
+    if (!frameId && isRenderable()) draw();
+  }
+
+  function mount() {
+    var nextRoot = document.getElementById('minimal-analog-clock');
+
+    if (nextRoot !== root) {
+      stop();
+
+      root = nextRoot;
+      timeElement = root && root.querySelector('[data-clock-time]');
+      dateElement = root && root.querySelector('[data-clock-date]');
+      hourRotor = root && root.querySelector('[data-clock-hour-rotor]');
+      minuteRotor = root && root.querySelector('[data-clock-minute-rotor]');
+      secondRotor = root && root.querySelector('[data-clock-second-rotor]');
+      lastDigitalSecond = -1;
+    }
+
+    if (!root || !timeElement || !dateElement || !hourRotor || !minuteRotor || !secondRotor) {
+      stop();
+      root = null;
+      return;
+    }
+
+    start();
+  }
+
+  function handleVisibilityChange() {
+    if (document.hidden) stop();
+    else mount();
+  }
+
+  function handleResize() {
+    if (isRenderable()) start();
+    else stop();
+  }
+
+  function handlePjaxSend() {
+    stop();
+    root = null;
+    timeElement = null;
+    dateElement = null;
+    hourRotor = null;
+    minuteRotor = null;
+    secondRotor = null;
+    lastDigitalSecond = -1;
+  }
+
+  function destroy() {
+    stop();
+    root = null;
+    timeElement = null;
+    dateElement = null;
+    hourRotor = null;
+    minuteRotor = null;
+    secondRotor = null;
+    lastDigitalSecond = -1;
+
+    document.removeEventListener('visibilitychange', handleVisibilityChange);
+    document.removeEventListener('pjax:send', handlePjaxSend);
+    document.removeEventListener('pjax:complete', mount);
+    window.removeEventListener('resize', handleResize);
+
+    if (window[controllerKey] === controller) {
+      delete window[controllerKey];
+    }
+  }
+
+  var controller = {
+    mount: mount,
+    stop: stop,
+    destroy: destroy
+  };
+
+  window[controllerKey] = controller;
+
+  document.addEventListener('visibilitychange', handleVisibilityChange);
+  document.addEventListener('pjax:send', handlePjaxSend);
+  document.addEventListener('pjax:complete', mount);
+  window.addEventListener('resize', handleResize, { passive: true });
+
+  mount();
+})();
+</script>
+<script src="https://unpkg.com/smiles-drawer@2.4.1/dist/smiles-drawer.min.js"></script>
+<script>
+(function() {
+  var controllerKey = '__chemStructureRenderer';
+  var existingController = window[controllerKey];
+
+  if (existingController && typeof existingController.render === 'function') {
+    existingController.render();
+    return;
+  }
+
+  var canvasSequence = 0;
+
+  function renderChemStructures() {
+    if (!window.SmilesDrawer) return;
+
+    var structures = document.querySelectorAll(
+      '.chem-structure[data-smiles]:not([data-rendered="true"])'
+    );
+
+    structures.forEach(function(container) {
+      var smiles = container.dataset.smiles;
+      if (!smiles) return;
+
+      var width = Number(container.dataset.width) || 360;
+      var height = Number(container.dataset.height) || 240;
+      var canvasId = 'chem-canvas-' + (++canvasSequence);
+
+      var canvas = document.createElement('canvas');
+      canvas.id = canvasId;
+      canvas.width = width;
+      canvas.height = height;
+      canvas.setAttribute('role', 'img');
+      canvas.setAttribute('aria-label', 'SMILES 结构式：' + smiles);
+
+      container.innerHTML = '';
+      container.appendChild(canvas);
+
+      var isDark = document.documentElement.getAttribute('color-scheme') === 'dark';
+      var theme = isDark ? 'dark' : 'light';
+
+      var drawer = new SmilesDrawer.Drawer({
+        width: width,
+        height: height,
+        padding: 18,
+        bondLength: 30,
+        bondThickness: 1.2,
+        fontSizeLarge: 13,
+        compactDrawing: true
+      });
+
+      SmilesDrawer.parse(
+        smiles,
+        function(tree) {
+          drawer.draw(tree, canvasId, theme, false);
+          container.dataset.rendered = 'true';
+        },
+        function(error) {
+          console.error('SMILES 渲染失败：', smiles, error);
+          container.textContent = '结构式渲染失败：' + smiles;
+          container.dataset.rendered = 'true';
+          container.classList.add('chem-structure--error');
+        }
+      );
+    });
+  }
+
+  var controller = {
+    render: renderChemStructures
+  };
+
+  window[controllerKey] = controller;
+  window.renderChemStructures = renderChemStructures;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', renderChemStructures, { once: true });
+  } else {
+    renderChemStructures();
+  }
+
+  document.addEventListener('pjax:complete', renderChemStructures);
+})();
+</script>
+<script src="https://unpkg.com/3dmol@2.5.5/build/3Dmol-min.js"></script>
+<script src="/js/molecule3d.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <!-- Custom Files bodyEnd end-->
+    <!-- front-matter body_end begin -->
+    <!-- front-matter body_end end -->
+  </body>
+</html>

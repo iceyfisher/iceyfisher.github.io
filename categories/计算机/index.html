@@ -1744,7 +1744,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1782997834075),
+    lastupdate: new Date(1788271869535),
     sidebar: {
       for_page: ["blogger","minimal_analog_clock","category","tagcloud","webinfo","calendar","lastupdate"],
       for_post: ["toc"],
@@ -3147,55 +3147,64 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
       <div id="minimal-analog-clock"
      class="minimal-analog-clock"
-     role="img"
+     role="group"
      aria-label="当前本地时间">
-  <div class="minimal-analog-clock__dial">
-    <svg class="minimal-analog-clock__svg"
-         viewBox="0 0 200 200"
-         aria-hidden="true"
-         focusable="false">
-      <circle class="minimal-analog-clock__inner-ring" cx="100" cy="100" r="82"></circle>
-      <g class="minimal-analog-clock__ticks">
-        <line x1="100" y1="28" x2="100" y2="39"></line>
-        <line x1="172" y1="100" x2="161" y2="100"></line>
-        <line x1="100" y1="172" x2="100" y2="161"></line>
-        <line x1="28" y1="100" x2="39" y2="100"></line>
-      </g>
-      <g id="minimal-clock-hour-rotor"
-         class="minimal-analog-clock__rotor minimal-analog-clock__rotor--hour"
-         data-clock-hand="hour">
-        <g class="hand-group minimal-analog-clock__hand-group">
-          <line class="minimal-analog-clock__hit-area"
-                x1="100" y1="104" x2="100" y2="68"></line>
-          <line class="clock-hand minimal-analog-clock__hand"
-                x1="100" y1="104" x2="100" y2="68"></line>
+  <div class="minimal-analog-clock__embed">
+    <div class="minimal-analog-clock__dial">
+      <svg class="minimal-analog-clock__svg"
+           viewBox="0 0 240 240"
+           role="img"
+           aria-label="罗马数字模拟时钟">
+        <circle class="minimal-analog-clock__bezel" cx="120" cy="120" r="108"></circle>
+        <circle class="minimal-analog-clock__face" cx="120" cy="120" r="99"></circle>
+        <g class="minimal-analog-clock__marks" aria-hidden="true">
+          <line x1="120" y1="26" x2="120" y2="34"></line>
+          <line x1="120" y1="26" x2="120" y2="34" transform="rotate(30 120 120)"></line>
+          <line x1="120" y1="26" x2="120" y2="34" transform="rotate(60 120 120)"></line>
+          <line x1="120" y1="26" x2="120" y2="34" transform="rotate(90 120 120)"></line>
+          <line x1="120" y1="26" x2="120" y2="34" transform="rotate(120 120 120)"></line>
+          <line x1="120" y1="26" x2="120" y2="34" transform="rotate(150 120 120)"></line>
+          <line x1="120" y1="26" x2="120" y2="34" transform="rotate(180 120 120)"></line>
+          <line x1="120" y1="26" x2="120" y2="34" transform="rotate(210 120 120)"></line>
+          <line x1="120" y1="26" x2="120" y2="34" transform="rotate(240 120 120)"></line>
+          <line x1="120" y1="26" x2="120" y2="34" transform="rotate(270 120 120)"></line>
+          <line x1="120" y1="26" x2="120" y2="34" transform="rotate(300 120 120)"></line>
+          <line x1="120" y1="26" x2="120" y2="34" transform="rotate(330 120 120)"></line>
         </g>
-      </g>
-      <g id="minimal-clock-minute-rotor"
-         class="minimal-analog-clock__rotor minimal-analog-clock__rotor--minute"
-         data-clock-hand="minute">
-        <g class="hand-group minimal-analog-clock__hand-group">
-          <line class="minimal-analog-clock__hit-area"
-                x1="100" y1="106" x2="100" y2="48"></line>
-          <line class="clock-hand minimal-analog-clock__hand"
-                x1="100" y1="106" x2="100" y2="48"></line>
+        <g class="minimal-analog-clock__numerals" aria-hidden="true">
+          <text x="120" y="48">XII</text>
+          <text x="158" y="58">I</text>
+          <text x="184" y="84">II</text>
+          <text x="194" y="121">III</text>
+          <text x="184" y="158">IV</text>
+          <text x="158" y="184">V</text>
+          <text x="120" y="194">VI</text>
+          <text x="82" y="184">VII</text>
+          <text x="56" y="158">VIII</text>
+          <text x="46" y="121">IX</text>
+          <text x="56" y="84">X</text>
+          <text x="82" y="58">XI</text>
         </g>
-      </g>
-      <g id="minimal-clock-second-rotor"
-         class="minimal-analog-clock__rotor minimal-analog-clock__rotor--second"
-         data-clock-hand="second">
-        <g class="hand-group minimal-analog-clock__hand-group">
-          <line class="minimal-analog-clock__hit-area"
-                x1="100" y1="112" x2="100" y2="40"></line>
-          <line class="clock-hand minimal-analog-clock__hand"
-                x1="100" y1="112" x2="100" y2="40"></line>
+        <g class="minimal-analog-clock__rotor minimal-analog-clock__rotor--hour" data-clock-hour-rotor>
+          <line class="minimal-analog-clock__hand" x1="120" y1="126" x2="120" y2="79"></line>
         </g>
-      </g>
-      <circle class="minimal-analog-clock__pin" cx="100" cy="100" r="4.5"></circle>
-    </svg>
-    <span class="minimal-analog-clock__tooltip"
-          role="tooltip"
-          aria-hidden="true"></span>
+        <g class="minimal-analog-clock__rotor minimal-analog-clock__rotor--minute" data-clock-minute-rotor>
+          <line class="minimal-analog-clock__hand" x1="120" y1="128" x2="120" y2="60"></line>
+        </g>
+        <g class="minimal-analog-clock__rotor minimal-analog-clock__rotor--second" data-clock-second-rotor>
+          <line class="minimal-analog-clock__hand" x1="120" y1="137" x2="120" y2="52"></line>
+        </g>
+        <circle class="minimal-analog-clock__pin" cx="120" cy="120" r="5"></circle>
+        <circle class="minimal-analog-clock__pin-cap" cx="120" cy="120" r="2"></circle>
+      </svg>
+    </div>
+  </div>
+  <div class="minimal-analog-clock__digital">
+    <time class="minimal-analog-clock__time"
+          data-clock-time
+          aria-live="off"
+          aria-atomic="true">--:--:--</time>
+    <span class="minimal-analog-clock__date" data-clock-date>正在读取本地时间</span>
   </div>
 </div>
 
@@ -3288,7 +3297,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>文章数目：</div>
-          <div>13 篇</div>
+          <div>14 篇</div>
         </div>
       
 
@@ -3309,7 +3318,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <div class="webinfo-item">
           <div>最后活动时间：</div>
-          <div id="last-update-show">2026-07-02 日</div>
+          <div id="last-update-show">2026-09-01 日</div>
         </div>
       
     </div>
@@ -3493,7 +3502,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 
   <div class='content'>
-    <ul class="list entry navigation"><li><a class="widget-last" href="/2026/07/02/%E5%8C%96%E5%AD%A6%E7%BB%93%E6%9E%84%E5%BC%8F%E6%B5%8B%E8%AF%95/"><div class="item"><time>2026-07-02</time></div><span>化学结构式测试</span></a></li><li><a class="widget-last" href="/2026/04/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9505-%E6%8F%90%E5%8D%87%E6%96%B9%E6%B3%95-Boosting/"><div class="item"><time>2026-04-08</time><span>计算机</span></div><span>机器学习算法05-提升方法 (Boosting)</span></a></li><li><a class="widget-last" href="/2026/03/27/Daily-Reaction-1-Pinacol-Rearrangement/"><div class="item"><time>2026-03-29</time><span>化学</span></div><span>每日有机 (1) - Pinacol Rearrangement</span></a></li><li><a class="widget-last" href="/2026/02/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9504-%E5%86%B3%E7%AD%96%E6%A0%91/"><div class="item"><time>2026-03-01</time><span>计算机</span></div><span>机器学习算法04-决策树</span></a></li><li><a class="widget-last" href="/2026/02/21/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9503-logistics%E5%92%8C%E6%9C%80%E5%A4%A7%E7%86%B5%E6%A8%A1%E5%9E%8B/"><div class="item"><time>2026-02-28</time><span>计算机</span></div><span>机器学习算法03-logistics和最大熵模型</span></a></li></ul>
+    <ul class="list entry navigation"><li><a class="widget-last" href="/2026/09/01/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9506-%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90PCA/"><div class="item"><time>2026-09-01</time></div><span>机器学习算法06-主成分分析（PCA）</span></a></li><li><a class="widget-last" href="/2026/07/02/%E5%8C%96%E5%AD%A6%E7%BB%93%E6%9E%84%E5%BC%8F%E6%B5%8B%E8%AF%95/"><div class="item"><time>2026-07-02</time></div><span>化学结构式测试</span></a></li><li><a class="widget-last" href="/2026/04/07/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9505-%E6%8F%90%E5%8D%87%E6%96%B9%E6%B3%95-Boosting/"><div class="item"><time>2026-04-08</time><span>计算机</span></div><span>机器学习算法05-提升方法 (Boosting)</span></a></li><li><a class="widget-last" href="/2026/03/27/Daily-Reaction-1-Pinacol-Rearrangement/"><div class="item"><time>2026-03-29</time><span>化学</span></div><span>每日有机 (1) - Pinacol Rearrangement</span></a></li><li><a class="widget-last" href="/2026/02/28/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%9504-%E5%86%B3%E7%AD%96%E6%A0%91/"><div class="item"><time>2026-03-01</time><span>计算机</span></div><span>机器学习算法04-决策树</span></a></li></ul>
   </div>
 </section>
 
@@ -4264,12 +4273,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   }
 
   var root = null;
+  var timeElement = null;
+  var dateElement = null;
   var hourRotor = null;
   var minuteRotor = null;
   var secondRotor = null;
-  var tooltip = null;
   var frameId = 0;
-  var lastTooltipSecond = '';
+  var lastDigitalSecond = -1;
 
   function setRunningState(isRunning) {
     if (root && root.isConnected) {
@@ -4277,19 +4287,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     }
   }
 
-  function updateTooltip(now) {
-    if (!tooltip) return;
-
-    var hour = String(now.getHours()).padStart(2, '0');
-    var minute = String(now.getMinutes()).padStart(2, '0');
-    var second = String(now.getSeconds()).padStart(2, '0');
-
-    // 同一秒内不重复写入 DOM，避免每帧都更新 tooltip
-    var currentSecondKey = hour + ':' + minute + ':' + second;
-    if (currentSecondKey === lastTooltipSecond) return;
-    lastTooltipSecond = currentSecondKey;
-
-    tooltip.dataset.time = currentSecondKey;
+  function pad(value) {
+    return String(value).padStart(2, '0');
   }
 
   function stop() {
@@ -4310,6 +4309,22 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       root.getClientRects().length > 0;
   }
 
+  function getHandAngles(now) {
+    var seconds = now.getSeconds() + now.getMilliseconds() / 1000;
+    var minutes = now.getMinutes();
+    var hours = now.getHours() % 12;
+
+    return {
+      hour: hours * 30 + minutes * 0.5 + seconds / 120,
+      minute: minutes * 6 + seconds * 0.1,
+      second: seconds * 6
+    };
+  }
+
+  function rotateHand(rotor, degrees) {
+    rotor.style.transform = 'rotate(' + degrees + 'deg)';
+  }
+
   function draw() {
     frameId = 0;
 
@@ -4319,27 +4334,23 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     }
 
     var now = new Date();
-    var seconds = now.getSeconds() + now.getMilliseconds() / 1000;
-    var minutes = now.getMinutes() + seconds / 60;
-    var hours = (now.getHours() % 12) + minutes / 60;
+    var angles = getHandAngles(now);
+    var weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
 
-    secondRotor.setAttribute(
-      'transform',
-      'rotate(' + (seconds * 6) + ' 100 100)'
-    );
+    rotateHand(hourRotor, angles.hour);
+    rotateHand(minuteRotor, angles.minute);
+    rotateHand(secondRotor, angles.second);
 
-    minuteRotor.setAttribute(
-      'transform',
-      'rotate(' + (minutes * 6) + ' 100 100)'
-    );
+    if (now.getSeconds() !== lastDigitalSecond) {
+      var timeText = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+      var dateText = now.getFullYear() + '年' + pad(now.getMonth() + 1) + '月' +
+        pad(now.getDate()) + '日 · ' + weekdays[now.getDay()];
 
-    hourRotor.setAttribute(
-      'transform',
-      'rotate(' + (hours * 30) + ' 100 100)'
-    );
-
-    // 新增：更新悬停提示的实时文字
-    updateTooltip(now);
+      timeElement.textContent = timeText;
+      timeElement.setAttribute('datetime', now.toISOString());
+      dateElement.textContent = dateText;
+      lastDigitalSecond = now.getSeconds();
+    }
 
     setRunningState(true);
     frameId = window.requestAnimationFrame(draw);
@@ -4356,15 +4367,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       stop();
 
       root = nextRoot;
-      hourRotor = root && root.querySelector('#minimal-clock-hour-rotor');
-      minuteRotor = root && root.querySelector('#minimal-clock-minute-rotor');
-      secondRotor = root && root.querySelector('#minimal-clock-second-rotor');
-      tooltip = root && root.querySelector('.minimal-analog-clock__tooltip');
-
-      lastTooltipSecond = '';
+      timeElement = root && root.querySelector('[data-clock-time]');
+      dateElement = root && root.querySelector('[data-clock-date]');
+      hourRotor = root && root.querySelector('[data-clock-hour-rotor]');
+      minuteRotor = root && root.querySelector('[data-clock-minute-rotor]');
+      secondRotor = root && root.querySelector('[data-clock-second-rotor]');
+      lastDigitalSecond = -1;
     }
 
-    if (!root || !hourRotor || !minuteRotor || !secondRotor || !tooltip) {
+    if (!root || !timeElement || !dateElement || !hourRotor || !minuteRotor || !secondRotor) {
       stop();
       root = null;
       return;
@@ -4386,14 +4397,23 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   function handlePjaxSend() {
     stop();
     root = null;
-    tooltip = null;
-    lastTooltipSecond = '';
+    timeElement = null;
+    dateElement = null;
+    hourRotor = null;
+    minuteRotor = null;
+    secondRotor = null;
+    lastDigitalSecond = -1;
   }
 
   function destroy() {
     stop();
     root = null;
-    tooltip = null;
+    timeElement = null;
+    dateElement = null;
+    hourRotor = null;
+    minuteRotor = null;
+    secondRotor = null;
+    lastDigitalSecond = -1;
 
     document.removeEventListener('visibilitychange', handleVisibilityChange);
     document.removeEventListener('pjax:send', handlePjaxSend);

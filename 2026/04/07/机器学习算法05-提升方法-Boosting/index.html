@@ -1748,7 +1748,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     debug: "env",
     cdn: {"js":{"app":"/js/app.js","parallax":"/js/plugins/parallax.js","rightMenu":"/js/plugins/rightMenu.js","rightMenus":"/js/plugins/rightMenus.js","sites":"/js/plugins/tags/sites.js","friends":"/js/plugins/tags/friends.js","contributors":"/js/plugins/tags/contributors.js","search":"/js/search/hexo.js"},"css":{"style":"/css/style.css"}},
     default: {"avatar":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/avatar/round/3442075.svg","link":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/link/8f277b4ee0ecd.svg","cover":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/cover/76b86c0226ffd.svg","image":"https://unpkg.com/volantis-static@0.0.1654736714924/media/placeholder/image/2659360.svg"},
-    lastupdate: new Date(1782997834075),
+    lastupdate: new Date(1788271869535),
     sidebar: {
       for_page: ["blogger","minimal_analog_clock","category","tagcloud","webinfo","calendar","lastupdate"],
       for_post: ["toc"],
@@ -3924,12 +3924,13 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   }
 
   var root = null;
+  var timeElement = null;
+  var dateElement = null;
   var hourRotor = null;
   var minuteRotor = null;
   var secondRotor = null;
-  var tooltip = null;
   var frameId = 0;
-  var lastTooltipSecond = '';
+  var lastDigitalSecond = -1;
 
   function setRunningState(isRunning) {
     if (root && root.isConnected) {
@@ -3937,19 +3938,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     }
   }
 
-  function updateTooltip(now) {
-    if (!tooltip) return;
-
-    var hour = String(now.getHours()).padStart(2, '0');
-    var minute = String(now.getMinutes()).padStart(2, '0');
-    var second = String(now.getSeconds()).padStart(2, '0');
-
-    // 同一秒内不重复写入 DOM，避免每帧都更新 tooltip
-    var currentSecondKey = hour + ':' + minute + ':' + second;
-    if (currentSecondKey === lastTooltipSecond) return;
-    lastTooltipSecond = currentSecondKey;
-
-    tooltip.dataset.time = currentSecondKey;
+  function pad(value) {
+    return String(value).padStart(2, '0');
   }
 
   function stop() {
@@ -3970,6 +3960,22 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       root.getClientRects().length > 0;
   }
 
+  function getHandAngles(now) {
+    var seconds = now.getSeconds() + now.getMilliseconds() / 1000;
+    var minutes = now.getMinutes();
+    var hours = now.getHours() % 12;
+
+    return {
+      hour: hours * 30 + minutes * 0.5 + seconds / 120,
+      minute: minutes * 6 + seconds * 0.1,
+      second: seconds * 6
+    };
+  }
+
+  function rotateHand(rotor, degrees) {
+    rotor.style.transform = 'rotate(' + degrees + 'deg)';
+  }
+
   function draw() {
     frameId = 0;
 
@@ -3979,27 +3985,23 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     }
 
     var now = new Date();
-    var seconds = now.getSeconds() + now.getMilliseconds() / 1000;
-    var minutes = now.getMinutes() + seconds / 60;
-    var hours = (now.getHours() % 12) + minutes / 60;
+    var angles = getHandAngles(now);
+    var weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
 
-    secondRotor.setAttribute(
-      'transform',
-      'rotate(' + (seconds * 6) + ' 100 100)'
-    );
+    rotateHand(hourRotor, angles.hour);
+    rotateHand(minuteRotor, angles.minute);
+    rotateHand(secondRotor, angles.second);
 
-    minuteRotor.setAttribute(
-      'transform',
-      'rotate(' + (minutes * 6) + ' 100 100)'
-    );
+    if (now.getSeconds() !== lastDigitalSecond) {
+      var timeText = pad(now.getHours()) + ':' + pad(now.getMinutes()) + ':' + pad(now.getSeconds());
+      var dateText = now.getFullYear() + '年' + pad(now.getMonth() + 1) + '月' +
+        pad(now.getDate()) + '日 · ' + weekdays[now.getDay()];
 
-    hourRotor.setAttribute(
-      'transform',
-      'rotate(' + (hours * 30) + ' 100 100)'
-    );
-
-    // 新增：更新悬停提示的实时文字
-    updateTooltip(now);
+      timeElement.textContent = timeText;
+      timeElement.setAttribute('datetime', now.toISOString());
+      dateElement.textContent = dateText;
+      lastDigitalSecond = now.getSeconds();
+    }
 
     setRunningState(true);
     frameId = window.requestAnimationFrame(draw);
@@ -4016,15 +4018,15 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       stop();
 
       root = nextRoot;
-      hourRotor = root && root.querySelector('#minimal-clock-hour-rotor');
-      minuteRotor = root && root.querySelector('#minimal-clock-minute-rotor');
-      secondRotor = root && root.querySelector('#minimal-clock-second-rotor');
-      tooltip = root && root.querySelector('.minimal-analog-clock__tooltip');
-
-      lastTooltipSecond = '';
+      timeElement = root && root.querySelector('[data-clock-time]');
+      dateElement = root && root.querySelector('[data-clock-date]');
+      hourRotor = root && root.querySelector('[data-clock-hour-rotor]');
+      minuteRotor = root && root.querySelector('[data-clock-minute-rotor]');
+      secondRotor = root && root.querySelector('[data-clock-second-rotor]');
+      lastDigitalSecond = -1;
     }
 
-    if (!root || !hourRotor || !minuteRotor || !secondRotor || !tooltip) {
+    if (!root || !timeElement || !dateElement || !hourRotor || !minuteRotor || !secondRotor) {
       stop();
       root = null;
       return;
@@ -4046,14 +4048,23 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   function handlePjaxSend() {
     stop();
     root = null;
-    tooltip = null;
-    lastTooltipSecond = '';
+    timeElement = null;
+    dateElement = null;
+    hourRotor = null;
+    minuteRotor = null;
+    secondRotor = null;
+    lastDigitalSecond = -1;
   }
 
   function destroy() {
     stop();
     root = null;
-    tooltip = null;
+    timeElement = null;
+    dateElement = null;
+    hourRotor = null;
+    minuteRotor = null;
+    secondRotor = null;
+    lastDigitalSecond = -1;
 
     document.removeEventListener('visibilitychange', handleVisibilityChange);
     document.removeEventListener('pjax:send', handlePjaxSend);
